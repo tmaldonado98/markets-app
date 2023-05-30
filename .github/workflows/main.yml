@@ -21,19 +21,21 @@ jobs:
         run: npm ci
 
       - name: Run linter
-        run: npm lint
+        run: npm run lint
 
   # second
   run-unit-tests:
+    needs: linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: latest
+          check-latest: true
+          node-version: latest/current/node
 
       - name: Install dependencies
         run: npm ci
@@ -44,6 +46,7 @@ jobs:
   #third
   build-and-push-image:
     # name: Build + Push Docker image to Docker Hub
+    needs: [linting, run-unit-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
