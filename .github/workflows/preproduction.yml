@@ -1,17 +1,17 @@
-name: Production Workflow
+name: Pre-production Workflow
 
 on:
   push:
     branches:
-      - main
+      - pre-production
   pull_request:
     branches:
-      - main
+      - pre-production
 
 jobs:
   build:
     # name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -53,10 +53,10 @@ jobs:
       - name: Run Unit Tests With Jest
         run: npm test
 
-  deploy-production:
+  deploy-pre-production:
     needs: [build, run-unit-tests]
-    runs-on: windows-latest
-    environment: production
+    runs-on: ubuntu-latest
+    environment: pre-production
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -64,14 +64,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Deploy to Production
+      - name: Deploy to Pre-Production
         run: |
-
-
-          # npm run build
-          # git config --global user.name "Your Name"
-          # git config --global user.email "your-email@example.com"
-          # npm run deploy:pre-production
+          npm run build
+          git config --global user.name "Tomas Maldonado"
+          git config --global user.email "tmaldonadotrs@gmail.com"
+          npm run deploy:pre-production
 
       # - name: Run Post-deployment Tests
       #   run: |
