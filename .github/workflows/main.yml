@@ -10,8 +10,8 @@ on:
 
 jobs:
   #first
-  linting:
-    name: Linting
+  quality-checks:
+    name: Static Code Analysis and Linting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
 
   # second
   run-unit-tests:
-    needs: linting
+    needs: quality-checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -47,7 +47,7 @@ jobs:
   #third
   build-and-push-image:
     # name: Build + Push Docker image to Docker Hub
-    needs: [linting, run-unit-tests]
+    needs: [quality-checks, run-unit-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -74,7 +74,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
   deploy-production:
-    needs: [linting, run-unit-tests, build-and-push-image]
+    needs: [quality-checks, run-unit-tests, build-and-push-image]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
