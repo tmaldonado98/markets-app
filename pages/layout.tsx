@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata = {
+const metadata = {
   title: 'Markets App',
   description: 'Watch Global Stock Market Data, Commodities, Gold, Oil, Forex, Crypto with real-time data.',
 }
