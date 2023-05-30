@@ -76,7 +76,7 @@ jobs:
           npm run build
           git config --global user.name "Tomas Maldonado"
           git config --global user.email "tmaldonadotrs@gmail.com"
-          npm run deploy:pre-production
+          npm run-script deploy:pre-production
 
     # - name: Run Post-deployment Tests
     #   run: |
