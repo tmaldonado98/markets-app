@@ -73,7 +73,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  deploy-production:
+  build-and-deploy-production:
     needs: [quality-checks, run-unit-tests, build-and-push-image]
     runs-on: ubuntu-latest
     steps:
@@ -88,7 +88,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.2
         with:
-          folder: build
+          folder: .next
 
   # - name: Run Post-deployment Tests
   #   run: |
