@@ -9,8 +9,41 @@ on:
       - main
 
 jobs:
-  build:
-    # name: Push Docker image to Docker Hub
+  #first
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm lint
+
+  # second
+  run-unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: latest
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Unit Tests With Jest
+        run: npm test --config=tests/Jest/jest.config.ts
+
+  #third
+  build-and-push-image:
+    # name: Build + Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -36,41 +69,22 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  # run-unit-tests:
-  #   runs-on: windows-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
+  deploy-production:
+    needs: [linting, run-unit-tests, build-and-push-image]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@v2
-  #       with:
-  #         node-version: latest
+      - name: Install dependencies + build app
+        run: |
+          npm ci
+          npm run build
 
-  #     - name: Install dependencies
-  #       run: npm ci
-
-  #     - name: Run Unit Tests With Jest
-  #       run: npm test
-
-  # deploy-production:
-  #   needs: [build, run-unit-tests]
-  #   runs-on: windows-latest
-  #   environment: production
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-
-  #     - name: Install dependencies
-  #       run: npm ci
-
-  #     - name: Deploy to Production
-  #       run: |
-
-  # npm run build
-  # git config --global user.name "Your Name"
-  # git config --global user.email "your-email@example.com"
-  # npm run deploy:pre-production
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.4.2
+        with:
+          folder: build
 
   # - name: Run Post-deployment Tests
   #   run: |
