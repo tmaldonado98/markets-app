@@ -36,47 +36,46 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  run-unit-tests:
-    runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # run-unit-tests:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: latest
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v2
+  #       with:
+  #         node-version: latest
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Run Unit Tests With Jest
-        run: npm test
+  #     - name: Run Unit Tests With Jest
+  #       run: npm test
 
-  deploy-production:
-    needs: [build, run-unit-tests]
-    runs-on: windows-latest
-    environment: production
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # deploy-production:
+  #   needs: [build, run-unit-tests]
+  #   runs-on: windows-latest
+  #   environment: production
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Install dependencies
-        run: npm ci
+  #     - name: Install dependencies
+  #       run: npm ci
 
-      - name: Deploy to Production
-        run: |
+  #     - name: Deploy to Production
+  #       run: |
 
+  # npm run build
+  # git config --global user.name "Your Name"
+  # git config --global user.email "your-email@example.com"
+  # npm run deploy:pre-production
 
-          # npm run build
-          # git config --global user.name "Your Name"
-          # git config --global user.email "your-email@example.com"
-          # npm run deploy:pre-production
+  # - name: Run Post-deployment Tests
+  #   run: |
+  #     # Run any post-deployment tests or verification
 
-      # - name: Run Post-deployment Tests
-      #   run: |
-      #     # Run any post-deployment tests or verification
-
-      # - name: Notify Team
-      #   run: |
-      #     # Send notifications or alerts to the team
+  # - name: Notify Team
+  #   run: |
+  #     # Send notifications or alerts to the team

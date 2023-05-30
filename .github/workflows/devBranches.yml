@@ -1,12 +1,17 @@
-name: Pre-production Workflow
+name: Development Workflow
 
 on:
   push:
     branches:
-      - pre-production
+      - "*"
+      - "!main"
   pull_request:
     branches:
-      - pre-production
+      - "*"
+      - "!main"
+    #these commands instruct this workflow to perform build of
+    #Docker image + run tests when pushing to any branch that is
+    #not main ---> any development branch.
 
 jobs:
   setup-buildx:
@@ -59,29 +64,3 @@ jobs:
 
   #       - name: Run Unit Tests With Jest
   #         run: npm test
-
-  deploy-pre-production:
-    needs: [build]
-    runs-on: ubuntu-latest
-    environment: pre-production
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Deploy to Pre-Production
-        run: |
-          npm run build
-          git config --global user.name "Tomas Maldonado"
-          git config --global user.email "tmaldonadotrs@gmail.com"
-          npm run-script deploy:preproduction
-
-    # - name: Run Post-deployment Tests
-    #   run: |
-    #     # Run any post-deployment tests or verification
-
-    # - name: Notify Team
-    #   run: |
-    #     # Send notifications or alerts to the team
