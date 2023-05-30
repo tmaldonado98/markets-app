@@ -73,27 +73,20 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  build-and-deploy-production:
-    needs: [quality-checks, run-unit-tests, build-and-push-image]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+          ##  Migrated this job to new workflow: deploy-GHpages.yml
+  # build-and-deploy-production:
+  #   needs: [quality-checks, run-unit-tests, build-and-push-image]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Install dependencies + build app
-        run: |
-          npm ci
-          npm run build
+  #     - name: Install dependencies + build app
+  #       run: |
+  #         npm ci
+  #         npm run build
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.2
-        with:
-          folder: .next
-
-  # - name: Run Post-deployment Tests
-  #   run: |
-  #     # Run any post-deployment tests or verification
-
-  # - name: Notify Team
-  #   run: |
-  #     # Send notifications or alerts to the team
+  #     - name: Deploy to GitHub Pages
+  #       uses: JamesIves/github-pages-deploy-action@v4.4.2
+  #       with:
+  #         folder: .next
