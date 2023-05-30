@@ -9,9 +9,16 @@ on:
       - pre-production
 
 jobs:
+  setup-buildx:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
   build:
     # name: Push Docker image to Docker Hub
     runs-on: windows-latest
+    needs: setup-buildx
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -71,10 +78,10 @@ jobs:
           git config --global user.email "tmaldonadotrs@gmail.com"
           npm run deploy:pre-production
 
-      # - name: Run Post-deployment Tests
-      #   run: |
-      #     # Run any post-deployment tests or verification
+    # - name: Run Post-deployment Tests
+    #   run: |
+    #     # Run any post-deployment tests or verification
 
-      # - name: Notify Team
-      #   run: |
-      #     # Send notifications or alerts to the team
+    # - name: Notify Team
+    #   run: |
+    #     # Send notifications or alerts to the team
