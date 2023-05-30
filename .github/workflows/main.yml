@@ -40,8 +40,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Unit Tests With Jest
-        run: npm test --config=tests/Jest/jest.config.ts
+      # - name: Run Unit Tests With Jest
+      #   run: npm test --config=tests/Jest/jest.config.ts
+      ### ENABLE LATER, ONCE TESTS ARE CREATED
 
   #third
   build-and-push-image:
