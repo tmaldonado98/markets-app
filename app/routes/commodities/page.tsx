@@ -7,7 +7,7 @@ export default function Commodities(){
 
 
     return(
-        <div>
+        <>
         {/* <Head>
         </Head> */}
         <head>
@@ -19,7 +19,7 @@ export default function Commodities(){
             <main className='min-h-screen'>
                 
                 </main>
-        </div>
+        </>
 
     )
 }

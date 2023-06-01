@@ -17,8 +17,10 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({children}) => {
   return (
-    // <CacheProvider>
     <html lang="en">
+      <head>
+        <title>Markets App</title>
+      </head>
       <body>
         <Providers>
           <Header /> 
@@ -28,7 +30,6 @@ const Layout: FC<LayoutProps> = ({children}) => {
       </body>
     </html>
   )
-  {/* </CacheProvider> */}
 }
 
 export default Layout;

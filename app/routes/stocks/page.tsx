@@ -22,10 +22,15 @@ export default function Stocks(){
         <main className="min-h-screen">
         <Tabs variant='soft-rounded' colorScheme='green'>
             <TabList>
+                <Tab>Pinned</Tab>
                 <Tab>Tab 1</Tab>
                 <Tab>Tab 2</Tab>
             </TabList>
+            {/* Instead of making a tab for pinned, just make it into a component put to the left side */}
             <TabPanels>
+                <TabPanel>
+                <p>Your Pinned Tickers</p>
+                </TabPanel>
                 <TabPanel>
                 <p>one!</p>
                 </TabPanel>

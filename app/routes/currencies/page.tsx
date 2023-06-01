@@ -5,7 +5,7 @@ export default function Currencies(){
 
 
     return(
-        <div>
+        <>
             <head>
                 <title>Currencies Data</title>
             </head>
@@ -14,7 +14,7 @@ export default function Currencies(){
             <main className='min-h-screen'>
 
             </main>
-        </div>
+        </>
 
     )
 }

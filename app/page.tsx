@@ -1,4 +1,6 @@
-import '../styles/globals.css'
+// import '../styles/globals.css';
+import Head from 'next/head';
+
 export default function Page() {
     const dateObj = new Date();
     
@@ -12,20 +14,22 @@ export default function Page() {
 //     const options = { weekday: 'long' };
 // const dayOfWeek = date.toLocaleString('en-US', options);
   return (
-    <main className='min-h-screen'>
-        <head>
-          <title>Markets App</title>
-        </head>
+    <>
 
-        <h1>Hello, Next.js!</h1>
-        <div>
-            <p>Recently viewed tickers</p>
-            <p>Markets news</p>
-            <p>Latest Trends</p>
-            <p>Todays date: {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</p>
+      <main className='min-h-screen'>
+          
 
-        </div>
-    </main>
+          <h1>Hello, Next.js!</h1>
+          <div>
+              <p>Recently viewed tickers</p> 
+              {/* Create section for recently viewed sections within my website: asian market, oil prices, etc.  --- put in cards */}
+              <p>Markets news</p>
+              <p>Latest Trends</p>
+              <p>Todays date: {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</p>
+
+          </div>
+      </main>
+    </>
   
   );
 }
