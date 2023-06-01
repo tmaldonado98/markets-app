@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { Header, Footer } from "./components/Header";
-import './globals.css';
+// import './globals.css';
 // import { Footer } from "./components/Footer";
 
 interface LayoutProps {
