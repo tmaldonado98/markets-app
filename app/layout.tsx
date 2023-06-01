@@ -5,6 +5,7 @@ import { Header, Footer } from "../components/Header";
 // import { Footer } from "./components/Footer";
 import { ChakraProvider } from '@chakra-ui/react'
 import Head from "next/head";
+import { Providers } from "./providers";
 // import { CacheProvider } from '@chakra-ui/next-js'
 
 
@@ -19,9 +20,11 @@ const Layout: FC<LayoutProps> = ({children}) => {
     // <CacheProvider>
     <html lang="en">
       <body>
-        <Header /> 
-        {children}
-        <Footer />
+        <Providers>
+          <Header /> 
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   )

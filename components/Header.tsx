@@ -1,20 +1,21 @@
-import Link from "next/link"
+// import Link from "next/link"
+import { Link } from '@chakra-ui/next-js'
 // import './headerfooter.css';
 
 
 export const Header:React.FC = () => {
     return (
         <nav className='flex justify-evenly'>
-            <Link href='/'>
+            <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/'>
               Home
             </Link>
-            <Link href='/routes/stocks'>
+            <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/stocks'>
               Global Markets Data
             </Link>
-            <Link href='/routes/currencies'>
+            <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/currencies'>
               Global Currencies Data
             </Link>
-            <Link href='/routes/commodities'>
+            <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/commodities'>
               Global Commodities Prices
             </Link>
         </nav>
