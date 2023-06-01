@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run linter + Static Code Analysis
-        run: npm run lint
+      - name: Run ESLint + Static Code Analysis
+        run: npx eslint
 
   # second
   run-unit-tests:

@@ -6,13 +6,14 @@ export default function Currencies(){
 
     return(
         <div>
-            <Head>
-                <title>Global Currencies Data</title>
-            </Head>
-            <Link href='../'>
-                Home
-            </Link>
+            <head>
+                <title>Currencies Data</title>
+            </head>
+
             <h1>Global Currency Data here</h1>
+            <main className='min-h-screen'>
+
+            </main>
         </div>
 
     )
