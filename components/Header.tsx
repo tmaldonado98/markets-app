@@ -5,7 +5,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 export const Header:React.FC = () => {
     return (
-        <nav className='flex justify-evenly'>
+        <nav style={{borderBottom: 'solid 4px black'}} className='flex justify-evenly p-6'>
           <Tabs variant='soft-rounded' colorScheme='red'>
               <TabList>
                   <Tab>
