@@ -1,6 +1,6 @@
 'use client'
 import { FC, ReactNode } from "react";
-import { Header, Footer } from "../pages/components/Header";
+import { Header, Footer } from "../components/Header";
 // import './styles/globals.css';
 // import { Footer } from "./components/Footer";
 import { ChakraProvider } from '@chakra-ui/react'
