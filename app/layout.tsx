@@ -2,11 +2,8 @@
 import { FC, ReactNode } from "react";
 import { Header, Footer } from "../components/Header";
 import '../styles/globals.css';
-// import { Footer } from "./components/Footer";
-import { ChakraProvider } from '@chakra-ui/react'
 import Head from "next/head";
 import { Providers } from "./providers";
-// import { CacheProvider } from '@chakra-ui/next-js'
 
 
 

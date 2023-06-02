@@ -1,8 +1,6 @@
 'use client';
 import Link from "next/link"
 import Head from "next/head"
-// import './index.module.css';
-
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 export default function Stocks(){
