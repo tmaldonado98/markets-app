@@ -53,7 +53,6 @@ export default function Page() {
           </aside>
           <section id='news-section'>
             <div className='news-cont'>
-              <h1>News Container</h1>
               <News/>
             </div>
             <div className='news-cont'>

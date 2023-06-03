@@ -6,8 +6,6 @@ import Head from "next/head";
 import { Providers } from "./providers";
 
 
-
-
 interface LayoutProps {
   children: ReactNode
 }
@@ -21,6 +19,7 @@ const Layout: FC<LayoutProps> = ({children}) => {
       <body>
         <Providers>
           <Header /> 
+
           {children}
           <Footer />
         </Providers>
