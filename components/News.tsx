@@ -13,6 +13,8 @@ import Loading from './Loading';
 // {initialTime} : MyPageProps
 export default function News(props:any){  
     const [articles, setArticles] = useState<any>(null)
+    const [trends, setTrends] = useState<any>(null)
+
     
     const newsCategories = ['blockchain', 'earnings', 'ipo', 'mergers_and_acquisitions', 'financial_markets', 'economy_fiscal', 'economy_monetary', 'economy_macro', 'energy_transportation', 'finance', 'life_sciences', 'manufacturing', 'real_estate', 'retail_wholesale', 'technology']
 
@@ -51,7 +53,7 @@ export default function News(props:any){
                 const jsonArticles = localStorage.getItem('al-newsData' + topics);
                 const parsedArt = jsonArticles ? JSON.parse(jsonArticles) : '';
                 setArticles(parsedArt);
-                console.log('data fetched from localStorage.')
+                console.log('articles fetched from localStorage.')
                 console.log(parsedArt)
             }
         } catch (error) {
@@ -59,9 +61,47 @@ export default function News(props:any){
         }    
     }
 
+    function saveTrend(type:string){
+        const options = {
+            method: 'GET',
+            url: 'https://real-time-finance-data.p.rapidapi.com/market-trends',
+            params: {
+              trend_type: type,
+              country: 'us',
+              language: 'en'
+            },
+            headers: {
+                'X-RapidAPI-Key': process.env.RAKey,
+                'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com'
+            }
+        };
+
+        try {
+            if(localStorage.getItem('trends'+ type) === null){
+                axios.request(options)
+                .then(response => {
+                    console.log(response.data.data.trends)
+                    localStorage.setItem('trends' + options.params.trend_type, JSON.stringify(response.data.data.trends))
+                    setTrends(response.data.data.trends)
+                })
+            } else {
+                const jsonTrends = localStorage.getItem('trends' + type);
+                const parsedTrends = jsonTrends ? JSON.parse(jsonTrends) : '';
+                setTrends(parsedTrends);
+                console.log('trends fetched from localStorage.')
+                console.log(parsedTrends)
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
+////Move this function to a new component, to be mounted on global markets route parent comp.
+
     //call this app upon component mount to show blockchain tab panel by default
     useEffect(() => {
         saveArticles('blockchain');
+        saveTrend('MARKET_INDEXES')        
+
     }, [])
 
     return (

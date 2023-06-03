@@ -2,7 +2,7 @@ const nextConfig = {
   output: 'export',
   env: {
     msFinUrl: 'ms-finance.p.rapidapi.com',
-    msFinKey: '39895f3948mshc954d1855356b54p15bcacjsn1c6cdc2ab2cd',
+    RAKey: '39895f3948mshc954d1855356b54p15bcacjsn1c6cdc2ab2cd',
     avKey: 'HGXN3H8ZWJV47F6T'
 
   },

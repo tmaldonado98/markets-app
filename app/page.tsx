@@ -65,9 +65,9 @@ export default function Page() {
             <div className='news-cont'>
               <News props={dateObj}/>
             </div>
-            <div className='news-cont'>
-              <h1>Latest trends</h1>
-            </div>
+            <div id='ad4' className='news-cont' style={{border:'solid'}}>
+              <p>Ad section here</p>
+            </div>            
           </section>
       </main>
           <aside id='side-ad-section'>
@@ -77,7 +77,6 @@ export default function Page() {
             <div id='ad3'>
               <p>Ad section here</p>
             </div>
-
           </aside>
     </section>
   
