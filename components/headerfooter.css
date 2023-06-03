@@ -1,9 +1,11 @@
-/* nav {
-    display: flex;
+nav {
+    /* display: flex;
     justify-content: space-evenly;
-    padding: 24px;
+    padding: 24px; */
+    /* position: sticky; */
 }
 
 footer {
-    background-color: gray;
-} */
+    background-color: #4f4f4f;
+    color: antiquewhite;
+} 

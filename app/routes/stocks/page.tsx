@@ -1,8 +1,6 @@
 'use client';
 import Link from "next/link"
 import Head from "next/head"
-// import './index.module.css';
-
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 export default function Stocks(){
@@ -25,6 +23,8 @@ export default function Stocks(){
                 <Tab>Pinned</Tab>
                 <Tab>Tab 1</Tab>
                 <Tab>Tab 2</Tab>
+                <Tab>Latest Trends</Tab>
+
             </TabList>
             {/* Instead of making a tab for pinned, just make it into a component put to the left side */}
             <TabPanels>
@@ -36,6 +36,12 @@ export default function Stocks(){
                 </TabPanel>
                 <TabPanel>
                 <p>two!</p>
+                </TabPanel>
+
+                <TabPanel>
+                    <div className='news-cont'>
+                        <h1>Latest Trends</h1>
+                    </div>
                 </TabPanel>
             </TabPanels>
         </Tabs>

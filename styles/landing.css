@@ -1,0 +1,74 @@
+#landing-container {
+    display: flex;
+    justify-content:space-evenly;
+    padding: 12px 0;
+}
+
+#side-ad-section{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+#ad1, #ad2, #ad3{
+    border: 4px orange dotted;
+}
+
+.landing-h {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    padding: 3rem;
+    font-size: 42px;
+}
+
+#first-box {
+    min-height: 25rem;
+    border: solid 5px red;
+    padding: 22px;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.date-h {
+    font-size: 32px;
+    padding: 12px;
+}
+
+#locales {
+    border: 5px dashed black;
+    padding: 4rem 12px;
+    width: 100%;
+    margin: auto;
+}
+
+#recent-pages {
+    padding: 4rem 12px;
+
+}
+
+#ad2 {
+    min-height: 7rem;
+}
+
+#news-section {
+    min-height: 64rem;
+    border: 5px dashed green;
+    margin: 0 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-cont {
+    padding: 4rem;
+    border: 5px dotted purple;
+    width: 100%;
+    flex: 1;
+}
+
+#ad1, #ad3 {
+    flex: 1;
+    margin: 25px 10px;
+}
