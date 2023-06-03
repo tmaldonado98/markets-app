@@ -6,6 +6,14 @@ import Locales from '../components/Locales';
 import { useEffect, useState } from 'react';
 import News from '../components/News';
 
+
+// interface MyPageProps {
+//   initialTime: Date;
+// }
+
+
+
+// {initialTime} : MyPageProps
 export default function Page() {
 
   useEffect(() => {
@@ -17,8 +25,9 @@ export default function Page() {
   }, [])
 
     const dateObj = new Date();
+    // console.log(dateObj)
     
-    const dayOfMonth: number = dateObj.getDate();
+    const dayOfMonth = dateObj.getDate();
 
     const dayOfWeek: string = dateObj.toLocaleString('en-US', { weekday: 'long' })
     // .getDay();
@@ -53,7 +62,7 @@ export default function Page() {
           </aside>
           <section id='news-section'>
             <div className='news-cont'>
-              <News/>
+              <News props={dateObj}/>
             </div>
             <div className='news-cont'>
               <h1>Latest trends</h1>
@@ -73,3 +82,12 @@ export default function Page() {
   
   );
 }
+
+// export async function getServerSideProps() {
+//   const initialTime = new Date();
+//   return {
+//     props: {
+//       initialTime,
+//     },
+//   };
+// }
