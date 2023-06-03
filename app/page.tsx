@@ -4,6 +4,7 @@ import '../styles/landing.css';
 import Head from 'next/head';
 import Locales from '../components/Locales';
 import { useEffect, useState } from 'react';
+import News from '../components/News';
 
 export default function Page() {
 
@@ -53,6 +54,7 @@ export default function Page() {
           <section id='news-section'>
             <div className='news-cont'>
               <h1>News Container</h1>
+              <News/>
             </div>
             <div className='news-cont'>
               <h1>Latest trends</h1>
