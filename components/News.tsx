@@ -5,6 +5,7 @@ import { Image, Stack, Heading, Text, Button, Card, CardHeader, CardBody, CardFo
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { afterEach } from 'node:test';
 import { arrayBuffer } from 'stream/consumers';
+import Loading from './Loading';
 
 // interface MyPageProps {
 //     initialTime: any;
@@ -58,6 +59,10 @@ export default function News(props:any){
         }    
     }
 
+    //call this app upon component mount to show blockchain tab panel by default
+    useEffect(() => {
+        saveArticles('blockchain');
+    }, [])
 
     return (
         <>
@@ -68,9 +73,9 @@ export default function News(props:any){
             <TabList mb='1em' style={{flexWrap:'wrap'}}>
                 {newsCategories.map((each:string) => {
                     return (
-                        <Tab onClick={() => saveArticles(each)} style={{flex:'2'}} _selected={{ color: 'white', bg: 'blue.400' }} key={newsCategories.indexOf(each)}>
-                            
-                            {each === 'ipo' ? each.toUpperCase() : each.trim().replace(/_/g, ' ').replace(/\b\w+\b/g, capitalizeWord)}
+                        <Tab onClick={() => saveArticles(each)} style={{flex:'2'}} _selected={{ color: 'white', bg: 'blue.400', fontWeight:'700'}} _hover={{ fontWeight:'700' , bg: 'blue.100', }} key={newsCategories.indexOf(each)}>
+                                                        
+                            {each === 'ipo' ? each.toUpperCase() : each.includes('economy') ? each.trim().replace(/_/g, ': ').replace(/\b\w+\b/g, capitalizeWord) : each.trim().replace(/_/g, ' ').replace(/\b\w+\b/g, capitalizeWord)}
                         </Tab>
                     )
                 })}
@@ -79,7 +84,7 @@ export default function News(props:any){
                 {newsCategories.map((each:string) => {
                     return (
                         <TabPanel key={newsCategories.indexOf(each)}>
-                            {articles !== null && <Articles articles={articles}/>}
+                            {articles !== null ? <Articles articles={articles}/> : <Loading/> }
                         </TabPanel>
                     )
                 })}
@@ -117,16 +122,16 @@ export function Articles (props:any) {
                                             objectFit='cover'
                                             maxW={{ base: '100%', sm: '200px' }}
                                             src={each.banner_image !== '' ? each.banner_image : 'https://birminghamchristian.com/wp-content/uploads/2016/03/stock-market-graph.jpg'}
-                                            // alt='Caffe Latte'
+                                            alt={each.title}
                                         />
                                 
                                         <Stack>
-                                            <CardBody _hover={{ color: 'blue.600' }}>
-                                                <Heading size='md'>
+                                            <CardBody>
+                                                <Heading size='md' _hover={{ color: 'blue.600'}}>
                                                     <a target='_blank' rel='noopener noreferrer' href={each.url} title={each.url}>{each.title}</a>
                                                 </Heading>
                                 
-                                                <Text>{each.summary}</Text>
+                                                <Text><a href={each.url} title={each.url}>{each.summary}</a></Text>
                                                 
                                                 <Text><a href={each.source_domain} title={each.source_domain} target='_blank' rel='noopener noreferrer'><b>{each.source}</b></a></Text>
                                                 {/* <Text py='2'>{(each.PublicationTime).toLocaleString('en-US')}</Text> */}
@@ -155,16 +160,16 @@ export function Articles (props:any) {
                                         objectFit='cover'
                                         maxW={{ base: '100%', sm: '200px' }}
                                         src={each.banner_image !== '' ? each.banner_image : 'https://birminghamchristian.com/wp-content/uploads/2016/03/stock-market-graph.jpg'}
-                                        // alt='Caffe Latte'
+                                        alt={each.title}
                                     />
                             
                                     <Stack>
-                                        <CardBody _hover={{ color: 'blue.600' }}>
-                                            <Heading size='md'>
+                                        <CardBody>
+                                            <Heading size='md' _hover={{ color: 'blue.600'}}>
                                                 <a target='_blank' rel='noopener noreferrer' href={each.url} title={each.url}>{each.title}</a>
                                             </Heading>
                             
-                                            <Text>{each.summary}</Text>
+                                            <Text><a href={each.url} title={each.url}>{each.summary}</a></Text>
                                             
                                             <Text><a href={each.source_domain} title={each.source_domain} target='_blank' rel='noopener noreferrer'><b>{each.source}</b></a></Text>
                                             {/* <Text py='2'>{(each.PublicationTime).toLocaleString('en-US')}</Text> */}

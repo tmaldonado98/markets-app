@@ -5,7 +5,7 @@ import Head from 'next/head';
 import Locales from '../components/Locales';
 import { useEffect, useState } from 'react';
 import News from '../components/News';
-
+import Loading from '../components/Loading';
 
 // interface MyPageProps {
 //   initialTime: Date;
@@ -47,7 +47,8 @@ export default function Page() {
               {/* Create section for recently viewed sections within my website: asian market, oil prices, etc.  --- put in cards */}
               <h2 className='date-h'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
               <section id='locales'>
-                <Locales/>
+                <Locales currentTime={dateObj}/>
+                {/* <Loading /> */}
               </section>
 
               {/* render recent-pages section conditionally */}

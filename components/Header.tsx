@@ -9,25 +9,25 @@ export const Header:React.FC = () => {
           <Tabs variant='soft-rounded' colorScheme='blue'>
               <TabList>
                   <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/'>
+                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/' scroll={true}>
                       Home
                     </Link>
                   </Tab>
 
                   <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/stocks'>
+                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/stocks' scroll={true}>
                       Global Markets Data
                     </Link>
                   </Tab>
 
                   <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/currencies'>
+                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/currencies' scroll={true}>
                       Global Currencies Data
                     </Link>
                   </Tab>
 
                   <Tab>
-                  <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/commodities'>
+                  <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
                     Global Commodities Prices
                   </Link>
                   </Tab>

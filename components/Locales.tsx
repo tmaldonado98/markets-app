@@ -1,15 +1,22 @@
 'use client';
 import { FC, useEffect, useState } from "react";
 import { Heading, Text, Button, Card, CardHeader, CardBody, CardFooter, SimpleGrid, SimpleGridProps } from '@chakra-ui/react'
-// import Link from "next/link";
 import { Link } from '@chakra-ui/next-js';
-// import Clock from 'react-clock';
+import { GetServerSideProps } from 'next';
+import Clock from 'react-clock';
+import 'react-clock/dist/Clock.css';
+import Loading from "./Loading";
 
 //initial time as rendered on the server to avoid rehydratione errors
 
 // const date = new Date();
 
-export default function Locales () {
+interface MyComponentProps {
+    currentTime: Date;
+  }
+
+
+export default function Locales ({currentTime} : MyComponentProps) {
 
     // const locales = ['America/New_York', 'Europe/London','Europe/Berlin', 'Asia/Singapore', 'Asia/Shanghai', 'Asia/Tokyo']
 
@@ -25,17 +32,21 @@ export default function Locales () {
     // console.log(localesArr);
     
     const [time, setTime] = useState(new Date());
-    // const [isClient, setIsClient] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         
-        // setIsClient(true);
         
         const timer = setInterval(() => {
             setTime(new Date())
         }, 1000)
         
-        return () => clearInterval(timer);
+        setIsClient(true);
+
+        return () => {
+            clearInterval(timer); 
+            setIsClient(false);
+        };
         //unmount operation
 
       }, [])
@@ -44,9 +55,9 @@ export default function Locales () {
 
     return (
         <>
-            <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
+            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'12px', }}>
             {localesArr.map(each => (
-                <Card key={localesArr.indexOf(each)}  style={{textAlign:'center'}}>
+                <Card key={localesArr.indexOf(each)}  style={{textAlign:'center', maxWidth:'250px'}}>
                     <CardHeader>
                         <Heading size='md'>
                             {each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ')}
@@ -70,8 +81,17 @@ export default function Locales () {
                         </Text>
                         {/* Make them into Link components with props to mount appropriate market tab upon routing */}
                     </CardHeader>
+                    
 
                     <CardBody>
+                        <div id="clock-container" style={{textAlign:'center', padding:'5px 0', display:'flex', justifyContent:'center'}}>
+                        {isClient === true ? 
+                            <Clock value={time.toLocaleString(undefined, {timeZone: each[0], hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric'})}/>
+                        
+                            :
+                            <Loading />
+                        }
+                        </div>
                         <Text>It is {time.toLocaleString('en-US', {timeZone: each[0], 
                                             weekday: 'long',
                                             year: 'numeric',
@@ -88,8 +108,19 @@ export default function Locales () {
                 </Card>
 
             ))}
-            </SimpleGrid>
+                        
+            </div>
 
         </>
     )
 }
+
+export const getServerSideProps: GetServerSideProps<MyComponentProps> = async () => {
+    const currentTime = new Date(); // Get the current time
+  
+    return {
+      props: {
+        currentTime,
+      },
+    };
+  }  
