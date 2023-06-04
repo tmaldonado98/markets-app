@@ -5,29 +5,29 @@ import './headerfooter.css';
 
 export const Header:React.FC = () => {
     return (
-        <nav style={{borderBottom: 'solid 4px black', flexWrap:'wrap'}} className='flex justify-evenly p-6'>
+        <nav style={{borderBottom: 'solid 4px black', flexWrap:'wrap', gap:'8px'}} className='flex justify-evenly p-6'>
           <Tabs variant='soft-rounded' colorScheme='blue'>
               <TabList>
-                  <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/' scroll={true}>
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/' scroll={true}>
                       Home
                     </Link>
                   </Tab>
 
-                  <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/stocks' scroll={true}>
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/stocks' scroll={true}>
                       Global Markets Data
                     </Link>
                   </Tab>
 
-                  <Tab>
-                    <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/currencies' scroll={true}>
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/currencies' scroll={true}>
                       Global Currencies Data
                     </Link>
                   </Tab>
 
-                  <Tab>
-                  <Link color='blue.400' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
                     Global Commodities Prices
                   </Link>
                   </Tab>

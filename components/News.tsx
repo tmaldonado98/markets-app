@@ -7,10 +7,7 @@ import { afterEach } from 'node:test';
 import { arrayBuffer } from 'stream/consumers';
 import Loading from './Loading';
 
-// interface MyPageProps {
-//     initialTime: any;
-//   }
-// {initialTime} : MyPageProps
+
 export default function News(props:any){  
     const [articles, setArticles] = useState<any>(null)
     const [trends, setTrends] = useState<any>(null)
@@ -231,12 +228,24 @@ export function Articles (props:any) {
     )
 }
 
+// Function to delete the cache of a specific query
+// const deleteQueryCache = () => {
+//     queryCache.removeQueries('your-query-key');
+//   };
+  
+//   // Schedule the cache deletion at 6:00 AM
+//   const scheduleCacheDeletion = () => {
+//     const now = new Date();
+//     const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0);
+  
+//     const timeUntilDeletion = scheduledTime.getTime() - now.getTime();
+//     setTimeout(() => {
+//       deleteQueryCache();
+//       scheduleCacheDeletion(); // Schedule the next cache deletion
+//     }, timeUntilDeletion);
+//   };
+  
+//   // Call the scheduling function to start deleting the cache
+//   scheduleCacheDeletion();
 
-// export async function getServerSideProps() {
-//     const initialTime = new Date();
-//     return {
-//       props: {
-//         initialTime,
-//       },
-//     };
-//   }
+

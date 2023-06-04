@@ -39,7 +39,7 @@ export default function Page() {
   return (
     <section id='landing-container'>
 
-      <main className='min-h-screen border-solid border-2 border-orange-500'>
+      <main className='min-h-screen' style={{maxWidth:'85%'}}>
           
 
           <h1 className='landing-h mx-auto w-4/5'>Welcome to the Markets App, your online source for ...</h1>
@@ -65,10 +65,10 @@ export default function Page() {
             <div className='news-cont'>
               <News props={dateObj}/>
             </div>
-            <div id='ad4' className='news-cont' style={{border:'solid'}}>
-              <p>Ad section here</p>
-            </div>            
           </section>
+          <div id='ad4' className='news-cont' style={{border:'solid'}}>
+            <p>Ad section here</p>
+          </div>            
       </main>
           <aside id='side-ad-section'>
             <div id='ad1'>
