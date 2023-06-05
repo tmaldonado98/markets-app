@@ -10,7 +10,7 @@ import Loading from './Loading';
 
 export default function News(props:any){  
     const [articles, setArticles] = useState<any>(null)
-
+    const [artLimit, setArtLimit] = useState(false);
     
     const newsCategories = ['blockchain', 'earnings', 'ipo', 'mergers_and_acquisitions', 'financial_markets', 'economy_fiscal', 'economy_monetary', 'economy_macro', 'energy_transportation', 'finance', 'life_sciences', 'manufacturing', 'real_estate', 'retail_wholesale', 'technology']
 
@@ -126,9 +126,16 @@ export default function News(props:any){
                     .then(response => {
                         console.log('Articles not found in localStorage. Fetched from api and stored at ' + timestamp)
                         console.log(response.data)
-                        localStorage.setItem(key, JSON.stringify(response.data.feed))
-                        localStorage.setItem(timestampKey, timestamp.toString())
-                        setArticles(response.data.feed)
+                        ///Checks that api returns feed. If doesn't return array, then leave previously stored data.
+                        if (Array.isArray(response.data.feed)) {
+                            localStorage.setItem(key, JSON.stringify(response.data.feed))
+                            localStorage.setItem(timestampKey, timestamp.toString())
+                            setArticles(response.data.feed)
+                        }
+                        else if(!response.data.feed){
+                            setArtLimit(true);
+                            setArticles(null)
+                        }
                         // console.log(today.getFullYear() + String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0'))
                     })
             }
@@ -163,6 +170,12 @@ export default function News(props:any){
                     return (
                         <TabPanel key={newsCategories.indexOf(each)}>
                             {articles !== null ? <Articles articles={articles}/> : <Loading/> }
+                            {artLimit === true && articles === null && (
+                                <>
+                                    {/* <Loading/> */}
+                                    <Heading as='h2'>Please Try Again In A Minute</Heading>
+                                </>
+                            )}
                         </TabPanel>
                     )
                 })}
@@ -268,25 +281,4 @@ export function Articles (props:any) {
         
     )
 }
-
-// Function to delete the cache of a specific query
-// const deleteQueryCache = () => {
-//     queryCache.removeQueries('your-query-key');
-//   };
-  
-//   // Schedule the cache deletion at 6:00 AM
-//   const scheduleCacheDeletion = () => {
-//     const now = new Date();
-//     const scheduledTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 6, 0, 0);
-  
-//     const timeUntilDeletion = scheduledTime.getTime() - now.getTime();
-//     setTimeout(() => {
-//       deleteQueryCache();
-//       scheduleCacheDeletion(); // Schedule the next cache deletion
-//     }, timeUntilDeletion);
-//   };
-  
-//   // Call the scheduling function to start deleting the cache
-//   scheduleCacheDeletion();
-
 

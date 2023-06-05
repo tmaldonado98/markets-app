@@ -15,20 +15,32 @@ export const Header:React.FC = () => {
 
                   <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
                     <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/stocks' scroll={true}>
-                      Global Markets Data
+                      Global Markets
                     </Link>
                   </Tab>
 
                   <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
                     <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/currencies' scroll={true}>
-                      Global Currencies Data
+                      Global Currencies
                     </Link>
                   </Tab>
 
                   <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                  <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
-                    Global Commodities Prices
-                  </Link>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
+                      Global Commodities
+                    </Link>
+                  </Tab>
+
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
+                      Macro Trends
+                    </Link>
+                  </Tab>
+
+                  <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
+                      Education Center
+                    </Link>
                   </Tab>
 
               </TabList>
