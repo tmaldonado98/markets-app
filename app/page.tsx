@@ -42,10 +42,10 @@ export default function Page() {
       <main className='min-h-screen' style={{maxWidth:'85%'}}>
           
 
-          <h1 className='landing-h mx-auto w-4/5'>Welcome to the Markets App, your online source for ...</h1>
+          <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App, your online source for ...</h1>
           <div id='first-box' className='min-h-16 border-red-600 border-solid border-4'>
               {/* Create section for recently viewed sections within my website: asian market, oil prices, etc.  --- put in cards */}
-              <h2 className='date-h'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
+              <h2 className='date-h georgia'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
               <section id='locales'>
                 <Locales currentTime={dateObj}/>
                 {/* <Loading /> */}

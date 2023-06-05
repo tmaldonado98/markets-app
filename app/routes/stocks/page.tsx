@@ -2,6 +2,8 @@
 import Link from "next/link"
 import Head from "next/head"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Trends from "../../../components/Trends";
+import Loading from "../../../components/Loading";
 
 export default function Stocks(){
 

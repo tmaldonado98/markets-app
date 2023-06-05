@@ -10,7 +10,6 @@ import Loading from './Loading';
 
 export default function News(props:any){  
     const [articles, setArticles] = useState<any>(null)
-    const [trends, setTrends] = useState<any>(null)
 
     
     const newsCategories = ['blockchain', 'earnings', 'ipo', 'mergers_and_acquisitions', 'financial_markets', 'economy_fiscal', 'economy_monetary', 'economy_macro', 'energy_transportation', 'finance', 'life_sciences', 'manufacturing', 'real_estate', 'retail_wholesale', 'technology']
@@ -20,90 +19,132 @@ export default function News(props:any){
       }
 
       
+
       function saveArticles(topics:string){
-          /// make this fetch conditional, on whether the localStorage is more or less than 24hrs old
-        // const today = props.dateObj;
+
         // const monthDay = String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0');
-    
-        try {
-            // ${today.getFullYear() + String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0') + 'T0130'}
-            if (localStorage.getItem('al-newsData' + topics) === null) {
-                axios.get(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${topics}&time_from20230602=&limit=20&apikey=${process.env.avKey}`,
-                    {headers: {
-                        'Content-Type': 'application/json'
-                    //      {
-                    //     'X-RapidAPI-Key': process.env.msFinKey,
-                    //     'X-RapidAPI-Host': process.env.msFinUrl
-                    }
-                    }
-                )
-                .then(response => {
-                    console.log('Data not found in localStorage. Fetched from api')
-                    console.log(response.data)
-                    localStorage.setItem('al-newsData' + topics, JSON.stringify(response.data.feed))
-                    setArticles(response.data.feed)
-                    // console.log(today.getFullYear() + String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0'))
-                })
         
-            }
-            else {
-                const jsonArticles = localStorage.getItem('al-newsData' + topics);
-                const parsedArt = jsonArticles ? JSON.parse(jsonArticles) : '';
-                setArticles(parsedArt);
-                console.log('articles fetched from localStorage.')
-                console.log(parsedArt)
-            }
-        } catch (error) {
-            console.error(error);
-        }    
-    }
+        /////Pending TEST!!
+        // const yearMonthDay = today.getFullYear() + String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0') + 'T0130';
+        const key = 'al-newsData' + topics;
+        const timestamp = Date.now();
+        const timestampKey = `${timestamp}_${key}`;
 
-    function saveTrend(type:string){
-        const options = {
-            method: 'GET',
-            url: 'https://real-time-finance-data.p.rapidapi.com/market-trends',
-            params: {
-              trend_type: type,
-              country: 'us',
-              language: 'en'
-            },
-            headers: {
-                'X-RapidAPI-Key': process.env.RAKey,
-                'X-RapidAPI-Host': 'real-time-finance-data.p.rapidapi.com'
-            }
-        };
+            if(localStorage.getItem(key) !== null){
+                const currentDate = new Date();
+                const sixAMToday = new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth(),
+                  currentDate.getDate(),
+                  6,
+                  0,
+                  0
+                );
+                const sixPMToday = new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth(),
+                    currentDate.getDate(),
+                    18,
+                    0,
+                    0
+                  );
+                  const midnight = new Date(
+                    currentDate.getFullYear(),
+                    currentDate.getMonth(),
+                    currentDate.getDate(),
+                    0,
+                    0,
+                    0
+                  );
+        
 
-        try {
-            if(localStorage.getItem('trends'+ type) === null){
-                axios.request(options)
-                .then(response => {
-                    console.log(response.data.data.trends)
-                    localStorage.setItem('trends' + options.params.trend_type, JSON.stringify(response.data.data.trends))
-                    setTrends(response.data.data.trends)
-                })
-            } else {
-                const jsonTrends = localStorage.getItem('trends' + type);
-                const parsedTrends = jsonTrends ? JSON.parse(jsonTrends) : '';
-                setTrends(parsedTrends);
-                console.log('trends fetched from localStorage.')
-                console.log(parsedTrends)
+                for (let i = 0; i < localStorage.length; i++) {
+                    const storageItem:string | null = localStorage.key(i);
+                    
+                    if (storageItem && storageItem.includes('_')) {
+                        const parsedTimestamp = parseInt(localStorage.getItem(storageItem)!, 10);
+                        
+                        if (parsedTimestamp < sixAMToday.getTime()) {
+                            localStorage.removeItem(storageItem);
+                            storageItem.includes('_') && localStorage.removeItem(storageItem);
+                            fetchArticles(topics, key, timestamp, timestampKey);
+                        } 
+                        ////if cache timestamp is not before 6AM today, then
+                        else if (currentDate.getTime() >= sixPMToday.getTime() && parsedTimestamp < sixPMToday.getTime() && currentDate.getTime() < midnight.getTime()) {    
+                            localStorage.removeItem(storageItem);
+                            storageItem.includes('_') && localStorage.removeItem(storageItem);
+                            fetchArticles(topics, key, timestamp, timestampKey);
+                        }
+                        else {
+                            const jsonArticles = localStorage.getItem(key);
+                            const parsedArt = jsonArticles ? JSON.parse(jsonArticles) : '';
+                            setArticles(parsedArt);
+                            console.log('articles fetched from localStorage.')
+                            console.log(parsedArt)
+                        }
+                    }
+                }
             }
-        } catch (error) {
-            console.error(error)
+                    ///if localStorage item's timestamp is from before 6AM today, articles from that category will be deleted and re-fetched once. 
+                    ///If it is 6PM or later today, and before midnight, then articles from that category will be deleted and re-fetched once. 
+
+            else if (localStorage.getItem(key) === null) {
+                fetchArticles(topics, key, timestamp, timestampKey);
+        
+            }  
         }
-    }
-////Move this function to a new component, to be mounted on global markets route parent comp.
+
+    function fetchArticles(data:string, key:string, timestamp:number, timestampKey:string){
+        //change timestamp for apicall time_from
+        const currentDate = new Date();
+        const sixAMToday = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          currentDate.getDate(),
+          6,
+          0,
+          0
+        );
+        const midnight = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            currentDate.getDate(),
+            0,
+            0,
+            0
+          );
+
+        if(timestamp >= midnight.getTime() && timestamp < sixAMToday.getTime()){
+            return false;
+        }
+        else {
+            axios.get(`https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=${data}&time_from20230602=&limit=20&apikey=${process.env.avKey}`,
+                        {headers: {
+                            'Content-Type': 'application/json'
+                        }}
+                    )
+                    .then(response => {
+                        console.log('Articles not found in localStorage. Fetched from api and stored at ' + timestamp)
+                        console.log(response.data)
+                        localStorage.setItem(key, JSON.stringify(response.data.feed))
+                        localStorage.setItem(timestampKey, timestamp.toString())
+                        setArticles(response.data.feed)
+                        // console.log(today.getFullYear() + String(today.getMonth() + 1).padStart(2, '0') + String(today.getDate()).padStart(2, '0'))
+                    })
+            }
+      }
+
 
     //call this app upon component mount to show blockchain tab panel by default
     useEffect(() => {
         saveArticles('blockchain');
-        saveTrend('MARKET_INDEXES')        
+        // saveTrend('MARKET_INDEXES')        
 
     }, [])
 
     return (
         <>
-        <Heading as='h2'>
+        <Heading as='h2' className='georgia'>
             News Categories
         </Heading>
         <Tabs isLazy variant='enclosed' className='py-6'>
