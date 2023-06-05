@@ -2,6 +2,8 @@
 import Link from "next/link"
 import Head from "next/head"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import Trends from "../../../components/Trends";
+import Loading from "../../../components/Loading";
 
 export default function Stocks(){
 
@@ -20,22 +22,22 @@ export default function Stocks(){
         <main className="min-h-screen">
         <Tabs variant='soft-rounded' colorScheme='green'>
             <TabList>
-                <Tab>Pinned</Tab>
-                <Tab>Tab 1</Tab>
-                <Tab>Tab 2</Tab>
+                <Tab>Stock Markets</Tab>
+                <Tab>Search Stocks</Tab>
+                <Tab>Pinned Tickers</Tab>
                 <Tab>Latest Trends</Tab>
 
             </TabList>
             {/* Instead of making a tab for pinned, just make it into a component put to the left side */}
             <TabPanels>
                 <TabPanel>
-                <p>Your Pinned Tickers</p>
+                    <p>Your Pinned Tickers</p>
                 </TabPanel>
                 <TabPanel>
-                <p>one!</p>
+                    <p>one!</p>
                 </TabPanel>
                 <TabPanel>
-                <p>two!</p>
+                    <p>two!</p>
                 </TabPanel>
 
                 <TabPanel>

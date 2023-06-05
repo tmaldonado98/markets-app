@@ -3,9 +3,18 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Old+Standard+TT&display=swap');
 
 *, p, h1, h2 {
-    font-family: "Nunito Sans" , "Roboto";
+    font-family: "Nunito Sans" , "Roboto" !important;
 
+}
+
+.georgia {
+    font-family: Georgia, "Nunito Sans", "Roboto" !important;
+}
+
+.numbers{
+    font-family: "Roboto", "Old Standard TT", Georgia, "Nunito Sans", serif !important;
+    font-size: 24px;
 }

@@ -59,17 +59,17 @@ export default function Locales ({currentTime} : MyComponentProps) {
             {localesArr.map(each => (
                 <Card key={localesArr.indexOf(each)}  style={{textAlign:'center', maxWidth:'250px'}}>
                     <CardHeader>
-                        <Heading size='md'>
+                        <Heading size='md' className="georgia">
                             {each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ')}
                         </Heading>
-                        <Heading size='md'>
+                        <p className='numbers'>
                             {(time.toLocaleString(undefined, {timeZone: each[0],
                                 hour12: false,
                                 hour: 'numeric',
                                 minute: 'numeric',
                                 second: 'numeric',
                                 }))}         
-                        </Heading>
+                        </p>
 
                     </CardHeader>
 

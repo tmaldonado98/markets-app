@@ -14,12 +14,24 @@
     border: 4px orange dotted;
 }
 
-.landing-h {
+header {
+    padding: 3rem;
     margin: auto;
     width: 80%;
     text-align: center;
-    padding: 3rem;
+
+}
+
+.landing-h {
     font-size: 42px;
+}
+
+header h2 {
+    /* margin: auto;
+    width: 80%;
+    text-align: center; */
+    padding: 8px;
+    font-size: 32px;
 }
 
 #first-box {
