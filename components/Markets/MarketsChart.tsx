@@ -1,4 +1,4 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading } from '@chakra-ui/react'
 import {
     Accordion,
     AccordionItem,
@@ -8,15 +8,20 @@ import {
     Box,
   } from '@chakra-ui/react'
 
+import {Chart, ChartGraphic} from './Chart';
+
+
 export default function MarketsChart(){
     const markets = [
-        [['Singapore', 'SGX'], ['Straits Times Index (STI)', 'FTSE Straits Times Index (FTSE STI)']], 
+        [['Singapore', 'SGX'], ['FTSE Straits Times Index (FTSE STI)']], 
         [['Shanghai Stock Exchange', 'SSE'], ['Shanghai Stock Exchange Composite', 'CSI 300 Index']], 
         [['Tokyo Stock Exchange', 'TSE'], ['Nikkei 225', 'TOPIX']], 
         [['New York Stock Exchange', 'NYSE'], ['S&P 500', 'Dow Jones Industrial Average (DJIA)']], 
         [['London Stock Exchange', 'LSE'], ['FTSE 100']], 
         [['Frankfurt Stock Exchange', 'FSE'], ['DAX']]
     ]
+
+///save tab indexes to sessionstorage. no context needed. 
 
     return (
         // <Accordion style={{maxWidth:'35%'}}>
@@ -51,7 +56,7 @@ export default function MarketsChart(){
             <div id="container-chart-tabs">
                 <main className="min-h-screen">
                     <section>
-                        <Tabs orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
+                        <Tabs isLazy orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
                             <TabList style={{border:'3px black solid'}}>
                             {/* style={{flexDirection:'column'}} */}
                             {markets.map(each => <div style={{padding:'8px', border:'1px black solid', display:'flex', flexDirection:'column' ,justifyContent:'center'}} key={markets.indexOf(each)}><p style={{fontWeight:'700', fontSize:'20px', textAlign:'center'}}>{each[0][0] + ' - ' + each[0][1]}</p>
@@ -64,8 +69,10 @@ export default function MarketsChart(){
                             <TabPanels>
                                 {markets.map(each => each[1].map((index) => (
                                         <TabPanel key={each[1].indexOf(index)}>
-                                            Chart data for {index}  
-                                            {/* <Chart key={index}  market={index}/> */}
+                                            <Heading as='h2'>
+                                                {index}
+                                            </Heading>   
+                                            <Chart key={index}  market={index}/>
                                         </TabPanel>
 
                                 ))

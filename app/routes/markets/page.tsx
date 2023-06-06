@@ -12,6 +12,7 @@ import MarketsChart from "../../../components/Markets/MarketsChart";
 
 export default function Stocks(){
 
+///save tab indexes to sessionstorage. no context needed. 
 
     return(
         <>
