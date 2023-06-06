@@ -14,7 +14,7 @@ import {Chart, ChartGraphic} from './Chart';
 export default function MarketsChart(){
     const markets = [
         [['Singapore', 'SGX'], ['FTSE Straits Times Index (FTSE STI)']], 
-        [['Shanghai Stock Exchange', 'SSE'], ['Shanghai Stock Exchange Composite', 'CSI 300 Index']], 
+        [['Shanghai Stock Exchange', 'SSE'], ['Shanghai Stock Exchange Composite Index', 'CSI 300 Index']], 
         [['Tokyo Stock Exchange', 'TSE'], ['Nikkei 225', 'TOPIX']], 
         [['New York Stock Exchange', 'NYSE'], ['S&P 500', 'Dow Jones Industrial Average (DJIA)']], 
         [['London Stock Exchange', 'LSE'], ['FTSE 100']], 

@@ -13,7 +13,7 @@ export function Chart(props:any) {
             const indexTicker = '^STI';
             return fetchMarketData(indexTicker)
         }
-        else if(props.market === 'Shanghai Stock Exchange Composite'){
+        else if(props.market === 'Shanghai Stock Exchange Composite Index'){
             const indexTicker = '000001.SS';
             return fetchMarketData(indexTicker)
         }
@@ -55,13 +55,15 @@ export function Chart(props:any) {
     function fetchMarketData(ticker:string): Promise<any>{
         return new Promise((resolve, reject) => {
             console.log(ticker);
-            axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}`,
-                {headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
 
-                }}            
-            )
+            axios.get('http://localhost:3001/routes/markets', {
+                // headers: {
+                //   'Access-Control-Allow-Origin': '*'
+                // },
+                params: {
+                  ticker: ticker,
+                },
+            })
             .then(response => {
                 console.log(response.data);
                 resolve(response.data)
@@ -70,6 +72,23 @@ export function Chart(props:any) {
                 console.error(error)
                 reject(error);
             })
+
+
+            // axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}`,
+            //     {headers: {
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Origin': '*'
+
+            //     }}            
+            // )
+            // .then(response => {
+            //     console.log(response.data);
+            //     resolve(response.data)
+            // })
+            // .catch(error => {
+            //     console.error(error)
+            //     reject(error);
+            // })
         })
 
     }
@@ -79,18 +98,34 @@ export function Chart(props:any) {
         refetchOnWindowFocus: false,
       })
 
+    interface ChartResult {
+      meta: string;
+      // Add other properties as needed
+    }
+
+    if(isLoading){
+        return <div><Loading/></div>
+    }
+
+    if(isError){
+        return <div style={{textAlign:'center'}}><p>Please Try Again In A Minute</p><Loading/></div>
+    }
+
 
     return (
         <section id='container-chart+fund'>
             <div>
-                {/* <p>Last Refreshed: {data?.['Meta Data']['3: Last Refreshed']}</p>
-                <p>Time Zone: {data?.['Meta Data']['7: Time Zone']}</p>
+                {/* <p>Last Refreshed: {data?.['Meta Data']['3: Last Refreshed']}</p> */}
+                <p>Time Zone: {data.chart.result[0].meta.exchangeTimezoneName}</p>
                 <p>
-                    {data?.['Meta Data']['2: Indicator']}
-                </p> */}
+                    Currency: {data.chart.result[0].meta.currency}
+                    {console.log(data)}
+                </p>
             </div>
             <div id="chart">
                 {/* {data?.['Meta Data']['1: Symbol']} */}
+                {/* {data.chart.result[0]} */}
+                
             </div>
 
             <div className="fundamentals-container">
