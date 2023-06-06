@@ -7,7 +7,7 @@ import './stocks.css';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Pinned from "../../../components/Pinned";
 import SearchStocks from "../../../components/Search";
-import MarketsChart from "../../../components/MarketsChart";
+import MarketsChart from "../../../components/Markets/MarketsChart";
 
 
 export default function Stocks(){
@@ -18,6 +18,11 @@ export default function Stocks(){
             <head>
                 <title>Global Markets</title>
             </head>
+            <aside>
+                <div className="ad">
+                    Ad section here
+                </div>
+            </aside>
             <nav>
                 <Tabs variant='soft-rounded' colorScheme='green'>
                     <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem'}}>
@@ -52,7 +57,11 @@ export default function Stocks(){
 
                 </Tabs>
             </nav>
-
+            <aside>
+                <div className="ad">
+                    Ad section here
+                </div>
+            </aside>
         </>
 
     )

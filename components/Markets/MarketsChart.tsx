@@ -65,6 +65,7 @@ export default function MarketsChart(){
                                 {markets.map(each => each[1].map((index) => (
                                         <TabPanel key={each[1].indexOf(index)}>
                                             Chart data for {index}  
+                                            {/* <Chart key={index}  market={index}/> */}
                                         </TabPanel>
 
                                 ))
@@ -82,17 +83,9 @@ export default function MarketsChart(){
                     </section>
 
                 </main>
-                <div id="fundamentals-container">
 
-                </div>
                 
             </div>
-            <aside>
-                <div className="ad">
-                    Ad section here
-                </div>
-            </aside>
-
         </>
     )
 }
