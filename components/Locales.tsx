@@ -21,7 +21,7 @@ export default function Locales ({currentTime} : MyComponentProps) {
     // const locales = ['America/New_York', 'Europe/London','Europe/Berlin', 'Asia/Singapore', 'Asia/Shanghai', 'Asia/Tokyo']
 
     const localesMap = new Map();
-    const localesPairs = [['Asia/Singapore', 'SGX'], ['Asia/Shanghai', 'SSE'], ['Asia/Tokyo', 'TSE'], ['America/New_York', 'NYSE'], ['Europe/London', 'LSE'], ['Europe/Berlin', 'FWB']]
+    const localesPairs = [['Asia/Singapore', 'SGX'], ['Asia/Shanghai', 'SSE'], ['Asia/Tokyo', 'Nikkei'], ['America/New_York', 'NYSE'], ['Europe/London', 'LSE'], ['Europe/Berlin', 'FWB']]
     localesPairs.forEach(([key, value]) => {
         localesMap.set(key, value);
 

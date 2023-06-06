@@ -14,7 +14,7 @@ export const Header:React.FC = () => {
                   </Tab>
 
                   <Tab style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/stocks' scroll={true}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/markets' scroll={true}>
                       Global Markets
                     </Link>
                   </Tab>
