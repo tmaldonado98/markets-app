@@ -12,7 +12,7 @@ app.use(cors());
 app.get('/routes/markets', (req, res) => {
   
   const ticker = req.query.ticker;  
-  axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}`)
+  axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?metrics=high?&interval=1d&range=1mo`)
   .then(response => {
         console.log(response.data);
         res.json(response.data)

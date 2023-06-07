@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Loading from '../Loading';
+import StockData from './StockData';
 
 export function Chart(props:any) {
 
@@ -9,7 +10,7 @@ export function Chart(props:any) {
 
     function handleChartRequest(){
 
-        if (props.market === 'Straits Times Index (STI)') {
+        if (props.market === `FTSE Straits Times Index (FTSE STI)`) {
             const indexTicker = '^STI';
             return fetchMarketData(indexTicker)
         }
@@ -119,13 +120,14 @@ export function Chart(props:any) {
                 <p>Time Zone: {data.chart.result[0].meta.exchangeTimezoneName}</p>
                 <p>
                     Currency: {data.chart.result[0].meta.currency}
-                    {console.log(data)}
+                    {/* {console.log(data)} */}
                 </p>
             </div>
             <div id="chart">
                 {/* {data?.['Meta Data']['1: Symbol']} */}
                 {/* {data.chart.result[0]} */}
-                
+                {/* <ChartGraphic dataPoints={data.chart.results[0]} /> */}
+                <StockData dataPoints={data.chart.result[0]} timestampArr={data.chart.result[0].timestamp} quoteArr={data.chart.result[0].indicators.quote}/>
             </div>
 
             <div className="fundamentals-container">
@@ -133,10 +135,4 @@ export function Chart(props:any) {
             </div>
         </section>
     )
-}
-
-export function ChartGraphic(){
-    // return (
-
-    // )
 }

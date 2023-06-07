@@ -8,8 +8,8 @@ import {
     Box,
   } from '@chakra-ui/react'
 
-import {Chart, ChartGraphic} from './Chart';
-
+import {Chart} from './Chart';
+import '../../styles/globals.css';
 
 export default function MarketsChart(){
     const markets = [
@@ -24,34 +24,6 @@ export default function MarketsChart(){
 ///save tab indexes to sessionstorage. no context needed. 
 
     return (
-        // <Accordion style={{maxWidth:'35%'}}>
-        //                     {markets.map(each => {
-        //                         return (
-        //                             <AccordionItem style={{display:'flex', flexWrap:'wrap'}} key={markets.indexOf(each)}>
-        //                                 <h2>
-        //                                     <AccordionButton>
-        //                                         {/* as="span" */}
-        //                                         <Box  flex='1' width='100%' textAlign='left'>
-        //                                         {each[0][0] + ' - ' + each[0][1]}
-        //                                         </Box>
-        //                                         <AccordionIcon />
-        //                                     </AccordionButton>
-        //                                 </h2>
-        //                                 <AccordionPanel pb={4}>
-        //                                     {/* {each[1].map(index => {
-        //                                         return (
-        //                                             <Tabs key={each[1].indexOf(index)}>
-        //                                                 <TabList>
-        //                                                     <Tab>{index}</Tab>
-        //                                                 </TabList>
-        //                                             </Tabs>
-        //                                         )
-        //                                     })} */}
-        //                                 </AccordionPanel>
-        //                             </AccordionItem>
-        //                         )
-        //                     })}
-        //                 </Accordion>
         <>
             <div id="container-chart-tabs">
                 <main className="min-h-screen">
@@ -69,7 +41,7 @@ export default function MarketsChart(){
                             <TabPanels>
                                 {markets.map(each => each[1].map((index) => (
                                         <TabPanel key={each[1].indexOf(index)}>
-                                            <Heading as='h2'>
+                                            <Heading as='h2' className='georgia'>
                                                 {index}
                                             </Heading>   
                                             <Chart key={index}  market={index}/>
