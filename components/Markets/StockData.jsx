@@ -48,18 +48,39 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 				// 	{ x: new Date(2017, 11), y: 38400 }
 				// ],
 
-				dataPoints: [
-					
-					loopedDataPoints[0].map(each => (
-						{x: new Date(each*1000).getDate(), y: loopedDataPoints[1].highs[each]}
-					))
-					// props.dataPoints.map(each => (
-					// 	{x: new Date(each.timestamp*1000).getDate(), y: each.indicators.quote[0].high[each.indexOf(each.timestamp)]}
-					// ))
-					//return variable here holding looped object
+				dataPoints: [					
+					// {x: loopedDataPoints[0].map(date => new Date(date*1000).getDate()), y: loopedDataPoints[1].highs.map(high => high)}
 				]
 			}]
 		}
+
+		if (props.dataPoints.meta.currency === 'SGD') {
+			options.axisY.prefix = '$'
+		}
+		else if (props.dataPoints.meta.currency === 'CNY') {
+			options.axisY.prefix = '¥'
+		}
+		else if (props.dataPoints.meta.currency === 'USD') {
+			options.axisY.prefix = '$'
+		}
+		else if (props.dataPoints.meta.currency === 'GBP') {
+			options.axisY.prefix = '£'
+		}
+		else if (props.dataPoints.meta.currency === 'EUR') {
+			options.axisY.prefix = '€'
+		}
+		else if (props.dataPoints.meta.currency === 'JPY') {
+			options.axisY.prefix = '¥'
+		}
+		
+		for(const each of loopedDataPoints[0]){
+			options.data[0].dataPoints.push({x: each})
+		}
+
+		for(let i=0; i<options.data[0].dataPoints.length; i++){
+			options.data[0].dataPoints[i].y = loopedDataPoints[1].highs[i]
+		}
+
 		console.log(options.data[0].dataPoints)
 
 		return (

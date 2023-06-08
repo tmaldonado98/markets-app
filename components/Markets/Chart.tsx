@@ -18,38 +18,38 @@ export function Chart(props:any) {
             const indexTicker = '000001.SS';
             return fetchMarketData(indexTicker)
         }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
-        // else if(props.market === ''){
-        //     const indexTicker = '^';
-        //     return fetchMarketData(indexTicker)
-        // }
+        else if(props.market === 'CSI 300 Index'){
+            const indexTicker = '000300.SS';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'Nikkei 225'){
+            const indexTicker = '^N225';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'TOPIX'){
+            const indexTicker = 'TPX';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'S&P 500'){
+            const indexTicker = '^SPX';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'Nasdaq Composite'){
+            const indexTicker = '^IXIC';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'Dow Jones Industrial Average (DJIA)'){
+            const indexTicker = '^DJI';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'FTSE 100'){
+            const indexTicker = '^FTSE';
+            return fetchMarketData(indexTicker)
+        }
+        else if(props.market === 'DAX'){
+            const indexTicker = '^GDAXI';
+            return fetchMarketData(indexTicker)
+        }
     }
 
 
@@ -58,9 +58,6 @@ export function Chart(props:any) {
             console.log(ticker);
 
             axios.get('http://localhost:3001/routes/markets', {
-                // headers: {
-                //   'Access-Control-Allow-Origin': '*'
-                // },
                 params: {
                   ticker: ticker,
                 },
@@ -74,22 +71,6 @@ export function Chart(props:any) {
                 reject(error);
             })
 
-
-            // axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}`,
-            //     {headers: {
-            //         'Content-Type': 'application/json',
-            //         'Access-Control-Allow-Origin': '*'
-
-            //     }}            
-            // )
-            // .then(response => {
-            //     console.log(response.data);
-            //     resolve(response.data)
-            // })
-            // .catch(error => {
-            //     console.error(error)
-            //     reject(error);
-            // })
         })
 
     }
@@ -117,9 +98,9 @@ export function Chart(props:any) {
         <section id='container-chart+fund'>
             <div>
                 {/* <p>Last Refreshed: {data?.['Meta Data']['3: Last Refreshed']}</p> */}
-                <p>Time Zone: {data.chart.result[0].meta.exchangeTimezoneName}</p>
+                {/* <p>Time Zone: {data.chart.result[0].meta.exchangeTimezoneName}</p> */}
                 <p>
-                    Currency: {data.chart.result[0].meta.currency}
+                    {/* Currency: {data.chart.result[0].meta.currency} */}
                     {/* {console.log(data)} */}
                 </p>
             </div>
@@ -127,7 +108,7 @@ export function Chart(props:any) {
                 {/* {data?.['Meta Data']['1: Symbol']} */}
                 {/* {data.chart.result[0]} */}
                 {/* <ChartGraphic dataPoints={data.chart.results[0]} /> */}
-                <StockData dataPoints={data.chart.result[0]} timestampArr={data.chart.result[0].timestamp} quoteArr={data.chart.result[0].indicators.quote}/>
+                <StockData dataPoints={data.chart.result[0]}/>
             </div>
 
             <div className="fundamentals-container">
