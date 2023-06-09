@@ -12,7 +12,9 @@ app.use(cors());
 app.get('/routes/markets', (req, res) => {
   
   const ticker = req.query.ticker;  
-  axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?metrics=high?&interval=1d&range=1mo`)
+  const range = req.query.range;
+  // console.log(ticker, range)
+  axios.get(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?&interval=1d&range=${range}`)
   .then(response => {
         // console.log(response.data);
         res.json(response.data)
@@ -20,10 +22,14 @@ app.get('/routes/markets', (req, res) => {
   .catch(error => console.error('An error occurred: ' + error))
 });
 
+
+
+//////////
+
 app.get('/routes/markets/fundamentals', (req, res) => {
   const ticker = req.query.ticker;  
   const modules = req.query.modules;  
-  console.log(modules)
+  // console.log(modules)
   axios.get(`https://query1.finance.yahoo.com/v11/finance/quoteSummary/${ticker}?modules=${modules}`,
   // {params: {
   //     modules: 'defaultKeyStatistics,financialData',

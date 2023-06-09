@@ -2,7 +2,10 @@ import React, { createContext, useState, ReactNode } from 'react';
 
 type MyContextValue = {
   tabIndex: number;
-  changeTabIndex:any
+  changeTabIndex:any;
+  range:string;
+  setRange:any;
+  changeRange:any;
 };
 
 // Create the context
@@ -19,9 +22,18 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setTabIndex(newIndex);
   }
 
+  const [range, setRange] = useState('1mo');
+
+  function changeRange (string:string){
+    setRange(string);
+  }
+
   const contextValue: MyContextValue = {
     tabIndex,
-    changeTabIndex
+    changeTabIndex,
+    range,
+    setRange,
+    changeRange
   };
 
   return (

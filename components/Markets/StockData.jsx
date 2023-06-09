@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
+import { MyContext } from '../Context';
+import {useContext} from 'react';
 
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
-// class StockData extends Component {
-// 	render() {
 
-	export default function StockData(props){	
+export default function StockData(props){	
+
 		const curr = props.dataPoints.meta.currency;	
-		
-		const loopedDataPoints = [[], {highs: []}];
+		const range = props.dataPoints.meta.range;
 
+		const loopedDataPoints = [[], {highs: []}];
 		props.dataPoints.timestamp.map(each=> (loopedDataPoints[0].push(each)))
+
+		// add conditional for different quote display option
 		props.dataPoints.indicators.quote[0].high.map(each=> loopedDataPoints[1].highs.push(each))
 
 
-		console.log(loopedDataPoints)
+		// console.log(loopedDataPoints)
 
 		const options = {
 			animationEnabled: true,
@@ -89,7 +92,7 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 			options.data[0].dataPoints[i].y = loopedDataPoints[1].highs[i]
 		}
 
-		console.log(options.data[0].dataPoints)
+		// console.log(options.data[0].dataPoints)
 
 		return (
 		<div style={{borderBottom:'black 5px solid'}}>

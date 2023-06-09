@@ -1,10 +1,10 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Loading from '../Loading';
 import StockData from './StockData';
 import Fundamentals from './Fundamentals';
-// import { Heading } from '@chakra-ui/react';
+import { MyContext } from '../Context';
 import {
     Menu,
     MenuButton,
@@ -18,12 +18,15 @@ import {
     // ChevronDownIcon
   } from '@chakra-ui/react'
 
+  import {IoIosArrowDown} from 'react-icons/io';
+
 export function Chart(props:any) {
+    const {range, setRange} = useContext(MyContext)!;
 
     // const [currentChart, setCurrentChart] = useState<any>(props.market)
 
     function handleChartRequest(){
-
+        // console.log(range)
         if (props.market === `FTSE Straits Times Index (FTSE STI)`) {
             const indexTicker = '^STI';
             return fetchMarketData(indexTicker)
@@ -66,14 +69,18 @@ export function Chart(props:any) {
         }
     }
 
+    // useEffect(() => {
+    //     console.log(range.toLowerCase())
+    // }, [range])
 
     function fetchMarketData(ticker:string): Promise<any>{
+        // setRange(rangeStr)
         return new Promise((resolve, reject) => {
-            console.log(ticker);
-
+            // console.log(ticker, range.toLowerCase());
             axios.get('http://localhost:3001/routes/markets', {
                 params: {
                   ticker: ticker,
+                  range: range.toLowerCase(),
                 },
             })
             .then(response => {
@@ -89,15 +96,25 @@ export function Chart(props:any) {
 
     }
 
+    // const [range, setRange] = useState('1mo')
+    const [metric, setMetric] = useState('Highs')
     
-    const { data, isLoading, isError, error } = useQuery([props.market], handleChartRequest, {
+    const { data, isLoading, isError, error, refetch } = useQuery([props.market], handleChartRequest, {
         refetchOnWindowFocus: false,
       })
 
-    interface ChartResult {
-      meta: string;
-      // Add other properties as needed
+    function handleRange(string:string){
+        setRange(string);
+        setTimeout(() => {
+            refetch();
+            
+        }, 1000);
+
     }
+    // interface ChartResult {
+    //   meta: string;
+    //   // Add other properties as needed
+    // }
 
     if(isLoading){
         return <div><Loading/></div>
@@ -107,38 +124,37 @@ export function Chart(props:any) {
         return <div style={{textAlign:'center'}}><p>Please Try Again In A Minute</p><Loading/></div>
     }
 
+    const staticFundamentals = data.chart.result[0];
 
     return (
         <section id='container-chart+fund' style={{marginTop: '15px'}}>
-            <div id="chart-options" style={{marginBottom:'8px'}}>
-                <Menu isLazy>
-                    {/* rightIcon={'>'} */}
-                    <MenuButton as={Button} 
-                        _focus={{ boxShadow: 'outline' }}
-                        _hover={{ bg: 'gray.400' }}
+            <div id="chart-options" style={{marginBottom:'8px', display:'flex', gap:'1rem'}}>
+                <Menu colorScheme='blue' isLazy>
+                    <MenuButton rightIcon={<IoIosArrowDown/>} variant='outline' as={Button} 
+                        _focus={{ boxShadow: 'filled' }}
+                        _hover={{ bg: 'blue.300' }}
                     >
-                        Range
+                        {range}
                     </MenuButton>
                     <MenuList>
-                        <MenuOptionGroup defaultValue='asc' type='radio'>
-                            <MenuItemOption value='asc' _hover={{ bg: 'gray.200' }}>1D</MenuItemOption ><MenuDivider/>
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>5D</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>10D</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>1mo</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>3mo</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>6mo</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>1y</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>YTD</MenuItemOption><MenuDivider />
-                            <MenuItemOption _hover={{ bg: 'gray.200' }}>Max.</MenuItemOption>
+                        <MenuOptionGroup defaultValue={range} type='radio'>
+                            <MenuItemOption value='5D' onClick={() => handleRange('5D')} _hover={{ bg: 'blue.200' }}>5D</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='10D' onClick={() => handleRange('10D')} _hover={{ bg: 'blue.200' }}>10D</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='1mo' onClick={() => handleRange('1mo')} _hover={{ bg: 'blue.200' }}>1mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='3mo' onClick={() => handleRange('3mo')} _hover={{ bg: 'blue.200' }}>3mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='6mo' onClick={() => handleRange('6mo')} _hover={{ bg: 'blue.200' }}>6mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='1y' onClick={() => handleRange('1y')} _hover={{ bg: 'blue.200' }}>1y</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='YTD' onClick={() => handleRange('YTD')} _hover={{ bg: 'blue.200' }}>YTD</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='Max' onClick={() => handleRange('Max')} _hover={{ bg: 'blue.200' }}>Max</MenuItemOption>
                         </MenuOptionGroup>
                     </MenuList>
                 </Menu>
 
-                <Menu isLazy>
+                <Menu colorScheme='blue' isLazy>
                 {/* rightIcon={'>'} */}
-                <MenuButton as={Button} 
-                    _focus={{ boxShadow: 'outline' }}
-                    _hover={{ bg: 'gray.400' }}
+                <MenuButton rightIcon={<IoIosArrowDown/>} variant='outline' as={Button} 
+                    _focus={{ boxShadow: 'filled' }}
+                    _hover={{ bg: 'blue.300' }}
                 >
                     Display
                 </MenuButton>
@@ -157,7 +173,7 @@ export function Chart(props:any) {
                 <StockData dataPoints={data.chart.result[0]} />
             <div className="fundamentals-container" style={{padding: '20px'}}>
                 <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Index Fundamentals</h2>
-                <Fundamentals fundamentals={data.chart.result[0]}/>
+                <Fundamentals fundamentals={staticFundamentals}/>
             </div>
         </section>
     )
