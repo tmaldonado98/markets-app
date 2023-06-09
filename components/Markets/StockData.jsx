@@ -11,12 +11,30 @@ export default function StockData(props){
 		const curr = props.dataPoints.meta.currency;	
 		const range = props.dataPoints.meta.range;
 
-		const loopedDataPoints = [[], {highs: []}];
+		const loopedDataPoints = [[], {param: []}];
 		props.dataPoints.timestamp.map(each=> (loopedDataPoints[0].push(each)))
-
-		// add conditional for different quote display option
-		props.dataPoints.indicators.quote[0].high.map(each=> loopedDataPoints[1].highs.push(each))
-
+		
+		let title = ''
+		if(props.param === 'Highs'){
+			props.dataPoints.indicators.quote[0].high.map(each=> loopedDataPoints[1].param.push(each))
+			title = props.param + " (in "+ curr +")"
+		}
+		else if(props.param === 'Lows'){
+			props.dataPoints.indicators.quote[0].low.map(each=> loopedDataPoints[1].param.push(each))
+			title = props.param + " (in "+ curr +")"
+		}
+		else if(props.param === 'Open'){
+			props.dataPoints.indicators.quote[0].open.map(each=> loopedDataPoints[1].param.push(each))
+			title = props.param + " (in "+ curr +")"
+		}
+		else if(props.param === 'Close'){
+			props.dataPoints.indicators.quote[0].close.map(each=> loopedDataPoints[1].param.push(each))
+			title = props.param + " (in "+ curr +")"
+		}
+		else if(props.param === 'Volume'){
+			props.dataPoints.indicators.quote[0].volume.map(each=> loopedDataPoints[1].param.push(each))
+			title = props.param
+		}
 
 		// console.log(loopedDataPoints)
 
@@ -29,7 +47,7 @@ export default function StockData(props){
 				// valueFormatString: "DD"
 			},
 			axisY: {
-				title: "Highs (in "+ curr +")",
+				title: title,
 				// prefix: "$"
 			},
 			data: [{
@@ -82,6 +100,11 @@ export default function StockData(props){
 			options.axisY.prefix = '¥'
 			options.data[0].yValueFormatString = "¥#,###"
 		}
+
+		if(props.param === 'Volume'){
+			options.data[0].yValueFormatString = "#,###"
+			options.axisY.prefix = ''
+		}
 		
 		for(const each of loopedDataPoints[0]){
 			options.data[0].dataPoints.push({x: each*1000})
@@ -89,7 +112,7 @@ export default function StockData(props){
 		}
 
 		for(let i=0; i<options.data[0].dataPoints.length; i++){
-			options.data[0].dataPoints[i].y = loopedDataPoints[1].highs[i]
+			options.data[0].dataPoints[i].y = loopedDataPoints[1].param[i]
 		}
 
 		// console.log(options.data[0].dataPoints)

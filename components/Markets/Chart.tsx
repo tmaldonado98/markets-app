@@ -21,7 +21,7 @@ import {
   import {IoIosArrowDown} from 'react-icons/io';
 
 export function Chart(props:any) {
-    const {range, setRange} = useContext(MyContext)!;
+    const {range, setRange, param, setParam} = useContext(MyContext)!;
 
     // const [currentChart, setCurrentChart] = useState<any>(props.market)
 
@@ -96,11 +96,10 @@ export function Chart(props:any) {
 
     }
 
-    // const [range, setRange] = useState('1mo')
-    const [metric, setMetric] = useState('Highs')
     
     const { data, isLoading, isError, error, refetch } = useQuery([props.market], handleChartRequest, {
         refetchOnWindowFocus: false,
+        enabled: false,
       })
 
     function handleRange(string:string){
@@ -109,8 +108,16 @@ export function Chart(props:any) {
             refetch();
             
         }, 1000);
-
     }
+
+    // function handleParam(string:string){
+    //     setParam(string);
+    //     setTimeout(() => {
+    //         refetch();
+            
+    //     }, 1000);
+    // }
+
     // interface ChartResult {
     //   meta: string;
     //   // Add other properties as needed
@@ -138,12 +145,12 @@ export function Chart(props:any) {
                     </MenuButton>
                     <MenuList>
                         <MenuOptionGroup defaultValue={range} type='radio'>
-                            <MenuItemOption value='5D' onClick={() => handleRange('5D')} _hover={{ bg: 'blue.200' }}>5D</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='5D' onClick={() => handleRange('5D')}   _hover={{ bg: 'blue.200' }}>5D</MenuItemOption><MenuDivider />
                             <MenuItemOption value='10D' onClick={() => handleRange('10D')} _hover={{ bg: 'blue.200' }}>10D</MenuItemOption><MenuDivider />
                             <MenuItemOption value='1mo' onClick={() => handleRange('1mo')} _hover={{ bg: 'blue.200' }}>1mo</MenuItemOption><MenuDivider />
                             <MenuItemOption value='3mo' onClick={() => handleRange('3mo')} _hover={{ bg: 'blue.200' }}>3mo</MenuItemOption><MenuDivider />
                             <MenuItemOption value='6mo' onClick={() => handleRange('6mo')} _hover={{ bg: 'blue.200' }}>6mo</MenuItemOption><MenuDivider />
-                            <MenuItemOption value='1y' onClick={() => handleRange('1y')} _hover={{ bg: 'blue.200' }}>1y</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='1y' onClick={() => handleRange('1y')}   _hover={{ bg: 'blue.200' }}>1y</MenuItemOption><MenuDivider />
                             <MenuItemOption value='YTD' onClick={() => handleRange('YTD')} _hover={{ bg: 'blue.200' }}>YTD</MenuItemOption><MenuDivider />
                             <MenuItemOption value='Max' onClick={() => handleRange('Max')} _hover={{ bg: 'blue.200' }}>Max</MenuItemOption>
                         </MenuOptionGroup>
@@ -151,26 +158,26 @@ export function Chart(props:any) {
                 </Menu>
 
                 <Menu colorScheme='blue' isLazy>
-                {/* rightIcon={'>'} */}
-                <MenuButton rightIcon={<IoIosArrowDown/>} variant='outline' as={Button} 
-                    _focus={{ boxShadow: 'filled' }}
-                    _hover={{ bg: 'blue.300' }}
-                >
-                    Display
-                </MenuButton>
-                <MenuList>
-                    <MenuOptionGroup defaultValue='Highs' type='radio'>
-                        <MenuItemOption value='Highs' _hover={{ bg: 'gray.200' }}>Highs</MenuItemOption ><MenuDivider/>
-                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Lows</MenuItemOption><MenuDivider />
-                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Open</MenuItemOption><MenuDivider />
-                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Close</MenuItemOption><MenuDivider />
-                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Volume</MenuItemOption>
-                    </MenuOptionGroup>
-                </MenuList>
+                    <MenuButton rightIcon={<IoIosArrowDown/>} variant='outline' as={Button} 
+                        _focus={{ boxShadow: 'filled' }}
+                        _hover={{ bg: 'blue.300' }}
+                    >
+                        {param}
+                    </MenuButton>
+                    <MenuList>
+                        <MenuOptionGroup defaultValue={param} type='radio'>
+                            <MenuItemOption value='Highs' onClick={() => setParam('Highs')} _hover={{ bg: 'blue.200' }}>Highs</MenuItemOption ><MenuDivider/>
+                            <MenuItemOption value='Lows' onClick={() => setParam('Lows')} _hover={{ bg: 'blue.200' }}>Lows</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='Open' onClick={() => setParam('Open')} _hover={{ bg: 'blue.200' }}>Open</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='Close' onClick={() => setParam('Close')} _hover={{ bg: 'blue.200' }}>Close</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='Volume' onClick={() => setParam('Volume')} _hover={{ bg: 'blue.200' }}>Volume</MenuItemOption>
+                        </MenuOptionGroup>
+                    </MenuList>
                 </Menu>
             </div>
-            {/* props to pass: display={displayState} range={rangeState} */}
-                <StockData dataPoints={data.chart.result[0]} />
+
+            {/* sending param as props to provoke re-render */}
+                <StockData dataPoints={data.chart.result[0]} param={param}/>
             <div className="fundamentals-container" style={{padding: '20px'}}>
                 <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Index Fundamentals</h2>
                 <Fundamentals fundamentals={staticFundamentals}/>

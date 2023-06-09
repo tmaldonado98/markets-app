@@ -6,6 +6,10 @@ type MyContextValue = {
   range:string;
   setRange:any;
   changeRange:any;
+  param:string;
+  setParam:any;
+  changeParam:any;
+
 };
 
 // Create the context
@@ -28,12 +32,21 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setRange(string);
   }
 
+  const [param, setParam] = useState('High');
+
+  function changeParam (string:string){
+    setParam(string);
+  }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
     range,
     setRange,
-    changeRange
+    changeRange,
+    param,
+    setParam,
+    changeParam
   };
 
   return (

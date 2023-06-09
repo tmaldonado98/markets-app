@@ -46,6 +46,7 @@ export default function Fundamentals(props:any){
     const {data, isLoading, isError, error} = useQuery(['fundamentalsData', props.fundamentals.meta.symbol ], 
         () => fetchFundamentals(props.fundamentals.meta.symbol), {
         refetchOnWindowFocus: false,
+        enabled: false,
       })
 
 
@@ -110,7 +111,7 @@ export default function Fundamentals(props:any){
                         color='white'
                         mt='-10'
                         ml='-5'
-                        w='20'
+                        w='30'
                         >
                         {currSym + Number(priceSection.regularMarketPrice.raw.toFixed(2)).toLocaleString('en-US')}
                         </SliderMark>   
