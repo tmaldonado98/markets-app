@@ -3,6 +3,20 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Loading from '../Loading';
 import StockData from './StockData';
+import Fundamentals from './Fundamentals';
+// import { Heading } from '@chakra-ui/react';
+import {
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
+    Button,
+    // ChevronDownIcon
+  } from '@chakra-ui/react'
 
 export function Chart(props:any) {
 
@@ -95,24 +109,55 @@ export function Chart(props:any) {
 
 
     return (
-        <section id='container-chart+fund'>
-            <div>
-                {/* <p>Last Refreshed: {data?.['Meta Data']['3: Last Refreshed']}</p> */}
-                {/* <p>Time Zone: {data.chart.result[0].meta.exchangeTimezoneName}</p> */}
-                <p>
-                    {/* Currency: {data.chart.result[0].meta.currency} */}
-                    {/* {console.log(data)} */}
-                </p>
-            </div>
-            <div id="chart">
-                {/* {data?.['Meta Data']['1: Symbol']} */}
-                {/* {data.chart.result[0]} */}
-                {/* <ChartGraphic dataPoints={data.chart.results[0]} /> */}
-                <StockData dataPoints={data.chart.result[0]}/>
-            </div>
+        <section id='container-chart+fund' style={{marginTop: '15px'}}>
+            <div id="chart-options" style={{marginBottom:'8px'}}>
+                <Menu isLazy>
+                    {/* rightIcon={'>'} */}
+                    <MenuButton as={Button} 
+                        _focus={{ boxShadow: 'outline' }}
+                        _hover={{ bg: 'gray.400' }}
+                    >
+                        Range
+                    </MenuButton>
+                    <MenuList>
+                        <MenuOptionGroup defaultValue='asc' type='radio'>
+                            <MenuItemOption value='asc' _hover={{ bg: 'gray.200' }}>1D</MenuItemOption ><MenuDivider/>
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>5D</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>10D</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>1mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>3mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>6mo</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>1y</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>YTD</MenuItemOption><MenuDivider />
+                            <MenuItemOption _hover={{ bg: 'gray.200' }}>Max.</MenuItemOption>
+                        </MenuOptionGroup>
+                    </MenuList>
+                </Menu>
 
-            <div className="fundamentals-container">
-
+                <Menu isLazy>
+                {/* rightIcon={'>'} */}
+                <MenuButton as={Button} 
+                    _focus={{ boxShadow: 'outline' }}
+                    _hover={{ bg: 'gray.400' }}
+                >
+                    Display
+                </MenuButton>
+                <MenuList>
+                    <MenuOptionGroup defaultValue='Highs' type='radio'>
+                        <MenuItemOption value='Highs' _hover={{ bg: 'gray.200' }}>Highs</MenuItemOption ><MenuDivider/>
+                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Lows</MenuItemOption><MenuDivider />
+                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Open</MenuItemOption><MenuDivider />
+                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Close</MenuItemOption><MenuDivider />
+                        <MenuItemOption _hover={{ bg: 'gray.200' }}>Volume</MenuItemOption>
+                    </MenuOptionGroup>
+                </MenuList>
+                </Menu>
+            </div>
+            {/* props to pass: display={displayState} range={rangeState} */}
+                <StockData dataPoints={data.chart.result[0]} />
+            <div className="fundamentals-container" style={{padding: '20px'}}>
+                <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Index Fundamentals</h2>
+                <Fundamentals fundamentals={data.chart.result[0]}/>
             </div>
         </section>
     )

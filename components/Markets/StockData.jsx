@@ -23,16 +23,18 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 				text: new Date(props.dataPoints.timestamp[0]*1000).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}) + ' - ' + new Date(props.dataPoints.timestamp[props.dataPoints.timestamp.length-1]*1000).toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
 			},
 			axisX: {
-				valueFormatString: "MMM"
+				// valueFormatString: "DD"
 			},
 			axisY: {
 				title: "Highs (in "+ curr +")",
 				// prefix: "$"
 			},
 			data: [{
-				yValueFormatString: "#,###",
-				xValueFormatString: "MMMM",
-				type: "spline",
+				// yValueFormatString: "#,###",
+				xValueType: "dateTime",
+				// xValueFormatString: "DD",
+				// type: "spline",
+				type: "splineArea",
 				// dataPoints: [
 				// 	{ x: new Date(2017, 0), y: 25060 },
 				// 	{ x: new Date(2017, 1), y: 27980 },
@@ -48,33 +50,39 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 				// 	{ x: new Date(2017, 11), y: 38400 }
 				// ],
 
-				dataPoints: [					
-					// {x: loopedDataPoints[0].map(date => new Date(date*1000).getDate()), y: loopedDataPoints[1].highs.map(high => high)}
-				]
+				dataPoints: []
 			}]
 		}
 
 		if (props.dataPoints.meta.currency === 'SGD') {
 			options.axisY.prefix = '$'
+			options.data[0].yValueFormatString = "$#,###"
 		}
 		else if (props.dataPoints.meta.currency === 'CNY') {
 			options.axisY.prefix = '¥'
+			options.data[0].yValueFormatString = "¥#,###"
+
 		}
 		else if (props.dataPoints.meta.currency === 'USD') {
 			options.axisY.prefix = '$'
+			options.data[0].yValueFormatString = "$#,###"
 		}
 		else if (props.dataPoints.meta.currency === 'GBP') {
 			options.axisY.prefix = '£'
+			options.data[0].yValueFormatString = "£#,###"
 		}
 		else if (props.dataPoints.meta.currency === 'EUR') {
 			options.axisY.prefix = '€'
+			options.data[0].yValueFormatString = "€#,###"
 		}
 		else if (props.dataPoints.meta.currency === 'JPY') {
 			options.axisY.prefix = '¥'
+			options.data[0].yValueFormatString = "¥#,###"
 		}
 		
 		for(const each of loopedDataPoints[0]){
-			options.data[0].dataPoints.push({x: each})
+			options.data[0].dataPoints.push({x: each*1000})
+			
 		}
 
 		for(let i=0; i<options.data[0].dataPoints.length; i++){
@@ -84,7 +92,7 @@ const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 		console.log(options.data[0].dataPoints)
 
 		return (
-		<div>
+		<div style={{borderBottom:'black 5px solid'}}>
 			<CanvasJSChart options = {options}
 				/* onRef={ref => this.chart = ref} */
 			/>

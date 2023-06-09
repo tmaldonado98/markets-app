@@ -26,7 +26,7 @@ export default function Stocks(){
             </aside>
             <nav>
                 <Tabs variant='soft-rounded' colorScheme='green'>
-                    <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem'}}>
+                    <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem', fontFamily:'Georgia'}} className='georgia'>
                         <Tab>
                             Global Stock Markets
                         </Tab>
