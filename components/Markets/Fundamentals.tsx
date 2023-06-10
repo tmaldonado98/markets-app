@@ -46,7 +46,7 @@ export default function Fundamentals(props:any){
     const {data, isLoading, isError, error} = useQuery(['fundamentalsData', props.fundamentals.meta.symbol ], 
         () => fetchFundamentals(props.fundamentals.meta.symbol), {
         refetchOnWindowFocus: false,
-        enabled: false,
+        staleTime: 6 * 60 * 60 * 1000,
       })
 
 

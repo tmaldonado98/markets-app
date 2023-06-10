@@ -99,24 +99,22 @@ export function Chart(props:any) {
     
     const { data, isLoading, isError, error, refetch } = useQuery([props.market], handleChartRequest, {
         refetchOnWindowFocus: false,
-        enabled: false,
+        staleTime: 6 * 60 * 60 * 1000,
       })
 
     function handleRange(string:string){
-        setRange(string);
-        setTimeout(() => {
-            refetch();
-            
-        }, 1000);
-    }
+        if (range === string) {
+            return false;
+        } 
+        else{
+            setRange(string);
+            setTimeout(() => {
+                refetch();
+                
+            }, 1000);
 
-    // function handleParam(string:string){
-    //     setParam(string);
-    //     setTimeout(() => {
-    //         refetch();
-            
-    //     }, 1000);
-    // }
+        }
+    }
 
     // interface ChartResult {
     //   meta: string;
