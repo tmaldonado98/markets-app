@@ -22,6 +22,7 @@ export default function Page() {
       left:0,
       behavior: 'smooth'
     })
+    
   }, [])
 
     const dateObj = new Date();
