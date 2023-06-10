@@ -1,11 +1,13 @@
 'use client';
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useContext } from "react";
 import { Heading, Text, Button, Card, CardHeader, CardBody, CardFooter, SimpleGrid, SimpleGridProps } from '@chakra-ui/react'
 import { Link } from '@chakra-ui/next-js';
 import { GetServerSideProps } from 'next';
 import Clock from 'react-clock';
 import 'react-clock/dist/Clock.css';
 import Loading from "./Loading";
+import { useRouter } from 'next/navigation';
+import { MyContext } from "./Context";
 
 //initial time as rendered on the server to avoid rehydratione errors
 
@@ -17,11 +19,11 @@ interface MyComponentProps {
 
 
 export default function Locales ({currentTime} : MyComponentProps) {
-
-    // const locales = ['America/New_York', 'Europe/London','Europe/Berlin', 'Asia/Singapore', 'Asia/Shanghai', 'Asia/Tokyo']
-
+    const router = useRouter();
+  const {tabIndex, changeTabIndex, indexIndex, changeIndexIndex} = useContext(MyContext)!;
+    
     const localesMap = new Map();
-    const localesPairs = [['Asia/Singapore', 'SGX'], ['Asia/Shanghai', 'SSE'], ['Asia/Tokyo', 'Nikkei'], ['America/New_York', 'NYSE'], ['Europe/London', 'LSE'], ['Europe/Berlin', 'FWB']]
+    const localesPairs = [['Asia/Singapore', 'SGX'], ['Asia/Shanghai', 'SSE'], ['Asia/Tokyo', 'TSE'], ['America/New_York', 'NYSE'], ['Europe/London', 'LSE'], ['Europe/Berlin', 'FWB']]
     localesPairs.forEach(([key, value]) => {
         localesMap.set(key, value);
 
@@ -51,6 +53,62 @@ export default function Locales ({currentTime} : MyComponentProps) {
 
       }, [])
 
+    function redirect(locale:any){
+        if(locale === 'SGX'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(0)
+            sessionStorage.setItem('indexIndex', '0')
+
+            router.push('/routes/markets')
+        }
+        else if(locale === 'SSE'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(1)
+            sessionStorage.setItem('indexIndex', '1')
+
+            router.push('/routes/markets')
+        }
+        else if(locale === 'TSE'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(3)
+            sessionStorage.setItem('indexIndex', '3')
+
+            router.push('/routes/markets')
+        }
+        else if(locale === 'NYSE'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(5)
+            sessionStorage.setItem('indexIndex', '5')
+
+            router.push('/routes/markets')
+        }
+        else if(locale === 'LSE'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(8)
+            sessionStorage.setItem('indexIndex', '8')
+
+            router.push('/routes/markets')
+        }
+        else if(locale === 'FSE'){
+            changeTabIndex(1)
+            sessionStorage.setItem('tabIndex', '1')
+
+            changeIndexIndex(9)
+            sessionStorage.setItem('indexIndex', '9')
+
+            router.push('/routes/markets')
+        }
+    }
 
 
     return (
@@ -74,12 +132,9 @@ export default function Locales ({currentTime} : MyComponentProps) {
                     </CardHeader>
 
                     <CardHeader style={{padding:'0'}}>
-                        <Text>
-                            <Link title={each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ') + " Stock Exchange"} href='/' color='blue.600' _hover={{ color: 'blue.900' }}>
+                        <Text onClick={() => redirect(each[1])} title={each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ') + " Stock Exchange"} color='blue.600' _hover={{ color: 'blue.900' }} style={{cursor:'pointer', fontSize:'18px', width:'fit-content', margin:'auto'}}>
                                 <b>{each[1]}</b>
-                            </Link>
                         </Text>
-                        {/* Make them into Link components with props to mount appropriate market tab upon routing */}
                     </CardHeader>
                     
 

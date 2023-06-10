@@ -1,8 +1,14 @@
 import React, { createContext, useState, ReactNode } from 'react';
 
 type MyContextValue = {
-  tabIndex: number;
+  tabIndex: string;
   changeTabIndex:any;
+  setTabIndex:any;
+
+  indexIndex:string;
+  changeIndexIndex:any;
+  setIndexIndex:any;
+
   range:string;
   setRange:any;
   changeRange:any;
@@ -20,10 +26,17 @@ type MyContextProviderProps = {
 };
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
-  const [tabIndex, setTabIndex] = useState(0);
+  //header tabs index
+  const [tabIndex, setTabIndex] = useState('0');
 
-  function changeTabIndex (newIndex:number){
+  function changeTabIndex (newIndex:string){
     setTabIndex(newIndex);
+  }
+
+  //markets tab indexes
+  const [indexIndex, setIndexIndex] = useState('0')
+  function changeIndexIndex (newIndex:string){
+    setIndexIndex(newIndex);
   }
 
   const [range, setRange] = useState('1mo');
@@ -32,7 +45,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setRange(string);
   }
 
-  const [param, setParam] = useState('High');
+  const [param, setParam] = useState('Highs');
 
   function changeParam (string:string){
     setParam(string);
@@ -41,6 +54,10 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
+    setTabIndex,
+    indexIndex,
+    changeIndexIndex,
+    setIndexIndex,
     range,
     setRange,
     changeRange,

@@ -56,21 +56,6 @@ export default function StockData(props){
 				// xValueFormatString: "DD",
 				// type: "spline",
 				type: "splineArea",
-				// dataPoints: [
-				// 	{ x: new Date(2017, 0), y: 25060 },
-				// 	{ x: new Date(2017, 1), y: 27980 },
-				// 	{ x: new Date(2017, 2), y: 42800 },
-				// 	{ x: new Date(2017, 3), y: 32400 },
-				// 	{ x: new Date(2017, 4), y: 35260 },
-				// 	{ x: new Date(2017, 5), y: 33900 },
-				// 	{ x: new Date(2017, 6), y: 40000 },
-				// 	{ x: new Date(2017, 7), y: 52500 },
-				// 	{ x: new Date(2017, 8), y: 32300 },
-				// 	{ x: new Date(2017, 9), y: 42000 },
-				// 	{ x: new Date(2017, 10), y: 37160 },
-				// 	{ x: new Date(2017, 11), y: 38400 }
-				// ],
-
 				dataPoints: []
 			}]
 		}
@@ -119,78 +104,7 @@ export default function StockData(props){
 
 		return (
 		<div style={{borderBottom:'black 5px solid'}}>
-			<CanvasJSChart options = {options}
-				/* onRef={ref => this.chart = ref} */
-			/>
-			{/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+			<CanvasJSChart options = {options}/>
 		</div>
 		);
 	}
-// }
-// export default StockData;                              
-
-
-
-
-
-
-// function handleChartRequest(){
-//     if (props.market === 'Straits Times Index (STI)') {
-//         const indexTicker = '^STI';
-//         return fetchMarketData(indexTicker)
-//     }
-// }
-
-// // 
-// function fetchMarketData(ticker:string): Promise<any>{
-//     return new Promise((resolve, reject) => {
-//         axios.get(`https://www.alphavantage.co/query?function=SMA&symbol=${ticker}&interval=5min&time_period=60&series_type=open&apikey=${process.env.avKey}`,
-//         {headers: {
-//             'Content-Type': 'application/json'
-//         }}
-//         )
-//         .then(response =>{
-//             console.log(response.data);
-//             resolve(response.data)
-//         })
-//         .catch(error => {
-//             console.error(error)
-//             reject(error);
-//         })
-//     })
-
-// }
-
-
-// const { data, isLoading, isError, error } = useQuery([props.market], handleChartRequest, {
-//     refetchOnWindowFocus: false,
-//   })
-
-// if (isLoading) {
-//     return <div><Loading/></div>
-// }
-
-// if (isError) {
-//     return <div style={{textAlign:'center'}}>Please Try Again In A Minute <Loading/></div>
-// }
-
-
-// return (
-//     <section id='container-chart+fund'>
-//         <div>
-//             <p>Last Refreshed: {data?.['Meta Data']['3: Last Refreshed']}</p>
-//             <p>Time Zone: {data?.['Meta Data']['7: Time Zone']}</p>
-//             <p>
-//                 {data?.['Meta Data']['2: Indicator']}
-//             </p>
-//         </div>
-//         <div id="chart">
-//             {data?.['Meta Data']['1: Symbol']}
-//         </div>
-
-//         <div className="fundamentals-container">
-
-//         </div>
-//     </section>
-// )
-// }
