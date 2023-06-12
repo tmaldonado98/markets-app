@@ -45,7 +45,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setRange(string);
   }
 
-  const [param, setParam] = useState('Highs');
+  const [param, setParam] = useState('Close');
 
   function changeParam (string:string){
     setParam(string);

@@ -38,3 +38,4 @@ next-env.d.ts
 .env
 
 nodemon.json
+next.config.js

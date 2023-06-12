@@ -27,16 +27,16 @@ export default function Stocks(){
             <nav>
                 <Tabs variant='soft-rounded' colorScheme='green'>
                     <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem', fontFamily:'Georgia'}} className='georgia'>
-                        <Tab>
+                        <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                             Global Stock Markets
                         </Tab>
-                        <Tab>
+                        <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Search Stocks
                         </Tab>
-                        <Tab>
+                        <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Pinned Tickers
                         </Tab>
-                        <Tab>
+                        <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Latest Trends
                         </Tab>
                     </TabList>

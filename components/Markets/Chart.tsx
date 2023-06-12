@@ -77,7 +77,7 @@ export function Chart(props:any) {
         // setRange(rangeStr)
         return new Promise((resolve, reject) => {
             // console.log(ticker, range.toLowerCase());
-            axios.get('http://localhost:3001/routes/markets', {
+            axios.get(`${process.env.backServer}/routes/markets`, {
                 params: {
                   ticker: ticker,
                   range: range.toLowerCase(),
@@ -164,10 +164,10 @@ export function Chart(props:any) {
                     </MenuButton>
                     <MenuList>
                         <MenuOptionGroup defaultValue={param} type='radio'>
+                            <MenuItemOption value='Close' onClick={() => setParam('Close')} _hover={{ bg: 'blue.200' }}>Close</MenuItemOption><MenuDivider />
+                            <MenuItemOption value='Open' onClick={() => setParam('Open')} _hover={{ bg: 'blue.200' }}>Open</MenuItemOption><MenuDivider />
                             <MenuItemOption value='Highs' onClick={() => setParam('Highs')} _hover={{ bg: 'blue.200' }}>Highs</MenuItemOption ><MenuDivider/>
                             <MenuItemOption value='Lows' onClick={() => setParam('Lows')} _hover={{ bg: 'blue.200' }}>Lows</MenuItemOption><MenuDivider />
-                            <MenuItemOption value='Open' onClick={() => setParam('Open')} _hover={{ bg: 'blue.200' }}>Open</MenuItemOption><MenuDivider />
-                            <MenuItemOption value='Close' onClick={() => setParam('Close')} _hover={{ bg: 'blue.200' }}>Close</MenuItemOption><MenuDivider />
                             <MenuItemOption value='Volume' onClick={() => setParam('Volume')} _hover={{ bg: 'blue.200' }}>Volume</MenuItemOption>
                         </MenuOptionGroup>
                     </MenuList>

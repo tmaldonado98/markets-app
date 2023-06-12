@@ -25,7 +25,7 @@ export default function Fundamentals(props:any){
 
     function fetchFundamentals(ticker:string): Promise<any>{
         return new Promise((resolve, reject) => {
-            axios.get(`http://localhost:3001/routes/markets/fundamentals`, 
+            axios.get(`${process.env.backServer}/routes/markets/fundamentals`, 
             {params: {
                 ticker: ticker,
                 modules: 'summaryDetail,price',

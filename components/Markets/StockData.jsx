@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import CanvasJSReact from '@canvasjs/react-charts';
-import { MyContext } from '../Context';
-import {useContext} from 'react';
 
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;

@@ -59,11 +59,17 @@ export const Header:React.FC = () => {
 
                   <Tab onClick={() => handleTabChange('4')} style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
                     <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
-                      Macro Trends
+                      Futures
                     </Link>
                   </Tab>
 
                   <Tab onClick={() => handleTabChange('5')} style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                    <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
+                      Macro Trends
+                    </Link>
+                  </Tab>
+
+                  <Tab onClick={() => handleTabChange('6')} style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
                     <Link color='blue.500' _hover={{ color: 'blue.500' }} href='/routes/commodities' scroll={true}>
                       Education Center
                     </Link>

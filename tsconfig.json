@@ -24,6 +24,6 @@
       "@/*": ["./pages/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "server.ts", "server/server.js", "components/Markets/StockData.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "server.ts", "functions/index.js", "components/Markets/StockData.jsx"],
   "exclude": ["node_modules"]
 }
