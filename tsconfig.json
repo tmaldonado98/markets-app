@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    // "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module":  "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "outDir": "dist",
+    "paths": {
+      "*": ["src/*"]
+    },
+  },
+  "include": ["**/*.ts", "**/*.tsx", "server.ts", "functions/index.js", "components/Markets/StockData.jsx", "src/components/Markets/StockData.tsx"],
+  "exclude": ["node_modules"]
+}
+
+// "include": ["**/*.ts", "**/*.js", "**/*.jsx", "**/*.tsx", "server.ts", "functions/index.js", "components/Markets/StockData.jsx"],

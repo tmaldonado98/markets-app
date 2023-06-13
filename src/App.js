@@ -1,24 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+// import './App.css';
+import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-dom';
+import Landing from './Landing.tsx';
+import Layout from './Layout.tsx';
+import Stocks from './routes/markets/Markets.tsx';
+import Currencies from './routes/currencies/page.tsx';
+import Commodities from './routes/commodities/page.tsx';
+import { useEffect } from 'react';
 
 function App() {
+  const location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes location={location} key={location.pathname}>
+      <Route exact path='/' element={<Landing />}/>
+      <Route path='/routes/markets' element={<Stocks />}/>
+      <Route path='/routes/currencies' element={<Currencies />}/>
+      <Route path='/routes/commodities' element={<Commodities />}/>
+    </Routes>
+
+    // <body className="App">
+    //   <head>
+    //     <title>Markets App</title>
+    //   </head>
+    //   <main>
+    //     <Layout> 
+    //       <Landing />
+    //     </Layout>
+    //   </main>
+
+    // </body>
   );
 }
 

@@ -1,0 +1,24 @@
+#quote-summary{
+    border: 1px solid black;
+    margin: 12px auto;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.flex-container:nth-of-type(2) p{
+}
+
+.css-1aam7vk {
+    opacity: 1 !important;
+}
+
+/* slider */
+.css-1t1xvy7[aria-disabled="true"]{
+    opacity: 1 !important;
+}
