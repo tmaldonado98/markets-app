@@ -7,7 +7,6 @@ const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function StockData(props:any){	
-
 		const curr = props.dataPoints.meta.currency;	
 		const range = props.dataPoints.meta.range;
 

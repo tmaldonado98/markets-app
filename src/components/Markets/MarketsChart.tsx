@@ -9,7 +9,7 @@ export default function MarketsChart(){
     const markets = [
         [['Singapore Exchange', 'SGX'], ['FTSE Straits Times Index (FTSE STI)']], 
         [['Shanghai Stock Exchange', 'SSE'], ['Shanghai Stock Exchange Composite Index', 'CSI 300 Index']], 
-        [['Hong Kong Stock Exchange', 'HKEX'], ['Hang Seng Index', 'Hang Seng Indexes Composite Index']],
+        [['Hong Kong Stock Exchange', 'HKEX'], ['Hang Seng Index', 'Hang Seng China Enterprises Index']],
         [['Tokyo Stock Exchange', 'TSE'], ['Nikkei 225', 'TOPIX']], 
         [['New York Stock Exchange', 'NYSE'], ['S&P 500', 'Nasdaq Composite', 'Dow Jones Industrial Average (DJIA)']], 
         [['London Stock Exchange', 'LSE'], ['FTSE 100']], 
@@ -38,7 +38,7 @@ export default function MarketsChart(){
         else if (stockIndex === 'Hang Seng Index'){
             newIndex = 3
         }
-        else if (stockIndex === 'Hang Seng Indexes Composite Index'){
+        else if (stockIndex === 'Hang Seng China Enterprises Index'){
             newIndex = 4
         }
         else if (stockIndex === 'Nikkei 225') {
@@ -70,7 +70,7 @@ export default function MarketsChart(){
 
     //For when route is mounted from locale redirection
     useEffect(() => {
-        window.scrollTo({top:350, left:0, behavior: 'smooth'})
+        window.scrollTo({top:250, left:0, behavior: 'smooth'})
           
     }, []);
 
@@ -78,7 +78,6 @@ export default function MarketsChart(){
         <>
             <div id="container-chart-tabs">
                 <main className="min-h-screen">
-                {typeof window !== 'undefined' && (
                     <section>
                         <Tabs index={indIndFromStorage} isLazy orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
                             <TabList style={{border:'3px black solid', justifyContent:'space-evenly'}}>
@@ -110,7 +109,6 @@ export default function MarketsChart(){
                             </TabPanels>
                         </Tabs>                        
                     </section>
-                )}
                 </main>
 
                 

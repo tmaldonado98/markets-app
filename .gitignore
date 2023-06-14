@@ -36,6 +36,6 @@ next-env.d.ts
 
 /ignore
 .env
-
+.env.local
 nodemon.json
 next.config.js

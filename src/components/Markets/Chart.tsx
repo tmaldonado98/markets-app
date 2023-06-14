@@ -3,7 +3,7 @@ import {useState, useEffect, useContext} from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Loading from '../Loading';
-import StockData from './StockData.tsx';
+import StockData from './StockData';
 import Fundamentals from './Fundamentals';
 import { MyContext } from '../Context';
 import {
@@ -44,8 +44,8 @@ export function Chart(props:any) {
             const indexTicker = '^HSI';
             return fetchMarketData(indexTicker)
         }
-        else if(props.market === 'Hang Seng Indexes Composite Index'){
-            const indexTicker = 'HSIC';
+        else if(props.market === 'Hang Seng China Enterprises Index'){
+            const indexTicker = '^HSCE';
             return fetchMarketData(indexTicker)
         }
         else if(props.market === 'Nikkei 225'){
@@ -84,9 +84,11 @@ export function Chart(props:any) {
 
     function fetchMarketData(ticker:string): Promise<any>{
         // setRange(rangeStr)
+        console.log(process.env.REACT_APP_marketsServer,  process.env.REACT_APP_localServer)
         return new Promise((resolve, reject) => {
             // console.log(ticker, range.toLowerCase());
-            axios.get(`https://localhost:3001/routes/markets`, {
+            axios.get(`${process.env.REACT_APP_marketsServer}/routes/markets`, {
+                // REACT_APP_localServer   REACT_APP_marketsServer
                 params: {
                   ticker: ticker,
                   range: range.toLowerCase(),
@@ -142,7 +144,6 @@ export function Chart(props:any) {
 
     return (
         <section id='container-chart+fund' style={{marginTop: '15px'}}>
-        {typeof window !== 'undefined' && (
             <>
             <div id="chart-options" style={{marginBottom:'8px', display:'flex', gap:'1rem'}}>
                 <Menu colorScheme='blue' isLazy>
@@ -186,12 +187,12 @@ export function Chart(props:any) {
             </div>
 
                 <StockData dataPoints={data.chart.result[0]} param={param}/>
+                <div className='ad'>Insert ad here</div>
             <div className="fundamentals-container" style={{padding: '20px'}}>
                 <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Index Fundamentals</h2>
                 <Fundamentals fundamentals={staticFundamentals}/>
             </div>
             </>
-        )}
         </section>
     )
 }

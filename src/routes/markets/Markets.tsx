@@ -1,9 +1,8 @@
-import Trends from "../../components/Trends";
-import Loading from "../../components/Loading";
+import Trends from "../../components/Markets/trends/Trends";
 import './stocks.css';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import Pinned from "../../components/Pinned";
-import SearchStocks from "../../components/Search";
+import Pinned from "../../components/Markets/pinned/Pinned";
+import SearchStocks from "../../components/Markets/search/Search";
 import MarketsChart from "../../components/Markets/MarketsChart";
 
 export default function Stocks(){
@@ -17,7 +16,6 @@ export default function Stocks(){
                 </div>
             </aside>
             <nav>
-            {typeof window !== 'undefined' && (
                 <Tabs variant='soft-rounded' colorScheme='green'>
                     <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem', fontFamily:'Georgia'}} className='georgia'>
                         <Tab _hover={{bg: 'green.100', color:'green.600'}}>
@@ -50,7 +48,6 @@ export default function Stocks(){
                     </TabPanels>
 
                 </Tabs>
-            )}
             </nav>
             <aside>
                 <div className="ad">

@@ -26,12 +26,13 @@ export default function Fundamentals(props:any){
 
     function fetchFundamentals(ticker:string): Promise<any>{
         return new Promise((resolve, reject) => {
-            axios.get(`https://localhost:3001/routes/markets/fundamentals`, 
+            axios.get(`${process.env.REACT_APP_marketsServer}/routes/markets/fundamentals`, 
+            // REACT_APP_localServer   REACT_APP_marketsServer
             {params: {
                 ticker: ticker,
                 modules: 'summaryDetail,price',
-                }
-            }
+                } 
+            } 
             )
             .then(response => {
                 // console.log(response.data)
@@ -59,8 +60,7 @@ export default function Fundamentals(props:any){
         return <div>We have encountered an error. Please try again in a minute. <br/><Loading/></div>
     }
 
-    {console.log(data)}
-    // {console.log(QueryClient.getQueryData(["fundamentals", 518]))};
+    {console.log(process.env.REACT_APP_marketsServer)}
 
     const currSym = data.quoteSummary.result[0].price.currencySymbol;
     const priceSection = data.quoteSummary.result[0].price;
@@ -75,7 +75,6 @@ export default function Fundamentals(props:any){
 
     return (
         <section id='quote-summary'>
-        {typeof window !== 'undefined' && (
             <>
             {/* <p>Data {priceSection.regularMarketSource.toLowerCase()} by {priceSection.exchangeDataDelayedBy} minutes.</p> */}
             <div style={{gap:'15px'}} className='flex-container'>
@@ -153,7 +152,6 @@ export default function Fundamentals(props:any){
                 <p><u>200-day Price Avg.</u><br/><b>{data.quoteSummary.result[0].summaryDetail.twoHundredDayAverage.fmt}</b></p>
             </div>
             </>
-        )}
         </section>
     )
 }
