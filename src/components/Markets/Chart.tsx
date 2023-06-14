@@ -87,7 +87,7 @@ export function Chart(props:any) {
         console.log(process.env.REACT_APP_marketsServer,  process.env.REACT_APP_localServer)
         return new Promise((resolve, reject) => {
             // console.log(ticker, range.toLowerCase());
-            axios.get(`${process.env.REACT_APP_marketsServer}/routes/markets`, {
+            axios.get(`${process.env.REACT_APP_localServer}/routes/markets`, {
                 // REACT_APP_localServer   REACT_APP_marketsServer
                 params: {
                   ticker: ticker,
