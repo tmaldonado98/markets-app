@@ -19,6 +19,14 @@ type MyContextValue = {
   recent:any;
   setRecent:any;
   changeRecent:any;
+
+  marketsIndex: string;
+  setMarketsIndex:any;
+  changeMarketsIndex:any;
+
+  termFromHeader:string;
+  setTermFromHeader:any;
+  changeTermFromHeader:any;
 };
 
 // Create the context
@@ -69,6 +77,21 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     
   }
 
+
+  ////markets route indexes
+  const storedMarketsInd = sessionStorage.getItem('marketsIndex')!;
+  const [marketsIndex, setMarketsIndex] = useState(storedMarketsInd)
+  function changeMarketsIndex(newIndex:string){
+    setMarketsIndex(newIndex);
+  }
+
+
+  ///execute search function
+  const [termFromHeader, setTermFromHeader] = useState('');
+  function changeTermFromHeader(term:string){
+    setTermFromHeader(term);
+  }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
@@ -85,6 +108,12 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     recent,
     setRecent,
     changeRecent,
+    marketsIndex,
+    setMarketsIndex,
+    changeMarketsIndex,
+    termFromHeader,
+    setTermFromHeader,
+    changeTermFromHeader,
   };
 
   return (

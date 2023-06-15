@@ -19,7 +19,7 @@ export default function SearchStocks(){
     const [hideResults, setHideResults] = useState(true);
     const [hideSelect, setHideSelect] = useState(true);
 
-    const {recent, setRecent, changeRecent} = useContext(MyContext)!;
+    const {recent, setRecent, changeRecent, termFromHeader} = useContext(MyContext)!;
 
     function handleSearchInput(e:any){
         setSearchInput(e.target.value);
@@ -51,6 +51,10 @@ export default function SearchStocks(){
             return error;
         })
     }
+
+    useEffect(() => {
+        executeSearch(termFromHeader);
+    }, [termFromHeader])
 
     function handleKeyDown(e: any) {
         if (e.keyCode === 13) {
