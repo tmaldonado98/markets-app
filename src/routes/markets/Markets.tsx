@@ -27,9 +27,9 @@ export default function Stocks(){
                         <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Pinned Tickers
                         </Tab>
-                        <Tab _hover={{bg: 'green.100', color:'green.600'}}>
+                        {/* <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Latest Trends
-                        </Tab>
+                        </Tab> */}
                     </TabList>
                     
                     <TabPanels>
@@ -42,9 +42,9 @@ export default function Stocks(){
                         <TabPanel>
                             <Pinned/>
                         </TabPanel>
-                        <TabPanel>
+                        {/* <TabPanel>
                             <Trends/>
-                        </TabPanel>
+                        </TabPanel> */}
                     </TabPanels>
 
                 </Tabs>

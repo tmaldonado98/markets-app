@@ -16,6 +16,9 @@ type MyContextValue = {
   setParam:any;
   changeParam:any;
 
+  recent:any;
+  setRecent:any;
+  changeRecent:any;
 };
 
 // Create the context
@@ -52,6 +55,20 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setParam(string);
   }
 
+
+
+  //context state for recently viewed tickers
+  const recentLocal = localStorage.getItem('recent') === null ? '' : JSON.parse(localStorage.getItem('recent')!);
+  const [recent, setRecent] = useState(recentLocal);
+
+  function changeRecent(string:string){
+    if (recent.includes(string)) {
+      recent.splice(recent.indexOf(string), 1)
+    }
+    setRecent([...recent, string])
+    
+  }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
@@ -64,7 +81,10 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     changeRange,
     param,
     setParam,
-    changeParam
+    changeParam,
+    recent,
+    setRecent,
+    changeRecent,
   };
 
   return (

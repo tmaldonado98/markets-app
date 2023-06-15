@@ -60,7 +60,7 @@ export default function Fundamentals(props:any){
         return <div>We have encountered an error. Please try again in a minute. <br/><Loading/></div>
     }
 
-    {console.log(process.env.REACT_APP_marketsServer)}
+    // {console.log(process.env.REACT_APP_marketsServer)}
 
     const currSym = data.quoteSummary.result[0].price.currencySymbol;
     const priceSection = data.quoteSummary.result[0].price;
