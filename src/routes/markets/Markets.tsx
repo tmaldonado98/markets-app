@@ -34,9 +34,9 @@ export default function Stocks(){
                         <Tab _hover={{bg: 'green.100', color:'green.600'}} onClick={() => handleTabClick('1')}>
                                 Search Stocks
                         </Tab>
-                        <Tab _hover={{bg: 'green.100', color:'green.600'}} onClick={() => handleTabClick('2')}>
+                        {/* <Tab _hover={{bg: 'green.100', color:'green.600'}} onClick={() => handleTabClick('2')}>
                                 Pinned Tickers
-                        </Tab>
+                        </Tab> */}
                         {/* <Tab _hover={{bg: 'green.100', color:'green.600'}}>
                                 Latest Trends
                         </Tab> */}

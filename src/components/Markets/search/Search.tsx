@@ -90,15 +90,9 @@ export default function SearchStocks(){
                     if(each === '[""]'){
                         return false;
                     } 
-                    // else if(recent.slice(-5).includes(each)){
-                    //     recent.slice(-5).splice()
-                    //     recent.slice(-5).indexOf(each)
-                    // }
-                    // else {
-                    // }
                     return (
                         <HStack spacing={4}>
-                            <Tag size='lg' key={each} variant='solid' colorScheme='teal' onClick={() => handleSelect(each)}>
+                            <Tag size='lg' key={each} variant='solid' colorScheme='teal' _hover={{bg:'teal.200', color:'black', fontWeight:'600'}} onClick={() => handleSelect(each)}>
                                 {each}
                             </Tag>
                         </HStack>

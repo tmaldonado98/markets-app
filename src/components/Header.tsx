@@ -110,7 +110,7 @@ export const Header:React.FC = () => {
             ''
             :
           <InputGroup style={{width: '75%', margin:'8px auto'}}>
-                <Input variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
+                <Input _focus={{bg: 'ivory'}} variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
                 <ChakraLink as={RouterLink} to='/routes/markets'>
                   {
                     searchInput ?
