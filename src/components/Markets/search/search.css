@@ -1,0 +1,22 @@
+.chakra-card .chakra-heading:hover {
+    color: rgb(85, 133, 255);
+    /* font-weight: 400; */
+}
+
+#ticker-header {
+    font-size: 32px;
+    text-align: center;
+    padding-top: 5px;
+    font-weight: 900;
+}
+
+#recent {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 10px 0;
+
+}
+#recent span{
+    cursor: pointer;
+}

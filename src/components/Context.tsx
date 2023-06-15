@@ -16,6 +16,17 @@ type MyContextValue = {
   setParam:any;
   changeParam:any;
 
+  recent:any;
+  setRecent:any;
+  changeRecent:any;
+
+  marketsIndex: string;
+  setMarketsIndex:any;
+  changeMarketsIndex:any;
+
+  termFromHeader:string;
+  setTermFromHeader:any;
+  changeTermFromHeader:any;
 };
 
 // Create the context
@@ -52,6 +63,35 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setParam(string);
   }
 
+
+
+  //context state for recently viewed tickers
+  const recentLocal = localStorage.getItem('recent') === null ? '' : JSON.parse(localStorage.getItem('recent')!);
+  const [recent, setRecent] = useState(recentLocal);
+
+  function changeRecent(string:string){
+    if (recent.includes(string)) {
+      recent.splice(recent.indexOf(string), 1)
+    }
+    setRecent([...recent, string])
+    
+  }
+
+
+  ////markets route indexes
+  const storedMarketsInd = sessionStorage.getItem('marketsIndex')!;
+  const [marketsIndex, setMarketsIndex] = useState(storedMarketsInd)
+  function changeMarketsIndex(newIndex:string){
+    setMarketsIndex(newIndex);
+  }
+
+
+  ///execute search function
+  const [termFromHeader, setTermFromHeader] = useState('');
+  function changeTermFromHeader(term:string){
+    setTermFromHeader(term);
+  }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
@@ -64,7 +104,16 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     changeRange,
     param,
     setParam,
-    changeParam
+    changeParam,
+    recent,
+    setRecent,
+    changeRecent,
+    marketsIndex,
+    setMarketsIndex,
+    changeMarketsIndex,
+    termFromHeader,
+    setTermFromHeader,
+    changeTermFromHeader,
   };
 
   return (

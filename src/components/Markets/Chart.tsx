@@ -76,6 +76,10 @@ export function Chart(props:any) {
             const indexTicker = '^GDAXI';
             return fetchMarketData(indexTicker)
         }
+        else if(props.ticker){
+            // refetch();
+            return fetchMarketData(props.ticker);
+        }
     }
 
     // useEffect(() => {
@@ -84,10 +88,11 @@ export function Chart(props:any) {
 
     function fetchMarketData(ticker:string): Promise<any>{
         // setRange(rangeStr)
-        console.log(process.env.REACT_APP_marketsServer,  process.env.REACT_APP_localServer)
+
+        // console.log(process.env.REACT_APP_marketsServer,  process.env.REACT_APP_localServer)
         return new Promise((resolve, reject) => {
             // console.log(ticker, range.toLowerCase());
-            axios.get(`${process.env.REACT_APP_marketsServer}/routes/markets`, {
+            axios.get(`${process.env.REACT_APP_localServer}/routes/markets`, {
                 // REACT_APP_localServer   REACT_APP_marketsServer
                 params: {
                   ticker: ticker,
@@ -102,13 +107,12 @@ export function Chart(props:any) {
                 console.error(error)
                 reject(error);
             })
-
+    
         })
-
     }
 
     
-    const { data, isLoading, isError, error, refetch } = useQuery([props.market], handleChartRequest, {
+    const { data, isLoading, isError, error, refetch } = useQuery([props], handleChartRequest, {
         refetchOnWindowFocus: false,
         staleTime: 6 * 60 * 60 * 1000,
       })
