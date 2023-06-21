@@ -8,7 +8,7 @@ import { MyContext } from "../../components/Context";
 import {useContext} from 'react';
 
 export default function Stocks(){
-    document.title = "Global Markets";
+    document.title = "Stock Markets";
     const {marketsIndex, changeMarketsIndex} = useContext(MyContext)!;
 
 

@@ -3,9 +3,9 @@ import {BrowserRouter as Router, Route, Routes, useLocation} from 'react-router-
 import Landing from './Landing.tsx';
 import Layout from './Layout.tsx';
 import Stocks from './routes/markets/Markets.tsx';
-import Currencies from './routes/currencies/page.tsx';
-import Commodities from './routes/commodities/page.tsx';
-import { useEffect } from 'react';
+import Currencies from './routes/currencies/Currencies.tsx';
+import Commodities from './routes/commodities/Commodities.tsx';
+import { useEffect } from 'react'; 
 
 function App() {
   const location = useLocation();

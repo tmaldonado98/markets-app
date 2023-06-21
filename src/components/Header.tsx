@@ -68,13 +68,13 @@ export const Header:React.FC = () => {
 
                   <ChakraLink as={RouterLink} to='/routes/markets'>
                     <Tab onClick={() => handleTabChange('1')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Global Markets
+                      Stock Markets
                     </Tab>
                   </ChakraLink>
 
                   <ChakraLink as={RouterLink} to='/routes/currencies'>
                     <Tab onClick={() => handleTabChange('2')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Global Currencies
+                      Foreign Exchanges
                     </Tab>
                   </ChakraLink>
 
@@ -111,14 +111,14 @@ export const Header:React.FC = () => {
             :
           <InputGroup style={{width: '75%', margin:'8px auto'}}>
                 <Input _focus={{bg: 'ivory'}} variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
-                <ChakraLink as={RouterLink} to='/routes/markets'>
                   {
                     searchInput ?
+                <ChakraLink as={RouterLink} to='/routes/markets'>
                   <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} onClick={() => transferToSearch(searchInput)} />
-                  :
-                  ''
-                  }
                 </ChakraLink>
+                  :
+                  <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} />
+                  }
             </InputGroup>
           }
 
