@@ -3,3 +3,19 @@
     justify-content: space-between;
     padding: 40px 0px;
 }
+
+.exchange-tools {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 55px;
+}
+
+.exchange-tools select{
+    text-align: center;
+    background-color: #0f6dff4f;
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: Georgia;
+}

@@ -38,19 +38,13 @@ export default function CurrList(){
     // const supportedPairs:string[] = [
     //     "USDAED","USDAFN","USDALL","USDAMD","USDANG","USDAOA","USDARS","USDATS","USDAUD","USDAWG","USDAZM","USDAZN","USDBAM","USDBBD","USDBDT","USDBEF","USDBGN","USDBHD","USDBIF","USDBMD","USDBND","USDBOB","USDBRL","USDBSD","USDBTN","USDBWP","USDBYN","USDBYR","USDBZD","USDCAD","USDCDF","USDCHF","USDCLP","USDCNH","USDCNY","USDCOP","USDCRC","USDCUC","USDCUP","USDCVE","USDCYP","USDCZK","USDDEM","USDDJF","USDDKK","USDDOP","USDDZD","USDEEK","USDEGP","USDERN","USDESP","USDETB","USDEUR","USDFIM","USDFJD","USDFKP","USDFRF","USDGBP","USDGEL","USDGGP","USDGHC","USDGHS","USDGIP","USDGMD","USDGNF","USDGRD","USDGTQ","USDGYD","USDHKD","USDHNL","USDHRK","USDHTG","USDHUF","USDIDR","USDIEP","USDILS","USDIMP","USDINR","USDIQD","USDIRR","USDISK","USDITL","USDJEP","USDJMD","USDJOD","USDJPY","USDKES","USDKGS","USDKHR","USDKMF","USDKPW","USDKRW","USDKWD","USDKYD","USDKZT","USDLAK","USDLBP","USDLKR","USDLRD","USDLSL","USDLTL","USDLUF","USDLVL","USDLYD","USDMAD","USDMDL","USDMGA","USDMGF","USDMKD","USDMMK","USDMNT","USDMOP","USDMRO","USDMRU","USDMTL","USDMUR","USDMVR","USDMWK","USDMXN","USDMYR","USDMZM","USDMZN","USDNAD","USDNGN","USDNIO","USDNLG","USDNOK","USDNPR","USDNZD","USDOMR","USDPAB","USDPEN","USDPGK","USDPHP","USDPKR","USDPLN","USDPTE","USDPYG","USDQAR","USDROL","USDRON","USDRSD","USDRUB","USDRWF","USDSAR","USDSBD","USDSCR","USDSDD","USDSDG","USDSEK","USDSGD","USDSHP","USDSIT","USDSKK","USDSLL","USDSOS","USDSPL","USDSRD","USDSRG","USDSTD","USDSTN","USDSVC","USDSYP","USDSZL","USDTHB","USDTJS","USDTMM","USDTMT","USDTND","USDTOP","USDTRL","USDTRY","USDTTD","USDTVD","USDTWD","USDTZS","USDUAH","USDUGX","USDUSD","USDUYU","USDUZS","USDVAL","USDVEB","USDVEF","USDVES","USDVND","USDVUV","USDWST","USDXAF","USDXAG","USDXAU","USDXBT","USDXCD","USDXDR","USDXOF","USDXPD","USDXPF","USDXPT","USDYER","USDZAR","USDZMK","USDZMW","USDZWD"]
 
-        // console.log(supportedPairs);
     const [exch, setExch] = useState([]); //<ExchangeData[]>
-    // const [exchangeData, setExchangeData] = useState(['', ['', '', '']]);
 
+    ///////********** UNCOMMENT FOR PRODUCTION
     // setTimeout(() => {
-    //     setExch([''])
     //     refetch();
-    //     // retrieveExch();
-    // }, 600000);
+    // }, 300000);
 
-    // useEffect(() => {
-    //     retrieveExch();
-    // }, [])
 
     const [timestampState, setTimestampState] = useState<any>('')
 
@@ -65,13 +59,9 @@ export default function CurrList(){
                 }
             })
             responseData.push([each[0], response.data])
-            //     return response.data;
-            // .then(response => {
-            //     setExch([...exch, response.data]);
-            // })
         }
         setExch(responseData);       
-        return exch;
+        return responseData;
     }
    
     useEffect(() => {
@@ -88,26 +78,28 @@ export default function CurrList(){
 
     const { data, isLoading, isError, error, refetch } = useQuery(['pairs'], retrieveExch, {
         refetchOnWindowFocus: false,
-        staleTime: 6000000,
+        staleTime: 300000,
       })
+//staletime 5 minutes
 
-    //   if(isLoading){
-    //     <div><Loading/></div>
-    //   }
-    // const {timestamp} = Object.values(exch[0][1])[0] as {timestamp:any};
-    // const timestamp = exch ? exch[0][1]['USDCNY']['timestamp'] : '';
+      if(isLoading){
+        <div><Loading/></div>
+      }
 
+      if(isError){
+        <div><p>We have encountered an error. Please try again in a minute and check your network connectivity.</p></div>
+      }
 
-useEffect(() => {
-    console.log(timestampState)
-}, [timestampState])
+// useEffect(() => {
+//     console.log(timestampState)
+// }, [timestampState])
 
     return (
         <div style={{flex:'1', padding:'0 65px', display:'flex', flexDirection:'column', gap:'5px'}}>
             <Heading size={'md'} style={{textAlign:'center'}}>Currency Rates</Heading>
             <p><b>Base USD</b></p>
             <p  style={{fontSize:'13px', fontStyle:'italic'}}>Last Updated: {timestampState}</p>
-        {exch.length > 10 ? exch.map((each:{ [key: string]: any }) => {
+        {data?.length > 10 ? data.map((each:{ [key: string]: any }) => {
           const exchange = each[0];
           const { rate, timestamp } = Object.values(each[1])[0] as {
             rate: string;
