@@ -90,7 +90,7 @@ export default function SearchStocks(){
     return (
         <section style={{width: '90%', margin: 'auto'}}>
             <InputGroup>
-                <Input variant='filled' placeholder='Search stocks' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
+                <Input variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
                 <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} onClick={() => executeSearch(searchInput)} />
                 <Button onClick={handleReset}>Reset</Button>
             </InputGroup>

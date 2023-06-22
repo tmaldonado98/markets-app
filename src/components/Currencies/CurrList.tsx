@@ -2,32 +2,45 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query';
 import Loading from "../Loading";
+import { Card, CardHeader, CardBody, CardFooter, Heading, Box, Text } from '@chakra-ui/react'
 
-interface ExchangeData {
-    key: string;
-    rate: number;
-    timestamp: number;
-  }
+
+// interface ExchangeData {
+//     key: string;
+//     rate: string;
+//     timestamp: string;
+//   }
   
 export default function CurrList(){
     
     // const supportedPairs:any = ["AUDUSD","EURGBP","EURUSD","GBPUSD","NZDUSD","USDAED","USDAFN","USDALL","USDAMD","USDANG","USDAOA","USDARS","USDATS","USDAUD","USDAWG","USDAZM","USDAZN","USDBAM","USDBBD","USDBDT","USDBEF","USDBGN","USDBHD","USDBIF","USDBMD","USDBND","USDBOB","USDBRL","USDBSD","USDBTN","USDBWP","USDBYN","USDBYR","USDBZD","USDCAD","USDCDF","USDCHF","USDCLP","USDCNH","USDCNY","USDCOP","USDCRC","USDCUC","USDCUP","USDCVE","USDCYP","USDCZK","USDDEM","USDDJF","USDDKK","USDDOP","USDDZD","USDEEK","USDEGP","USDERN","USDESP","USDETB","USDEUR","USDFIM","USDFJD","USDFKP","USDFRF","USDGBP","USDGEL","USDGGP","USDGHC","USDGHS","USDGIP","USDGMD","USDGNF","USDGRD","USDGTQ","USDGYD","USDHKD","USDHNL","USDHRK","USDHTG","USDHUF","USDIDR","USDIEP","USDILS","USDIMP","USDINR","USDIQD","USDIRR","USDISK","USDITL","USDJEP","USDJMD","USDJOD","USDJPY","USDKES","USDKGS","USDKHR","USDKMF","USDKPW","USDKRW","USDKWD","USDKYD","USDKZT","USDLAK","USDLBP","USDLKR","USDLRD","USDLSL","USDLTL","USDLUF","USDLVL","USDLYD","USDMAD","USDMDL","USDMGA","USDMGF","USDMKD","USDMMK","USDMNT","USDMOP","USDMRO","USDMRU","USDMTL","USDMUR","USDMVR","USDMWK","USDMXN","USDMYR","USDMZM","USDMZN","USDNAD","USDNGN","USDNIO","USDNLG","USDNOK","USDNPR","USDNZD","USDOMR","USDPAB","USDPEN","USDPGK","USDPHP","USDPKR","USDPLN","USDPTE","USDPYG","USDQAR","USDROL","USDRON","USDRSD","USDRUB","USDRWF","USDSAR","USDSBD","USDSCR","USDSDD","USDSDG","USDSEK","USDSGD","USDSHP","USDSIT","USDSKK","USDSLL","USDSOS","USDSPL","USDSRD","USDSRG","USDSTD","USDSTN","USDSVC","USDSYP","USDSZL","USDTHB","USDTJS","USDTMM","USDTMT","USDTND","USDTOP","USDTRL","USDTRY","USDTTD","USDTVD","USDTWD","USDTZS","USDUAH","USDUGX","USDUSD","USDUYU","USDUZS","USDVAL","USDVEB","USDVEF","USDVES","USDVND","USDVUV","USDWST","USDXAF","USDXAG","USDXAU","USDXBT","USDXCD","USDXDR","USDXOF","USDXPD","USDXPF","USDXPT","USDYER","USDZAR","USDZMK","USDZMW","USDZWD"]
     
 //shortened
-    const supportedPairs:string[] = [
-        "EURUSD",
-        "EURGBP",
-        "GBPUSD",
-        "USDJPY",
-        "AUDUSD",
-        "USDCHF",
-        "NZDUSD",
-        "USDCAD",
-        "USDZAR"
+    const supportedPairs:string[][] = [
+        ["Chinese Yuan", "USDCNY"],
+        ["Euro", "USDEUR"],
+        ["Singapore Dollar", "USDSGD"],
+        ["Japanese Yen", "USDJPY"],
+        ["Great British Pound", "USDGBP"],
+        ["Hong Kong Dollar", "USDHKD"],
+        ["Indian Rupee", "USDINR"],
+        ["Russian Ruble", "USDRUB"],
+        ["Brazilian Real", "USDBRL"],
+        ["Mexican Peso", "USDMXN"],
+        ["Australian Dollar", "USDAUD"],
+        ["Swiss Franc", "USDCHF"],
+        ["New Zealand Dollar", "USDNZD"],
+        ["Canadian Dollar", "USDCAD"],
+        ["South African Rand", "USDZAR"],
     ]
 
-    const [exch, setExch] = useState<ExchangeData[]>([]);
-    const [exchangeData, setExchangeData] = useState(['', ['', '', '']]);
+    //pairs with USD base
+    // const supportedPairs:string[] = [
+    //     "USDAED","USDAFN","USDALL","USDAMD","USDANG","USDAOA","USDARS","USDATS","USDAUD","USDAWG","USDAZM","USDAZN","USDBAM","USDBBD","USDBDT","USDBEF","USDBGN","USDBHD","USDBIF","USDBMD","USDBND","USDBOB","USDBRL","USDBSD","USDBTN","USDBWP","USDBYN","USDBYR","USDBZD","USDCAD","USDCDF","USDCHF","USDCLP","USDCNH","USDCNY","USDCOP","USDCRC","USDCUC","USDCUP","USDCVE","USDCYP","USDCZK","USDDEM","USDDJF","USDDKK","USDDOP","USDDZD","USDEEK","USDEGP","USDERN","USDESP","USDETB","USDEUR","USDFIM","USDFJD","USDFKP","USDFRF","USDGBP","USDGEL","USDGGP","USDGHC","USDGHS","USDGIP","USDGMD","USDGNF","USDGRD","USDGTQ","USDGYD","USDHKD","USDHNL","USDHRK","USDHTG","USDHUF","USDIDR","USDIEP","USDILS","USDIMP","USDINR","USDIQD","USDIRR","USDISK","USDITL","USDJEP","USDJMD","USDJOD","USDJPY","USDKES","USDKGS","USDKHR","USDKMF","USDKPW","USDKRW","USDKWD","USDKYD","USDKZT","USDLAK","USDLBP","USDLKR","USDLRD","USDLSL","USDLTL","USDLUF","USDLVL","USDLYD","USDMAD","USDMDL","USDMGA","USDMGF","USDMKD","USDMMK","USDMNT","USDMOP","USDMRO","USDMRU","USDMTL","USDMUR","USDMVR","USDMWK","USDMXN","USDMYR","USDMZM","USDMZN","USDNAD","USDNGN","USDNIO","USDNLG","USDNOK","USDNPR","USDNZD","USDOMR","USDPAB","USDPEN","USDPGK","USDPHP","USDPKR","USDPLN","USDPTE","USDPYG","USDQAR","USDROL","USDRON","USDRSD","USDRUB","USDRWF","USDSAR","USDSBD","USDSCR","USDSDD","USDSDG","USDSEK","USDSGD","USDSHP","USDSIT","USDSKK","USDSLL","USDSOS","USDSPL","USDSRD","USDSRG","USDSTD","USDSTN","USDSVC","USDSYP","USDSZL","USDTHB","USDTJS","USDTMM","USDTMT","USDTND","USDTOP","USDTRL","USDTRY","USDTTD","USDTVD","USDTWD","USDTZS","USDUAH","USDUGX","USDUSD","USDUYU","USDUZS","USDVAL","USDVEB","USDVEF","USDVES","USDVND","USDVUV","USDWST","USDXAF","USDXAG","USDXAU","USDXBT","USDXCD","USDXDR","USDXOF","USDXPD","USDXPF","USDXPT","USDYER","USDZAR","USDZMK","USDZMW","USDZWD"]
+
+        // console.log(supportedPairs);
+    const [exch, setExch] = useState([]); //<ExchangeData[]>
+    // const [exchangeData, setExchangeData] = useState(['', ['', '', '']]);
 
     // setTimeout(() => {
     //     setExch([''])
@@ -35,90 +48,105 @@ export default function CurrList(){
     //     // retrieveExch();
     // }, 600000);
 
-    useEffect(() => {
-        retrieveExch();
-    }, [])
+    // useEffect(() => {
+    //     retrieveExch();
+    // }, [])
+
+    const [timestampState, setTimestampState] = useState<any>('')
 
     async function retrieveExch (){
-        const responseData = [];
-
+        const responseData:any = [];
         for(const each of supportedPairs){
                 // REACT_APP_localServer   REACT_APP_marketsServer
+                console.log(each[0], each[1])
             const response = await axios.get(`${process.env.REACT_APP_localServer}/routes/currencies`, {
                 params: {
-                    pairs: each
+                    pairs: each[1]
                 }
-
             })
-
-            responseData.push(response.data)
-
-
-            // .then(async response => {
-            //     await setExch([...exch, response.data])
-            //     console.log(response.data);
-            // })
-            // .catch(error => {
-            //     console.error(error)
-            //     // reject(error);
+            responseData.push([each[0], response.data])
+            //     return response.data;
+            // .then(response => {
+            //     setExch([...exch, response.data]);
             // })
         }
-        setExch(responseData);
-        // let rate:string;
-        // let timestamp:string;
-
-        exch.forEach((obj:any) => {
-            const set = [];
-            for (const key in obj) {
-              const rate:string = obj[key].rate;
-              const timestamp:string = obj[key].timestamp;
-            //   setExchangeData([...exch, [obj, rate, timestamp]])
-            set.push([obj, rate, timestamp])
-            }
-            setExchangeData(set);
-        });
+        setExch(responseData);       
+        return exch;
     }
    
     useEffect(() => {
-        console.log(Object.entries(exch))
+        // console.log(Object.entries(exch))
         console.log(exch)
+        if (exch.length > 10) {
+            const {timestamp} = exch[0][1]['USDCNY']
+            const formattedTimestamp = new Date(timestamp * 1000);
+
+            setTimestampState(formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'}))
+            console.log(formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'}))
+        }
     }, [exch])
 
-    // const { data, isLoading, isError, error, refetch } = useQuery(['pairs'], retrieveExch, {
-    //     refetchOnWindowFocus: false,
-    //     staleTime: 600000,
-    //   })
+    const { data, isLoading, isError, error, refetch } = useQuery(['pairs'], retrieveExch, {
+        refetchOnWindowFocus: false,
+        staleTime: 6000000,
+      })
 
     //   if(isLoading){
     //     <div><Loading/></div>
     //   }
+    // const {timestamp} = Object.values(exch[0][1])[0] as {timestamp:any};
+    // const timestamp = exch ? exch[0][1]['USDCNY']['timestamp'] : '';
+
+
+useEffect(() => {
+    console.log(timestampState)
+}, [timestampState])
 
     return (
-        <div>
-          {exch ? exch.slice(1).map(each => {
-          const { rate, timestamp } = Object.values(each)[0];
+        <div style={{flex:'1', padding:'0 65px', display:'flex', flexDirection:'column', gap:'5px'}}>
+            <Heading size={'md'} style={{textAlign:'center'}}>Currency Rates</Heading>
+            <p><b>Base USD</b></p>
+            <p  style={{fontSize:'13px', fontStyle:'italic'}}>Last Updated: {timestampState}</p>
+        {exch.length > 10 ? exch.map((each:{ [key: string]: any }) => {
+          const exchange = each[0];
+          const { rate, timestamp } = Object.values(each[1])[0] as {
+            rate: string;
+            timestamp: any;
+          };
           const formattedTimestamp = new Date(timestamp * 1000);
+        //   console.log(exchange, rate, timestamp)
           return (
-            <p key={exch.indexOf(each)}>{Object.keys(each)[0]} {rate} {formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})}</p>
+            <ExchangeCard exchange={exchange} rate={rate} timestamp={formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})}/> 
           )
         }
         )
           :
           <Loading/>
           } 
-          {/* {each.rate} {each.timestamp} */}
-
-
-{/* + Object.keys(each).rate */}
-
-{/* <button onClick={retrieveExch}>test</button> */}
-            {/* <div>
-                {exch.map((each:any) => {
-                    <p>
-                        {each}
-                    </p>
-                })}
-            </div>  */}
+            <a href="https://www.freeforexapi.com">
+                <img alt="Free Forex API" src="https://www.freeforexapi.com/Images/link.png" height="20" />
+            </a>          
         </div>
     );
+}
+
+export function ExchangeCard (props:any){
+
+    return (
+        <Card>
+            <CardBody>
+                <Box style={{textAlign:'center'}}>
+                    <Heading size='xs' textTransform='uppercase'>
+                    {props.exchange}
+                    </Heading>
+                    <Text pt='2' fontSize='lg'>
+                    {props.rate}
+                    {/* <p style={{fontSize:'11px', fontStyle:'italic'}}>Last Updated: {props.timestamp}</p> */}
+                    </Text>
+                    
+                </Box>
+            </CardBody>
+
+        </Card>
+    )
 }

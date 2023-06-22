@@ -1,11 +1,12 @@
-import { Text } from "@chakra-ui/react";
+import { Heading, Text } from "@chakra-ui/react";
 
 
 export default function ExchangeTool () {
 
 
     return (
-        <div>
+        <div style={{flex:'1'}}>
+            <Heading size={'md'}>Currency Exchange Tool</Heading>
             <Text>Base Currency:</Text>
             <select>
                 <option value={'placeholder'}>placeholder</option>
