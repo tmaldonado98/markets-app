@@ -1,4 +1,4 @@
-import { Link as ChakraLink, Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
+import { Link as ChakraLink, Heading, Input, InputGroup, InputRightAddon } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import { useState, useContext, useEffect } from 'react';
@@ -57,8 +57,13 @@ export const Header:React.FC = () => {
   }, [])
 
     return (
-        <nav style={{borderBottom: 'solid 4px black', display:'flex', flexWrap:'wrap', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
-          <Tabs index={Number(tabIndex)} variant='soft-rounded' colorScheme='blue'>
+        <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
+          <div>
+            <Heading size="lg" as={'h1'} style={{textAlign:'center', color:'ivory', fontSize:'35px'}}>Markets App</Heading>
+            {/* <img src='../../assets/Markets App Logo.png' /> */}
+            {/* ***** PUT LOGO ON FIREBASE AND FETCH FROM STORAGE URL */}
+          </div>
+          <Tabs index={Number(tabIndex)} variant='soft-rounded' colorScheme='blue' style={{margin:"20px auto 0"}}>
               <TabList>
                   <ChakraLink as={RouterLink} to='/'>
                     <Tab onClick={() => handleTabChange('0')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
@@ -68,13 +73,13 @@ export const Header:React.FC = () => {
 
                   <ChakraLink as={RouterLink} to='/routes/markets'>
                     <Tab onClick={() => handleTabChange('1')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Global Markets
+                      Stock Markets
                     </Tab>
                   </ChakraLink>
 
                   <ChakraLink as={RouterLink} to='/routes/currencies'>
                     <Tab onClick={() => handleTabChange('2')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Global Currencies
+                      Foreign Exchanges
                     </Tab>
                   </ChakraLink>
 
@@ -109,16 +114,16 @@ export const Header:React.FC = () => {
             window.location.href.includes('/routes/markets') ?
             ''
             :
-          <InputGroup style={{width: '75%', margin:'8px auto'}}>
+          <InputGroup style={{width: '75%', margin:'25px auto 15px auto'}}>
                 <Input _focus={{bg: 'ivory'}} variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
-                <ChakraLink as={RouterLink} to='/routes/markets'>
                   {
                     searchInput ?
+                <ChakraLink as={RouterLink} to='/routes/markets'>
                   <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} onClick={() => transferToSearch(searchInput)} />
-                  :
-                  ''
-                  }
                 </ChakraLink>
+                  :
+                  <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} />
+                  }
             </InputGroup>
           }
 

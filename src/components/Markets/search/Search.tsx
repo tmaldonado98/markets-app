@@ -1,5 +1,5 @@
 import Loading from "../../../components/Loading";
-import {Card, CardHeader, HStack, Heading, Input, InputGroup, InputRightAddon, Stack, Tag} from "@chakra-ui/react";
+import {Button, Card, CardHeader, HStack, Heading, Input, InputGroup, InputRightAddon, Stack, Tag} from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../../Context";
@@ -35,21 +35,27 @@ export default function SearchStocks(){
     async function executeSearch(searchTerm:string){
         setSelectedTicker('');
         // const searchTerm = searchInput;
-        await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${process.env.avKey}`, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => {
-            setHideResults(false);
-            setHideSelect(true);
-            console.log(response.data);
-            setSearchResults(response.data);
-        })
-        .catch(error => {
-            console.error(error)
-            return error;
-        })
+        if (searchTerm === '') {
+            return false;
+        } 
+        else {
+            await axios.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${searchTerm}&apikey=${process.env.avKey}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                setHideResults(false);
+                setHideSelect(true);
+                console.log(response.data);
+                setSearchResults(response.data);
+            })
+            .catch(error => {
+                console.error(error)
+                return error;
+            })
+        }
+
     }
 
     useEffect(() => {
@@ -75,11 +81,18 @@ export default function SearchStocks(){
             changeRecent(ticker)
     }
 
+    function handleReset(){
+        setHideResults(true);
+        setHideSelect(true);
+        // setSelectedTicker('')
+    }
+
     return (
         <section style={{width: '90%', margin: 'auto'}}>
             <InputGroup>
-                <Input variant='filled' placeholder='Search stocks' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
+                <Input variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
                 <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} onClick={() => executeSearch(searchInput)} />
+                <Button onClick={handleReset}>Reset</Button>
             </InputGroup>
 
             {/* <div className="ad">Insert ad here</div> */}
@@ -103,7 +116,7 @@ export default function SearchStocks(){
             </div>
             <div>
             {/* {hideResults === false && !searchResults.bestMatches && */}
-            {hideResults === false && (!searchResults.bestMatches || searchResults.bestMatches.length === 0) &&
+            {hideResults === false && (searchResults.bestMatches === undefined || searchResults.bestMatches.length === 0) &&
                 <>
                     <p>Try again later.</p>
                 </>
