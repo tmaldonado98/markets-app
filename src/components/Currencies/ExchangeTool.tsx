@@ -109,7 +109,7 @@ export default function ExchangeTool () {
     return (
     <>
         <section style={{flex:'1', display:'flex', flexDirection:'column', gap:'25px'}}>
-            <Heading style={{textAlign:'center'}} size={'md'}>Currency Exchange Tool</Heading>
+            <Heading style={{textAlign:'center'}} size={'md'}>Currency Converter Tool</Heading>
             <div className="exchange-tools">
                 {rate === '' ? '' :
                 <p style={{textAlign:'center'}}>Last Updated: {formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})} UTC</p>

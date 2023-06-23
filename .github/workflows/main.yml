@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Run ESLint + Static Code Analysis
         run: npx eslint
@@ -38,7 +38,7 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # - name: Run Unit Tests With Jest
       #   run: npm test --config=tests/Jest/jest.config.ts
