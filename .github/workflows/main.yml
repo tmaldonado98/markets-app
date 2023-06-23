@@ -65,9 +65,8 @@ jobs:
         with:
           images: tomasmaldonado/markets-app
 
-      - name: Run npm install
-        run: npm install --legacy-peer-deps
-
+      # - name: Run npm install
+      #   run: npm install --legacy-peer-deps
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
@@ -75,6 +74,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            NPM_FLAGS=--legacy-peer-deps
 
         ##  Migrated this job to new workflow: deploy-GHpages.yml
   # build-and-deploy-production:
