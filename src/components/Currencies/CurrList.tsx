@@ -72,7 +72,7 @@ export default function CurrList(){
             const formattedTimestamp = new Date(timestamp * 1000);
 
             setTimestampState(formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'}))
-            console.log(formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'}))
+            // console.log(formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'}))
         }
     }, [exch])
 
@@ -96,7 +96,7 @@ export default function CurrList(){
 
     return (
         <div style={{flex:'1', padding:'0 65px', display:'flex', flexDirection:'column', gap:'5px'}}>
-            <Heading size={'md'} style={{textAlign:'center'}}>Currency Rates</Heading>
+            <Heading size={'md'} style={{textAlign:'center'}}>Currency Exchange Rates</Heading>
             <p><b>Base USD</b></p>
             <p  style={{fontSize:'13px', fontStyle:'italic'}}>Last Updated: {timestampState}</p>
         {data?.length > 10 ? data.map((each:{ [key: string]: any }) => {
