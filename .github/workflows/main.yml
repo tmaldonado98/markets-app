@@ -66,14 +66,15 @@ jobs:
           images: tomasmaldonado/markets-app
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+        run: |
+          npm install --legacy-peer-deps
+          docker/build-push-action@v4
+            context: .
+            push: ${{ github.event_name != 'pull_request' }}
+            tags: ${{ steps.meta.outputs.tags }}
+            labels: ${{ steps.meta.outputs.labels }}
 
-          ##  Migrated this job to new workflow: deploy-GHpages.yml
+        ##  Migrated this job to new workflow: deploy-GHpages.yml
   # build-and-deploy-production:
   #   needs: [quality-checks, run-unit-tests, build-and-push-image]
   #   runs-on: ubuntu-latest
