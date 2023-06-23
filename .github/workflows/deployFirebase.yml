@@ -29,6 +29,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Set CI environment variable
+        run: echo "CI=false" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 

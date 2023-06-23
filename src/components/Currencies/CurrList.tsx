@@ -49,7 +49,7 @@ export default function CurrList(){
         for(const each of supportedPairs){
                 // REACT_APP_localServer   REACT_APP_marketsServer
                 console.log(each[0], each[1])
-            const response = await axios.get(`${process.env.REACT_APP_localServer}/routes/currencies`, {
+            const response = await axios.get(`${process.env.REACT_APP_marketsServer}/routes/currencies`, {
                 params: {
                     pairs: each[1]
                 }
