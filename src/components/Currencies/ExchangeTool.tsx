@@ -2,7 +2,7 @@ import { Heading, Input, Text } from "@chakra-ui/react";
 import '../../routes/currencies/currencies.css';
 import {useState, useEffect} from 'react';
 import axios from "axios";
-
+import '../../styles/globals.css';
 
 export default function ExchangeTool () {
 
@@ -65,13 +65,13 @@ export default function ExchangeTool () {
         }
     }
 
-    useEffect(() => {
-        console.log(base, target)
-        // handleExchangePair();
-        saveExchangeRate();
-        // setTimeout(() => {
-        // }, 2000);
-    }, [base, target])
+    // useEffect(() => {
+    //     console.log(base, target)
+    //     // handleExchangePair();
+    //     saveExchangeRate();
+    //     // setTimeout(() => {
+    //     // }, 2000);
+    // }, [base, target])
 
     const exchangeRate = rate !== '' ? rate["5. Exchange Rate"] : '';
 
@@ -79,17 +79,6 @@ export default function ExchangeTool () {
         if (typeof e.keyDown === "string") {
             return false;
         }
-
-        // const allowedKeys = ["Tab", "Shift", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-
-        // if (!allowedKeys.includes(e.key)) {
-        //   const inputRegex = /^[0-9.,\b]+$/;
-      
-        //   if (!inputRegex.test(e.key)) {
-        //     e.preventDefault();
-        //     return;
-        //   }
-        // }
 
         else {
             // setBaseInput(e.target.value.replace(/,/g, ''))
@@ -104,15 +93,7 @@ export default function ExchangeTool () {
         if (typeof e.keyDown === "string") {
             return false;
         }
-        //     const allowedKeys = ["Tab", "Shift", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "Backspace"];
-
-        // if (!allowedKeys.includes(e.key)) {
-        //     const inputRegex = /^[0-9.,\b]+$/;
-        //         if (!inputRegex.test(e.key)) {
-        //             e.preventDefault();
-        //             return;
-        //         }
-        // }        
+       
         else {
             const baseTargetValue = e.target.value.replace(/,/g, "");
             setTargetInput(baseTargetValue);
@@ -124,12 +105,15 @@ export default function ExchangeTool () {
     
 
     const formattedTimestamp = new Date(rate['6. Last Refreshed']);
-    // console.log(rate["6. Last Refreshed"])
+    
     return (
+    <>
         <section style={{flex:'1', display:'flex', flexDirection:'column', gap:'25px'}}>
             <Heading style={{textAlign:'center'}} size={'md'}>Currency Exchange Tool</Heading>
             <div className="exchange-tools">
+                {rate === '' ? '' :
                 <p style={{textAlign:'center'}}>Last Updated: {formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})} UTC</p>
+                }
                 <Text>Base Currency:</Text>
                 <p><b>{base}</b></p>
                 <select defaultValue={'United States Dollar'}>
@@ -139,7 +123,7 @@ export default function ExchangeTool () {
                     ))}
                 </select>
 
-                <Input onChange={handleBaseInput} variant='filled' type="text" placeholder="Enter Value" value={baseInput !== '' ? Number(baseInput).toLocaleString() : ''}         
+                <Input onChange={handleBaseInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={baseInput !== '' ? Number(baseInput).toLocaleString() : ''}         
                     onKeyDown={(e) => {
                         const allowedKeys = [
                             "Backspace",
@@ -181,7 +165,7 @@ export default function ExchangeTool () {
                     ))}
                 </select>
 
-                <Input onChange={handleTargetInput} variant='filled' type="text" placeholder="Enter Value" value={targetInput !== '' ? Number(targetInput).toLocaleString() : ''}        
+                <Input onChange={handleTargetInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={targetInput !== '' ? Number(targetInput).toLocaleString() : ''}        
                     onKeyDown={(e) => {
                         const allowedKeys = [
                             "Backspace",
@@ -211,6 +195,12 @@ export default function ExchangeTool () {
                     >
                 </Input>
             </div>
+            
+            {/* <div>
+                <Heading size={'medium'}>Saved:</Heading>
+            </div> */}
         </section>
+        <div className="ad"></div>
+    </>
     )
 }

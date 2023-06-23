@@ -12,6 +12,7 @@ export default function Currencies(){
                 <CurrList />
                 <ExchangeTool />
             </main>
+            <div className="ad"></div>
         </>
 
     )

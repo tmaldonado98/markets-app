@@ -37,7 +37,7 @@ export default function Landing() {
           
 
           <header>
-            <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to Markets App</h1>
+            <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1>
             <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2>
           </header>
           
@@ -51,7 +51,7 @@ export default function Landing() {
 
               {/* render recent-pages section conditionally */}
               <section id='recent-pages'>
-                <p>Recently viewed pages</p> 
+                <p>Recently viewed:</p> 
 
               </section>
 
