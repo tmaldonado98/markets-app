@@ -20,7 +20,7 @@ import {
     SliderFilledTrack,
     SliderThumb,
   } from '@chakra-ui/react'
-import { MyContext } from 'components/Context';
+import { MyContext } from '../Context';
 
 
 export default function Fundamentals(props:any){

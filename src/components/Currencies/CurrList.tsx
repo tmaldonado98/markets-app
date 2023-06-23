@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query';
 import Loading from "../Loading";
 import { Card, CardHeader, CardBody, CardFooter, Heading, Box, Text } from '@chakra-ui/react'
-import { MyContext } from "components/Context";
+import { MyContext } from "../Context";
 
 
 // interface ExchangeData {
