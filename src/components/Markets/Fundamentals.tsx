@@ -1,6 +1,6 @@
 'use client'
 import {QueryClient, useQuery} from '@tanstack/react-query';
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 import Loading from '../Loading';
 import axios from 'axios';
 import '../../styles/fundamentals.css';
@@ -20,13 +20,16 @@ import {
     SliderFilledTrack,
     SliderThumb,
   } from '@chakra-ui/react'
+import { MyContext } from 'components/Context';
 
 
 export default function Fundamentals(props:any){
 
+    const {server} = useContext(MyContext)!;
+
     function fetchFundamentals(ticker:string): Promise<any>{
         return new Promise((resolve, reject) => {
-            axios.get(`${process.env.REACT_APP_marketsServer}/routes/markets/fundamentals`, 
+            axios.get(`${server}/routes/markets/fundamentals`, 
             // REACT_APP_localServer   REACT_APP_marketsServer
             {params: {
                 ticker: ticker,

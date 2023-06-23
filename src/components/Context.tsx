@@ -27,6 +27,8 @@ type MyContextValue = {
   termFromHeader:string;
   setTermFromHeader:any;
   changeTermFromHeader:any;
+
+  server:any;
 };
 
 // Create the context
@@ -37,6 +39,9 @@ type MyContextProviderProps = {
 };
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
+    // REACT_APP_localServer   REACT_APP_marketsServer
+  const server = process.env.REACT_APP_marketsServer;
+
   //header tabs index
   const storageIndex = sessionStorage.getItem('tabIndex')!
   const [tabIndex, setTabIndex] = useState(storageIndex);
@@ -114,6 +119,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     termFromHeader,
     setTermFromHeader,
     changeTermFromHeader,
+    server,
   };
 
   return (
