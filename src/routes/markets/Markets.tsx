@@ -49,9 +49,9 @@ export default function Stocks(){
                         <TabPanel>
                             <SearchStocks/>
                         </TabPanel>
-                        <TabPanel>
+                        {/* <TabPanel>
                             <Pinned/>
-                        </TabPanel>
+                        </TabPanel> */}
                         {/* <TabPanel>
                             <Trends/>
                         </TabPanel> */}

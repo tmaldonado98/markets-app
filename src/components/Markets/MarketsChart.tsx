@@ -1,4 +1,3 @@
-'use client'
 import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading } from '@chakra-ui/react'
 import {Chart} from './Chart';
 import '../../styles/globals.css';

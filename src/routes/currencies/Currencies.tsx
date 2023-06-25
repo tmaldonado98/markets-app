@@ -17,7 +17,3 @@ export default function Currencies(){
 
     )
 }
-
-{/* <CurrencyRow />
-<p>Is Equal To</p>
-<CurrencyRow /> */}
