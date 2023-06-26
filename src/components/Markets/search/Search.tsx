@@ -11,7 +11,7 @@ import Selected from "./Selected";
 
 
 export default function SearchStocks(){
-    document.title = "Search Stocks";
+    // document.title = "Search Stocks";
     const [searchInput, setSearchInput] = useState('')
     const [searchResults, setSearchResults] = useState({bestMatches: []})
 

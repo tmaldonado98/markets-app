@@ -1,4 +1,3 @@
-'use client';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Image, Stack, Heading, Text, Button, Card, CardHeader, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'

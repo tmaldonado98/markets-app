@@ -1,7 +1,5 @@
-import Trends from "../../components/Markets/trends/Trends";
 import './stocks.css';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
-import Pinned from "../../components/Markets/pinned/Pinned";
 import SearchStocks from "../../components/Markets/search/Search";
 import MarketsChart from "../../components/Markets/MarketsChart";
 import { MyContext } from "../../components/Context";

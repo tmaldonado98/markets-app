@@ -5,6 +5,7 @@ import { MyContext } from '../Context';
 import { useContext, useState, useEffect } from 'react';
 
 export default function MarketsChart(){
+    document.title = "Stock Markets"
     const markets = [
         [['Singapore Exchange', 'SGX'], ['FTSE Straits Times Index (FTSE STI)']], 
         [['Shanghai Stock Exchange', 'SSE'], ['Shanghai Stock Exchange Composite Index', 'CSI 300 Index']], 
