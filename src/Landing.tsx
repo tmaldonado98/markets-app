@@ -38,15 +38,14 @@ export default function Landing() {
 
           <header>
             <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1>
-            <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2>
+            {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
           </header>
           
-          <div id='first-box' className='min-h-16 border-red-600 border-solid border-4'>
-              {/* Create section for recently viewed sections within my website: asian market, oil prices, etc.  --- put in cards */}
-              <h2 className='date-h georgia'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
+          <div id='first-box' className='min-h-16 '>
+              {/* border-red-600 border-solid border-4*/}
+              {/* <h2 className='date-h georgia'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2> */}
               <section id='locales'>
                 <Locales currentTime={dateObj}/>
-                {/* <Loading /> */}
               </section>
 
               {/* render recent-pages section conditionally */}

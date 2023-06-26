@@ -116,14 +116,23 @@ export default function Locales ({currentTime} : MyComponentProps) {
         }
     }
 
+    const dateObj = new Date();
+    // console.log(dateObj)
+    
+    const dayOfMonth = dateObj.getDate();
+
+    const dayOfWeek: string = dateObj.toLocaleString('en-US', { weekday: 'long' })
+    // .getDay();
+    const month: string = dateObj.toLocaleString('en-US', { month: 'long' })
 
     return (
         <>
+            <h2 className='date-h georgia' style={{flex:'3'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
             <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'12px', }}>
-            {localesArr.map(each => (
+            {localesArr.slice(0,6).map(each => (
                 <Card key={localesArr.indexOf(each)}  style={{textAlign:'center', maxWidth:'250px'}}>
                     <CardHeader>
-                        <Heading size='md' className="georgia">
+                        <Heading title={each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ') + " Stock Exchange"} onClick={() => redirect(each[1])} style={{cursor:'pointer'}} size='md' className="georgia">
                             {each[0].slice(each[0].indexOf('/')+1).trim().replace(/_/g, ' ')}
                         </Heading>
                         <p className='numbers'>

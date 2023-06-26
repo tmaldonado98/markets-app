@@ -59,7 +59,10 @@ export const Header:React.FC = () => {
     return (
         <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
           <div>
-            <Heading size="lg" as={'h1'} style={{textAlign:'center', color:'ivory', fontSize:'35px'}}>Markets App</Heading>
+            {/* <div style={{display:'flex', justifyContent:'center', gap: '10px'}}> */}
+              <Heading size="lg" as={'h1'} style={{textAlign:'center', color:'ivory', fontSize:'35px'}} className='georgia'>Markets App</Heading>
+              <Heading size='md' as={'h2'} style={{textAlign:'center', color:'ivory', fontSize:'24px'}} className='georgia'>Your Online Source For Financial Education</Heading>
+            {/* </div> */}
             {/* <img src='../../assets/Markets App Logo.png' /> */}
             {/* ***** PUT LOGO ON FIREBASE AND FETCH FROM STORAGE URL */}
           </div>

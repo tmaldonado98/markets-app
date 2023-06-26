@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useQuery} from '@tanstack/react-query';
 import Loading from '../../components/Loading';
 import {useState} from 'react';
+import '../../styles/globals.css';
 
 export default function Commodities(){
     document.title = "Global Commodities";
@@ -19,19 +20,20 @@ export default function Commodities(){
         "Cotton",
         "Sugar",
         "Coffee",
-        "Global Commodities Index",
     ]
 
+    useEffect(() => {
+        window.scrollTo({ top: 220, left: 0, behavior: 'smooth' });
+    }, [])
 
 // getCommodities(Array.isArray(each) ? "WTI" : each)}>{commodities.indexOf(each) === 0 ? "Crude Oil (WTI)" : each
     return(
-        <>
-            <h1>Global Commodities Prices</h1>
             <main className='min-h-screen'>
-                <Tabs isLazy style={{display:'flex', flexWrap:"wrap"}} variant='enclosed-colored' >
+                <Heading size={'lg'} style={{textAlign:'center', padding:'14px 14px 0 14px'}} className='georgia'>Global Commodity Prices</Heading>
+                <Tabs isLazy style={{display:'flex', flexWrap:"wrap", margin:'8px auto', width:'95%'}}  variant='soft-rounded' className='py-6' >
                     {commodities.map(each =>(
                         <TabList  style={{flexWrap:'wrap'}}>    
-                            <Tab key={commodities.indexOf(each)}>{commodities.indexOf(each) === 0 ? "Crude Oil (WTI)" : each}</Tab>
+                            <Tab style={{fontSize:'20px'}} _selected={{ color: 'white', bg: 'blue.400', fontWeight:'700'}} _hover={{ fontWeight:'700' , bg: 'blue.100', }} key={commodities.indexOf(each)}>{commodities.indexOf(each) === 0 ? "Crude Oil (WTI)" : each}</Tab>
                         </TabList>
                     ))}
 {/*      onClick={() => getCommodities(each)}*/}
@@ -44,8 +46,8 @@ export default function Commodities(){
                         ))}
                     </TabPanels>
                 </Tabs>
+                <div className='ad'>ad here</div>
             </main>
-        </>
 
     )
 }
