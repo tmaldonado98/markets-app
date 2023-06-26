@@ -37,7 +37,7 @@ header h2 {
 
 #first-box {
     min-height: 25rem;
-    border: solid 5px red;
+    /* border: solid 5px red; */
     /* margin: 0 15px; */
     margin: auto;
     width: 85%;
@@ -53,8 +53,8 @@ header h2 {
 }
 
 #locales {
-    border: 5px dashed black;
-    padding: 4rem 12px;
+    /* border: 5px dashed black; */
+    padding: 2rem 12px;
     width: 100%;
     margin: auto;
 }
@@ -70,7 +70,7 @@ header h2 {
 
 #news-section {
     min-height: 64rem;
-    border: 5px dashed green;
+    /* border: 5px dashed green; */
     margin: 0 15px;
     display: flex;
     flex-direction: column;
@@ -78,7 +78,7 @@ header h2 {
 
 .news-cont {
     padding: 4rem;
-    border: 5px dotted purple;
+    /* border: 5px dotted purple; */
     width: 100%;
     flex: 1;
 }
