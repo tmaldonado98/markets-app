@@ -43,9 +43,25 @@ export default function CommPanels(props:any){
     console.log(data);
     return (
         <>
-            <Heading size={'lg'} style={{padding:'12px', marginBottom:'6px', textAlign:'center', fontWeight:'700'}} className="georgia">
-                {data.name === "Crude Oil Prices WTI" ? data.name + ' - West Texas Intermediate' : data.name}
-            </Heading>
+            <div style={{padding:'12px', marginBottom:'6px', textAlign:'center', fontWeight:'700'}}>
+                <Heading className="georgia" size={'lg'}>
+                    {data.name === "Crude Oil Prices WTI" ? data.name + ' - West Texas Intermediate' : data.name}
+                </Heading>
+                {data.name === "Crude Oil Prices WTI" || data.name === "Crude Oil Prices Brent" ?
+                    <Heading className="georgia" size={'md'}>dollars per barrel</Heading>
+                :
+                data.name === "Henry Hub Natural Gas Spot Price" ? 
+                    <Heading className="georgia" size={'md'}>dollars per million BTU</Heading>
+                :
+                data.name === "Global Price of Copper" || data.name === "Global Price of Aluminum" || data.name === "Global Price of Wheat" || data.name === "Global Price of Corn" ?
+                    <Heading className="georgia" size={'md'}>dollars per metric ton</Heading>
+                :
+                data.name === "Global Price of Cotton" || data.name === "Global Price of Sugar" || data.name === "Global Price of Coffee" || data.name === "Global Price of Corn" ?
+                    <Heading className="georgia" size={'md'}>cents per pound</Heading>
+                : 
+                ''
+                }                
+            </div>
             <CommChart commData={data} />
         </>
     )
