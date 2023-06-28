@@ -9,7 +9,7 @@ import {BsSearch} from 'react-icons/bs';
 
 export const Header:React.FC = () => {
   const navigate = useNavigate();
-  const {tabIndex, changeTabIndex, changeTermFromHeader, changeMarketsIndex} = useContext(MyContext)!;
+  const {changeTabIndex, changeTermFromHeader, changeMarketsIndex} = useContext(MyContext)!;
 
   const [searchInput, setSearchInput] = useState('')
  
@@ -39,23 +39,23 @@ export const Header:React.FC = () => {
     }
   }
 
-  const [indexFromStorage, setIndexFromStorage] = useState<string>(tabIndex)
 
-  const handleTabChange = (newIndex:string) => {
-    changeTabIndex(newIndex)
-    sessionStorage.setItem('tabIndex', newIndex.toString())
-    setIndexFromStorage(newIndex)
-  }
+
 
   useEffect(() => {
     if(sessionStorage.getItem('tabIndex') === null || sessionStorage.getItem('tabIndex') === '0'){
       sessionStorage.setItem('tabIndex', '0');
       changeTabIndex('0')
-      setIndexFromStorage('0')
       navigate('/')
     }
   }, [])
 
+  const storageIndex = sessionStorage.getItem('tabIndex') ? sessionStorage.getItem('tabIndex') : '0';
+  
+  const handleTabChange = (newIndex:string) => {
+    changeTabIndex(newIndex)
+  }
+  
     return (
         <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
           <div>
@@ -66,7 +66,7 @@ export const Header:React.FC = () => {
             {/* <img src='../../assets/Markets App Logo.png' /> */}
             {/* ***** PUT LOGO ON FIREBASE AND FETCH FROM STORAGE URL */}
           </div>
-          <Tabs index={Number(tabIndex)} variant='soft-rounded' colorScheme='blue' style={{margin:"20px auto 0"}}>
+          <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{margin:"20px auto 0"}}>
               <TabList>
                   <ChakraLink as={RouterLink} to='/'>
                     <Tab onClick={() => handleTabChange('0')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
@@ -86,15 +86,15 @@ export const Header:React.FC = () => {
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/commodities'>
+                  <ChakraLink as={RouterLink} to='/routes/crypto'>
                     <Tab onClick={() => handleTabChange('3')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Global Commodities
+                      Cryptocurrencies
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/futures'>
+                  <ChakraLink as={RouterLink} to='/routes/commodities'>
                     <Tab onClick={() => handleTabChange('4')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
-                      Futures
+                      Global Commodities
                     </Tab>
                   </ChakraLink>
 

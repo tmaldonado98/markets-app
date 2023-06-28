@@ -127,7 +127,7 @@ export default function Locales ({currentTime} : MyComponentProps) {
 
     return (
         <>
-            <h2 className='date-h georgia' style={{flex:'3'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
+            {/* <h2 className='date-h georgia' style={{flex:'3'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2> */}
             <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'12px', }}>
             {localesArr.slice(0,6).map(each => (
                 <Card key={localesArr.indexOf(each)}  style={{textAlign:'center', maxWidth:'250px'}}>

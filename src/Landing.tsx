@@ -36,14 +36,12 @@ export default function Landing() {
       <main className='min-h-screen' style={{maxWidth:'85%'}}>
           
 
-          <header>
-            <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1>
+            {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
-          </header>
           
           <div id='first-box' className='min-h-16 '>
               {/* border-red-600 border-solid border-4*/}
-              {/* <h2 className='date-h georgia'>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2> */}
+              <h2 className='date-h georgia' style={{textAlign:'center'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
               <section id='locales'>
                 <Locales currentTime={dateObj}/>
               </section>

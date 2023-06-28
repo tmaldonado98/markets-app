@@ -18,9 +18,11 @@ export default function MarketsChart(){
 
 ///save tab indexes to sessionstorage. no context needed. 
 
-    const {indexIndex, changeIndexIndex, } = useContext(MyContext)!;
+    const {changeIndexIndex, } = useContext(MyContext)!;
 
-    const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
+    // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
+
+    const storageIndex = sessionStorage.getItem('indexIndex') ? sessionStorage.getItem('indexIndex') : '0';
 
     const handleTabChange = (stockIndex:string) => {
         window?.scrollTo({ top: 350, left: 0, behavior: 'smooth' });
@@ -64,8 +66,7 @@ export default function MarketsChart(){
         }
         
         changeIndexIndex(newIndex)  ///sets newIndex as context variable
-        sessionStorage.setItem('indexIndex', newIndex.toString())
-        setIndIndFromStorage(newIndex)
+        // setIndIndFromStorage(newIndex)
     }
 
     //For when route is mounted from locale redirection
@@ -79,7 +80,7 @@ export default function MarketsChart(){
             <div id="container-chart-tabs">
                 <main className="min-h-screen">
                     <section>
-                        <Tabs index={indIndFromStorage} isLazy orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
+                        <Tabs index={Number(storageIndex)} isLazy orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
                             <TabList style={{border:'3px black solid', justifyContent:'space-evenly'}}>
                             {/* style={{flexDirection:'column'}} */}
                             {/* border:'1px black solid', */}

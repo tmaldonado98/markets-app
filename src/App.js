@@ -5,6 +5,7 @@ import Layout from './Layout.tsx';
 import Stocks from './routes/markets/Markets.tsx';
 import Currencies from './routes/currencies/Currencies.tsx';
 import Commodities from './routes/commodities/Commodities.tsx';
+import Crypto from './routes/crypto/Crypto.tsx';
 import { useEffect } from 'react'; 
 
 function App() {
@@ -14,7 +15,9 @@ function App() {
       <Route exact path='/' element={<Landing />}/>
       <Route path='/routes/markets' element={<Stocks />}/>
       <Route path='/routes/currencies' element={<Currencies />}/>
+      <Route path='/routes/crypto' element={<Crypto />}/>
       <Route path='/routes/commodities' element={<Commodities />}/>
+      {/* <Route path='/routes/macroData' element={<macro />}/> */}
     </Routes>
 
     // <body className="App">

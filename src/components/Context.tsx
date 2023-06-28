@@ -29,6 +29,12 @@ type MyContextValue = {
   changeTermFromHeader:any;
 
   server:any;
+
+  cryptoIndex:string;
+  changeCryptoIndex:any;
+
+  commIndex:string;
+  changeCommIndex:any;
 };
 
 // Create the context
@@ -40,22 +46,27 @@ type MyContextProviderProps = {
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     // REACT_APP_localServer   REACT_APP_marketsServer
-  const server = process.env.REACT_APP_marketsServer;
+  const server = process.env.REACT_APP_localServer;
 
   //header tabs index
-  const storageIndex = sessionStorage.getItem('tabIndex')!
-  const [tabIndex, setTabIndex] = useState(storageIndex);
+  // const storageIndex = sessionStorage.getItem('tabIndex')!
+  const [tabIndex, setTabIndex] = useState('0');
 
   function changeTabIndex (newIndex:string){
     setTabIndex(newIndex);
+    sessionStorage.setItem('tabIndex', newIndex)
+
   }
 
   //markets tab indexes
   const [indexIndex, setIndexIndex] = useState('0')
   function changeIndexIndex (newIndex:string){
     setIndexIndex(newIndex);
+    sessionStorage.setItem('indexIndex', newIndex.toString())
   }
 
+
+  
   const [range, setRange] = useState('1mo');
 
   function changeRange (string:string){
@@ -84,10 +95,13 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
 
   ////markets route indexes
-  const storedMarketsInd = sessionStorage.getItem('marketsIndex')!;
-  const [marketsIndex, setMarketsIndex] = useState(storedMarketsInd)
+  // const storedMarketsInd = sessionStorage.getItem('marketsIndex')!;
+  const [marketsIndex, setMarketsIndex] = useState('0')
+
   function changeMarketsIndex(newIndex:string){
     setMarketsIndex(newIndex);
+    sessionStorage.setItem('marketsIndex', newIndex)
+
   }
 
 
@@ -96,6 +110,21 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
   function changeTermFromHeader(term:string){
     setTermFromHeader(term);
   }
+  
+    ////comm route indexes
+    const [commIndex, setCommIndex] = useState('0')
+    function changeCommIndex (newIndex:string){
+      setCommIndex(newIndex);
+      sessionStorage.setItem('commIndex', newIndex.toString())
+    }
+  
+
+    ////crypto route indexes
+    const [cryptoIndex, setCryptoIndex] = useState('0')
+    function changeCryptoIndex (newIndex:string){
+      setCryptoIndex(newIndex);
+      sessionStorage.setItem('cryptoIndex', newIndex.toString())
+    }
 
   const contextValue: MyContextValue = {
     tabIndex,
@@ -120,6 +149,10 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     setTermFromHeader,
     changeTermFromHeader,
     server,
+    cryptoIndex, 
+    changeCryptoIndex,
+    commIndex,
+    changeCommIndex,
   };
 
   return (
