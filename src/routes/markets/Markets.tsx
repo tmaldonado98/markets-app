@@ -7,13 +7,13 @@ import {useContext} from 'react';
 
 export default function Stocks(){
     document.title = "Stock Markets";
-    const {marketsIndex, changeMarketsIndex} = useContext(MyContext)!;
+    const {changeMarketsIndex} = useContext(MyContext)!;
 
+
+    const storageIndex = sessionStorage.getItem('marketsIndex');
 
     function handleTabClick(newIndex:string){
-        changeMarketsIndex(newIndex);
-        sessionStorage.setItem('marketsIndex', newIndex)
-    
+        changeMarketsIndex(newIndex);    
     }
 
     return(
@@ -24,7 +24,7 @@ export default function Stocks(){
                 </div>
             </aside>
             <nav>
-                <Tabs index={Number(marketsIndex)} variant='soft-rounded' colorScheme='green'>
+                <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='green'>
                     <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem', fontFamily:'Georgia'}} className='georgia'>
                         <Tab _hover={{bg: 'green.100', color:'green.600'}} onClick={() => handleTabClick('0')}>
                             Global Stock Markets

@@ -40,7 +40,7 @@ export default function CommPanels(props:any){
         return <div style={{textAlign:'center'}}><p>Please Try Again In A Minute</p><Loading/></div>
     }
 
-    console.log(data);
+    // console.log(data);
     return (
         <>
             <div style={{padding:'12px', marginBottom:'6px', textAlign:'center', fontWeight:'700'}}>

@@ -80,6 +80,14 @@ export function Chart(props:any) {
             // refetch();
             return fetchMarketData(props.ticker);
         }
+        else if(props.crypto){
+            // const cryptoTicker = 'BTC-USD';
+            return fetchMarketData(props.crypto);
+        }
+        // else if(props.crypto === 'ETH'){
+        //     const cryptoTicker = 'ETH-USD';
+        //     return fetchMarketData(cryptoTicker);
+        // }
     }
 
     // useEffect(() => {
@@ -99,7 +107,7 @@ export function Chart(props:any) {
                 },
             })
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 resolve(response.data)
             })
             .catch(error => {
@@ -192,7 +200,7 @@ export function Chart(props:any) {
                 <StockData dataPoints={data.chart.result[0]} param={param}/>
                 <div className='ad'>Insert ad here</div>
             <div className="fundamentals-container" style={{padding: '20px'}}>
-                <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Index Fundamentals</h2>
+                <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Fundamentals</h2>
                 <Fundamentals fundamentals={staticFundamentals}/>
             </div>
             </>

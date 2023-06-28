@@ -17,10 +17,10 @@ export default function CommChart(props:any){
             
             ))
 
-		console.log(formattedDataPoints)
+		// console.log(formattedDataPoints)
 
         const dates = formattedDataPoints[1];
-        console.log(dates[0], dates[dates.length - 1]);
+        // console.log(dates[0], dates[dates.length - 1]);
 
 		const options:any = {
 			animationEnabled: true,
@@ -55,7 +55,7 @@ export default function CommChart(props:any){
 			options.data[0].dataPoints[i].y = Number(formattedDataPoints[0][i])
 		}
 
-		console.log(options.data[0].dataPoints)
+		// console.log(options.data[0].dataPoints)
 
 		return (
 		<div style={{borderBottom:'black 5px solid'}}>

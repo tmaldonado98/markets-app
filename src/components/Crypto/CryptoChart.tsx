@@ -6,7 +6,7 @@ import CanvasJSReact from '@canvasjs/react-charts';
 const CanvasJS = CanvasJSReact.CanvasJS;
 const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-export default function StockData(props:any){	
+export default function CryptoChart(props:any){	
 		const curr = props.dataPoints.meta.currency;	
 		const range = props.dataPoints.meta.range;
 
@@ -50,7 +50,7 @@ export default function StockData(props:any){
 				// prefix: "$"
 			},
 			data: [{
-				// yValueFormatString: "###,###.######",
+				// yValueFormatString: "#,###",
 				xValueType: "dateTime",
 				// xValueFormatString: "DD",
 				// type: "spline",
@@ -75,7 +75,7 @@ export default function StockData(props:any){
 		}
 		else if (props.dataPoints.meta.currency === 'USD') {
 			options.axisY.prefix = '$'
-			options.data[0].yValueFormatString = "$###,###.####"
+			options.data[0].yValueFormatString = "$#,###"
 		}
 		else if (props.dataPoints.meta.currency === 'GBP') {
 			options.axisY.prefix = '£'
@@ -91,7 +91,7 @@ export default function StockData(props:any){
 		}
 
 		if(props.param === 'Volume'){
-			options.data[0].yValueFormatString = "###,###.######"
+			options.data[0].yValueFormatString = "#,###"
 			options.axisY.prefix = ''
 		}
 		

@@ -97,8 +97,8 @@ export default function News(props:any){
                             const jsonArticles = localStorage.getItem(key);
                             const parsedArt = jsonArticles ? JSON.parse(jsonArticles) : '';
                             setArticles(parsedArt);
-                            console.log('articles fetched from localStorage.')
-                            console.log(parsedArt)
+                            // console.log('articles fetched from localStorage.')
+                            // console.log(parsedArt)
                         }
                     }
                 }
@@ -143,7 +143,7 @@ export default function News(props:any){
                     )
                     .then(response => {
                         console.log('Articles not found in localStorage. Fetched from api and stored at ' + timestamp)
-                        console.log(response.data)
+                        // console.log(response.data)
                         ///Checks that api returns feed. If doesn't return array, then leave previously stored data.
                         if (Array.isArray(response.data.feed)) {
                             localStorage.setItem(key, JSON.stringify(response.data.feed))
