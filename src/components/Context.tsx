@@ -35,6 +35,8 @@ type MyContextValue = {
 
   commIndex:string;
   changeCommIndex:any;
+
+  changePinnedArr:any;
 };
 
 // Create the context
@@ -126,6 +128,41 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       sessionStorage.setItem('cryptoIndex', newIndex.toString())
     }
 
+    // const [pinned, setPinned] = useState([]);
+    function changePinnedArr(newItem:string) {
+      if (sessionStorage.getItem('pinned') === null) {
+        //if pinned list doesn't exist
+        const arrToSave = [];
+        arrToSave.push(newItem.split('-')[0].trim());
+        sessionStorage.setItem('pinned', JSON.stringify(arrToSave));
+        console.log(arrToSave);
+
+      } 
+      else {
+        // if pinned list exists
+        const arrToParse = sessionStorage.getItem('pinned')!;
+        const parsed = JSON.parse(arrToParse);
+        console.log(parsed)
+        if(parsed.includes(newItem.split('-')[0].trim())){
+          //to avoid duplicate items
+          console.log('Item already exists')
+          return false;
+        }
+        else {
+          //new items here
+          parsed.push(newItem.split('-')[0].trim());
+          console.log(parsed)
+          sessionStorage.setItem('pinned', JSON.stringify(parsed));
+
+        }
+      }
+    }
+
+
+    function removePinnedItem(newItem:string){
+      
+    }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
@@ -153,6 +190,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     changeCryptoIndex,
     commIndex,
     changeCommIndex,
+    changePinnedArr,
   };
 
   return (

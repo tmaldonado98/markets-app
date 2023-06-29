@@ -1,10 +1,10 @@
-import { Heading } from '@chakra-ui/react';
+import { Button, Heading, Text } from '@chakra-ui/react';
 import './styles/landing.css';
 import Locales from './components/Locales';
 import { useEffect, useState } from 'react';
 import News from './components/News';
 import Loading from './components/Loading';
-
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 
 export default function Landing() {
 
@@ -30,6 +30,12 @@ export default function Landing() {
 
 //     const options = { weekday: 'long' };
 // const dayOfWeek = date.toLocaleString('en-US', options);
+
+  const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
+ 
+  const parsedPinnedItems = JSON.parse(pinnedItems);
+  console.log(parsedPinnedItems);  
+  
   return (
     <section id='landing-container'>
 
@@ -47,10 +53,22 @@ export default function Landing() {
               </section>
 
               {/* render recent-pages section conditionally */}
-              <section id='recent-pages'>
-                <p>Recently viewed:</p> 
-
-              </section>
+              {parsedPinnedItems !== '' ?
+                <section id='recent-pages'>
+                  <p>Pinned items:</p> 
+                  <div style={{display:'flex', gap:'6px', }}>
+                    {parsedPinnedItems.map((each:string) => (
+                        <Card style={{width:'fit-content'}}>
+                          <CardBody>
+                            <span>{each}</span>
+                          </CardBody>
+                        </Card>
+                    ))}
+                  </div>
+                </section>
+              :
+              ''  
+              }
 
           </div>
           <aside id='ad2'>
