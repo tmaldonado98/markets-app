@@ -21,7 +21,7 @@ export default function MarketsChart(){
 
 ///save tab indexes to sessionstorage. no context needed. 
 
-    const {changeIndexIndex, changePinnedArr} = useContext(MyContext)!;
+    const {changeIndexIndex, changePinnedArr, removePinnedItem} = useContext(MyContext)!;
 
     // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
 
@@ -79,30 +79,30 @@ export default function MarketsChart(){
     }, []);
 
     const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
-    const parsedPinnedItems = JSON.parse(pinnedItems);   
+    const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';   
 
     const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
         const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
-        const parsedPinnedItems = JSON.parse(pinnedItems);       
+        const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';       
     }, [update])
 
     function handlePin(item:string){
+
         provokeUpdate(!update);
 
         changePinnedArr(item);
     }
 
-    const [del, setDel] = useState(false);
+    function sendDelete(item:string){
+        provokeUpdate(!update);
 
-    function displayDel(){
-        setDel(prevState => !prevState)
+        removePinnedItem(item)
     }
 
-    // useEffect(() => {
-    //     console.log(del)
-    // }, [del])
+    const [del, setDel] = useState(false);
+
 
     return (
         <>
@@ -131,7 +131,7 @@ export default function MarketsChart(){
                                                 </Heading>
                                                 {parsedPinnedItems.includes(index.toString().split('-')[0].trim()) ?
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button onMouseEnter={displayDel}  onMouseLeave={displayDel} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-index')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-index')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                         Pinned To Home
                                                     </span>
 

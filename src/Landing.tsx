@@ -1,12 +1,16 @@
 import { Button, Heading, Text } from '@chakra-ui/react';
 import './styles/landing.css';
 import Locales from './components/Locales';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { MyContext } from './components/Context';
 import News from './components/News';
-import Loading from './components/Loading';
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { TiDelete } from 'react-icons/ti';
 
 export default function Landing() {
+
+  const {removePinnedItem} = useContext(MyContext)!;
+
 
   useEffect(() => {
     window.scrollTo({
@@ -33,9 +37,16 @@ export default function Landing() {
 
   const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
  
-  const parsedPinnedItems = JSON.parse(pinnedItems);
+  const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';
   console.log(parsedPinnedItems);  
   
+  const [update, provokeUpdate] = useState(true);
+
+  function handleDelete(item:string){
+    provokeUpdate(!update);
+    removePinnedItem(item)
+  }
+
   return (
     <section id='landing-container'>
 
@@ -55,16 +66,28 @@ export default function Landing() {
               {/* render recent-pages section conditionally */}
               {parsedPinnedItems !== '' ?
                 <section id='recent-pages'>
-                  <p>Pinned items:</p> 
-                  <div style={{display:'flex', gap:'6px', }}>
-                    {parsedPinnedItems.map((each:string) => (
-                        <Card style={{width:'fit-content'}}>
-                          <CardBody>
-                            <span>{each}</span>
-                          </CardBody>
-                        </Card>
-                    ))}
-                  </div>
+                  {parsedPinnedItems.length > 0 ?
+                  <>
+                    <Heading size={'lg'}>Pinned items:</Heading> 
+                    <div style={{display:'flex', gap:'12px', flexWrap:'wrap', justifyContent:'center'}}>
+                      {parsedPinnedItems.map((each:string) => (
+                          <Card style={{width:'25%'}}>
+                            <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                              <span style={{cursor:'pointer', alignSelf:'end'}} title='Unpin Item'>
+                                <TiDelete onClick={() => handleDelete(each)}/>
+                              </span>
+
+                              <span>{each}</span>
+                            </CardBody>
+                          </Card>
+                      ))}
+                    </div>
+                  </>
+                  :
+                    <Heading size='md'>
+                      You can pin your favorite items here. 
+                    </Heading>
+                  }
                 </section>
               :
               ''  
