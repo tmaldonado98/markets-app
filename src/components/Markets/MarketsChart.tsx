@@ -1,8 +1,11 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Heading, Button } from '@chakra-ui/react'
 import {Chart} from './Chart';
 import '../../styles/globals.css';
 import { MyContext } from '../Context';
 import { useContext, useState, useEffect } from 'react';
+import { BsPinFill } from 'react-icons/bs';
+import {MdOutlineDone} from 'react-icons/md';
+import {TiDelete} from 'react-icons/ti';
 
 export default function MarketsChart(){
     document.title = "Stock Markets"
@@ -18,7 +21,7 @@ export default function MarketsChart(){
 
 ///save tab indexes to sessionstorage. no context needed. 
 
-    const {changeIndexIndex, } = useContext(MyContext)!;
+    const {changeIndexIndex, changePinnedArr, removePinnedItem} = useContext(MyContext)!;
 
     // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
 
@@ -75,6 +78,32 @@ export default function MarketsChart(){
           
     }, []);
 
+    const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
+    const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';   
+
+    const [update, provokeUpdate] = useState(true);
+
+    useEffect(() => {
+        const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
+        const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';       
+    }, [update])
+
+    function handlePin(item:string){
+
+        provokeUpdate(!update);
+
+        changePinnedArr(item);
+    }
+
+    function sendDelete(item:string){
+        provokeUpdate(!update);
+
+        removePinnedItem(item)
+    }
+
+    const [del, setDel] = useState(false);
+
+
     return (
         <>
             <div id="container-chart-tabs">
@@ -96,9 +125,26 @@ export default function MarketsChart(){
                             <TabPanels>
                                 {markets.map(each => each[1].map((index) => (
                                         <TabPanel key={each[1].indexOf(index)}>
-                                            <Heading as='h2' className='georgia' style={{textAlign:'center', padding:'0 0 15px 0'}}>
-                                                {index}
-                                            </Heading>  
+                                            <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+                                                <Heading as='h2' className='georgia' style={{textAlign:'center', padding:'0 0 15px 0', width:'80%'}}>
+                                                    {index}
+                                                </Heading>
+                                                {parsedPinnedItems.includes(index.toString().split('-')[0].trim()) ?
+                                                    <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
+                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-index')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                        Pinned To Home
+                                                    </span>
+
+                                                    :
+                                                    <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
+                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-index')}><BsPinFill/></Button>
+                                                        Pin Shortcut
+                                                    </span>
+                                                }
+
+                                            </div>
+
+
                                             <Chart key={index}  market={index}/>
                                         </TabPanel>
 

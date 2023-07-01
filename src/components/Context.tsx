@@ -35,6 +35,9 @@ type MyContextValue = {
 
   commIndex:string;
   changeCommIndex:any;
+
+  changePinnedArr:any;
+  removePinnedItem:any;
 };
 
 // Create the context
@@ -126,6 +129,64 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       sessionStorage.setItem('cryptoIndex', newIndex.toString())
     }
 
+    //State to track whether pinned item is of type market index, news item, commodity, 
+
+    // const [pinned, setPinned] = useState([]);
+    function changePinnedArr(newItem:string) {
+      if (sessionStorage.getItem('pinnedInd') === null) {
+        //if pinned list doesn't exist
+        const arrToSave = [];
+        arrToSave.push(newItem.split('-')[0].trim());
+        sessionStorage.setItem('pinnedInd', JSON.stringify(arrToSave));
+        console.log(arrToSave);
+
+      } 
+      else {
+        // if pinned list exists
+        const arrToParse = sessionStorage.getItem('pinned')!;
+        const parsed = JSON.parse(arrToParse);
+        console.log(parsed)
+        if(parsed.includes(newItem.split('-')[0].trim())){
+          //to avoid duplicate items
+          console.log('Item already exists')
+          return false;
+        }
+        else {
+          //new items here
+          parsed.push(newItem.split('-')[0].trim());
+          console.log(parsed)
+          sessionStorage.setItem('pinned', JSON.stringify(parsed));
+
+        }
+      }
+    }
+
+
+    function removePinnedItem(newItem:string){
+      const trimmedIndex = newItem.split('-')[0].trim();
+      console.log(trimmedIndex);
+
+      const arrToParse = sessionStorage.getItem('pinned')!;
+      if (arrToParse !== null) {
+        //// Executing deletion only if this storage item exists.
+        const parsed = JSON.parse(arrToParse);
+        
+        const toPullOut = parsed.indexOf(trimmedIndex);
+
+        //pull out index being sent by delete function from parsed array
+        parsed.splice(toPullOut, 1);
+
+        console.log(toPullOut, parsed, trimmedIndex);
+
+        //set filtered array as the new sessionStorage item
+        sessionStorage.setItem('pinnedInd', JSON.stringify(parsed));
+      }
+      else {
+        return false;
+      }
+
+    }
+
   const contextValue: MyContextValue = {
     tabIndex,
     changeTabIndex,
@@ -153,6 +214,8 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     changeCryptoIndex,
     commIndex,
     changeCommIndex,
+    changePinnedArr,
+    removePinnedItem,
   };
 
   return (

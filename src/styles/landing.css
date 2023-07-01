@@ -60,8 +60,9 @@ header h2 {
 }
 
 #recent-pages {
-    padding: 4rem 12px;
-
+    padding: 2rem 12px 4rem;
+    text-align: center;
+    border-top: 1px solid black;
 }
 
 #ad2 {

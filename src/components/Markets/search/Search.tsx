@@ -121,6 +121,7 @@ export default function SearchStocks(){
                     <p>Try again later.</p>
                 </>
                 }
+                
                 {hideResults === false && searchResults && searchResults.bestMatches.length > 0 ?
                 searchResults.bestMatches.map((each:any) => {
                     return (
