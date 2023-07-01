@@ -129,13 +129,15 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       sessionStorage.setItem('cryptoIndex', newIndex.toString())
     }
 
+    //State to track whether pinned item is of type market index, news item, commodity, 
+
     // const [pinned, setPinned] = useState([]);
     function changePinnedArr(newItem:string) {
-      if (sessionStorage.getItem('pinned') === null) {
+      if (sessionStorage.getItem('pinnedInd') === null) {
         //if pinned list doesn't exist
         const arrToSave = [];
         arrToSave.push(newItem.split('-')[0].trim());
-        sessionStorage.setItem('pinned', JSON.stringify(arrToSave));
+        sessionStorage.setItem('pinnedInd', JSON.stringify(arrToSave));
         console.log(arrToSave);
 
       } 
@@ -177,7 +179,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         console.log(toPullOut, parsed, trimmedIndex);
 
         //set filtered array as the new sessionStorage item
-        sessionStorage.setItem('pinned', JSON.stringify(parsed));
+        sessionStorage.setItem('pinnedInd', JSON.stringify(parsed));
       }
       else {
         return false;
