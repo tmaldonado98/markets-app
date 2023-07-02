@@ -21,7 +21,7 @@ export default function MarketsChart(){
 
 ///save tab indexes to sessionstorage. no context needed. 
 
-    const {changeIndexIndex, changePinnedArr, removePinnedItem} = useContext(MyContext)!;
+    const {changeIndexIndex, category, changePinnedArr, removePinnedItem, update, provokeUpdate, handlePin, sendDelete} = useContext(MyContext)!;
 
     // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
 
@@ -78,28 +78,31 @@ export default function MarketsChart(){
           
     }, []);
 
-    const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
-    const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';   
+    // use context variable that represents pinned category in sessionStorage
 
-    const [update, provokeUpdate] = useState(true);
+    const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
+    const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';   
+
+    // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
-        const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
-        const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';       
+        const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
+        const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';       
+
     }, [update])
 
-    function handlePin(item:string){
+    // function handlePin(item:string, category:string){
 
-        provokeUpdate(!update);
+    //     provokeUpdate(!update);
 
-        changePinnedArr(item);
-    }
+    //     changePinnedArr(item, category);
+    // }
 
-    function sendDelete(item:string){
-        provokeUpdate(!update);
+    // function sendDelete(item:string, category:string){
+    //     provokeUpdate(!update);
 
-        removePinnedItem(item)
-    }
+    //     removePinnedItem(item, category)
+    // }
 
     const [del, setDel] = useState(false);
 
@@ -129,19 +132,22 @@ export default function MarketsChart(){
                                                 <Heading as='h2' className='georgia' style={{textAlign:'center', padding:'0 0 15px 0', width:'80%'}}>
                                                     {index}
                                                 </Heading>
-                                                {parsedPinnedItems.includes(index.toString().split('-')[0].trim()) ?
+                                                {/* <span>{update.toString()}</span> */}
+                                                {/* <p>{parsedPinnedItems.map((each:string) => each)}</p> */}
+
+{/* .split('-')[0].trim() */}
+                                                {parsedPinnedItems.includes(index.toString()+ '-pinnedMarketItems') ?
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-index')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems', 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                         Pinned To Home
                                                     </span>
 
                                                     :
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-index')}><BsPinFill/></Button>
+                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', 'pinnedMarketItems')}><BsPinFill/></Button>
                                                         Pin Shortcut
                                                     </span>
                                                 }
-
                                             </div>
 
 

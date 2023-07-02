@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react';
+import React, { createContext, useState, ReactNode, useEffect } from 'react';
 
 type MyContextValue = {
   tabIndex: string;
@@ -36,8 +36,15 @@ type MyContextValue = {
   commIndex:string;
   changeCommIndex:any;
 
+  category:string;
   changePinnedArr:any;
   removePinnedItem:any;
+
+  update:boolean;
+  provokeUpdate:any;
+  handlePin:any;
+  sendDelete:any;
+
 };
 
 // Create the context
@@ -130,43 +137,55 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     }
 
     //State to track whether pinned item is of type market index, news item, commodity, 
+    // define state
+    const [category, setCategory] = useState('');
 
-    // const [pinned, setPinned] = useState([]);
-    function changePinnedArr(newItem:string) {
-      if (sessionStorage.getItem('pinnedInd') === null) {
+    function changePinnedArr(newItem:string, category:string) {
+      setCategory(category);
+      // pass state variable as string into getItem method
+
+      if (sessionStorage.getItem(category) === null) {
         //if pinned list doesn't exist
         const arrToSave = [];
-        arrToSave.push(newItem.split('-')[0].trim());
-        sessionStorage.setItem('pinnedInd', JSON.stringify(arrToSave));
+        // .split('-')[0].trim()  <-- if add this, then name of item will be clean in session storage.
+        arrToSave.push(newItem);
+        sessionStorage.setItem(category, JSON.stringify(arrToSave));
         console.log(arrToSave);
 
       } 
       else {
         // if pinned list exists
-        const arrToParse = sessionStorage.getItem('pinned')!;
-        const parsed = JSON.parse(arrToParse);
+        const arrToParse = sessionStorage.getItem(category)!;
+        const parsed = sessionStorage.getItem(category) ? JSON.parse(arrToParse) : '';
         console.log(parsed)
-        if(parsed.includes(newItem.split('-')[0].trim())){
+        if(parsed.includes(newItem)){
+          // .split('-')[0].trim()
           //to avoid duplicate items
           console.log('Item already exists')
           return false;
         }
+        else if(parsed === ''){
+          // In case of malfunction
+          return false;
+        }
         else {
           //new items here
-          parsed.push(newItem.split('-')[0].trim());
+          // .split('-')[0].trim()
+          parsed.push(newItem);
           console.log(parsed)
-          sessionStorage.setItem('pinned', JSON.stringify(parsed));
+          sessionStorage.setItem(category, JSON.stringify(parsed));
 
         }
       }
     }
 
 
-    function removePinnedItem(newItem:string){
-      const trimmedIndex = newItem.split('-')[0].trim();
+    function removePinnedItem(newItem:string, category:string){
+      const trimmedIndex = newItem;
+      // .split('-')[0].trim()
       console.log(trimmedIndex);
 
-      const arrToParse = sessionStorage.getItem('pinned')!;
+      const arrToParse = sessionStorage.getItem(category)!;
       if (arrToParse !== null) {
         //// Executing deletion only if this storage item exists.
         const parsed = JSON.parse(arrToParse);
@@ -176,16 +195,35 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         //pull out index being sent by delete function from parsed array
         parsed.splice(toPullOut, 1);
 
-        console.log(toPullOut, parsed, trimmedIndex);
+        // console.log(toPullOut, parsed, trimmedIndex);
 
         //set filtered array as the new sessionStorage item
-        sessionStorage.setItem('pinnedInd', JSON.stringify(parsed));
+        sessionStorage.setItem(category, JSON.stringify(parsed));
       }
       else {
         return false;
       }
 
     }
+
+    const [update, provokeUpdate] = useState(true);
+    //for adding a pin
+  function handlePin(item:string, category:string){
+
+      provokeUpdate(!update);
+
+      changePinnedArr(item, category);
+  }
+
+  function sendDelete(item:string, category:string){
+      provokeUpdate(!update);
+
+      removePinnedItem(item, category)
+  }
+
+  // useEffect(() => {
+  //   console.log(update)
+  // }, [update])
 
   const contextValue: MyContextValue = {
     tabIndex,
@@ -214,8 +252,13 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     changeCryptoIndex,
     commIndex,
     changeCommIndex,
+    category,
     changePinnedArr,
     removePinnedItem,
+    update,
+    provokeUpdate,
+    handlePin,
+    sendDelete
   };
 
   return (

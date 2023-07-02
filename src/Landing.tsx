@@ -26,7 +26,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 export default function Landing() {
 
-  const {removePinnedItem} = useContext(MyContext)!;
+  const {category, removePinnedItem} = useContext(MyContext)!;
 
 
   useEffect(() => {
@@ -52,16 +52,72 @@ export default function Landing() {
 //     const options = { weekday: 'long' };
 // const dayOfWeek = date.toLocaleString('en-US', options);
 
-  const pinnedItems = sessionStorage.getItem('pinned') ? sessionStorage.getItem('pinned')! : '';
- 
-  const parsedPinnedItems = pinnedItems !== '' ? JSON.parse(pinnedItems) : '';
-  console.log(parsedPinnedItems);  
-  
-  const [update, provokeUpdate] = useState(true);
+  const arrayOfCategories = ['pinnedMarketItems'];
+  //set to execute upon comp mount
+  // function setArrays(){
+  //   for (let i = 0; i < arrayOfCategories.length; i++) {
 
+      
+  //   }
+  // }
+  const allCategories = []; 
+
+  const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
+  const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
+ 
+  // const pinnedStockItems = sessionStorage.getItem('pinnedStockInd') ? sessionStorage.getItem('pinnedStockInd')! : '';
+  // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
+
+  allCategories.push(parsedMarketItems);
+
+  console.log(allCategories.flat());  
+
+  const [update, provokeUpdate] = useState(true);
+// , category:string
   function handleDelete(item:string){
     provokeUpdate(!update);
-    removePinnedItem(item)
+    // removePinnedItem(item)
+
+    const cat = item.split('-')[1]
+    console.log(cat);
+
+    const arrToParse = sessionStorage.getItem(cat)!;
+    if (arrToParse !== null) {
+      //// Executing deletion only if this storage item exists.
+      const parsed = JSON.parse(arrToParse);
+      
+      const toPullOut = parsed.indexOf(item);
+
+      //pull out index being sent by delete function from parsed array
+      parsed.splice(toPullOut, 1);
+
+      console.log(toPullOut, parsed, item);
+
+      //set filtered array as the new sessionStorage item
+      sessionStorage.setItem(category, JSON.stringify(parsed));
+    }
+    else {
+      return false;
+    }
+
+    ///CREATE ARRAYS, ONE PER ROUTE WHICH CONTAINS EACH INDEX TO LOCATE. LOOP OVER THEM TO FIND A MATCH BETWEEN "ITEM" AND EACH INDEX IN AN ARRAY
+    ///CONDITIONALS TO SAVE INDEX OF ROUTE, AND INDEX OF POSITION WITHIN ROUTE.
+
+    //Markets route
+    const marketsTab = [0, 1];  ///Tabs: market indices and search tab
+    const markets = ['']
+    
+
+    //Crypto route
+
+
+    //Commodity route
+
+
+    //Macro data route
+
+    //remember to make links for news items
+
   }
 
   const [open, setOpen] = useState(false);
@@ -106,13 +162,13 @@ export default function Landing() {
               </section>
 
               {/* render recent-pages section conditionally */}
-              {parsedPinnedItems !== '' ?
+              {allCategories.flat().length > 0 ?
                 <section id='recent-pages'>
-                  {parsedPinnedItems.length > 0 ?
+                  {allCategories.flat().length > 0 &&
                   <>
                     <Heading size={'lg'}>Pinned items:</Heading> 
-                    <div style={{display:'flex', gap:'12px', flexWrap:'wrap', justifyContent:'center'}}>
-                      {parsedPinnedItems.map((each:string) => (
+                    <div style={{display:'flex', gap:'12px', flexWrap:'wrap', justifyContent:'center', paddingTop:'16px'}}>
+                      {allCategories.flat().map((each:string) => (
                           <Card style={{width:'25%'}} _hover={{transform: 'scale(1.05)', transition: 'ease-in-out 200ms'}} _active={{transform: 'scale(0.9)'}}>
                             <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                               
@@ -120,27 +176,28 @@ export default function Landing() {
                                 <TiDelete onClick={() => handleDelete(each)}/>
                               </span>
 
-                              <span>{each}</span>
+                              <span>{each.split('-')[0].trim()}</span>
                             </CardBody>
                           </Card>
                       ))}
                     </div>
+                    <div style={{marginTop:'24px'}}>
+                      <Button onClick={handleClickOpen} _active={{transform: 'scale(0.9)'}}>
+                        Clear List
+                      </Button>
+
+                    </div>
                   </>
-                  :
-                    <Heading size='md'>
-                      You can pin your favorite items here. 
-                    </Heading>
                   }
                         {/* <BiHelpCircle /> */}
-                  <div>
-                    <Button onClick={handleClickOpen} _active={{transform: 'scale(0.9)'}}>
-                      Clear List
-                    </Button>
-
-                  </div>
                 </section>
               :
-              ''  
+              <div style={{display:'flex', justifyContent:'center', padding: '8px 0 44px', borderTop:'1px black solid', marginTop:'8px', height:'100px', alignItems:'center'}}>
+                <Heading size='md' style={{textAlign:'center'}}>
+                  You can pin your favorite items here. <br/>
+                  Click on the 'Pin' button on the items you want to save!
+                </Heading>
+              </div>
               }
                 <Modal isOpen={open} onClose={handleClose}>
                   <ModalOverlay />
