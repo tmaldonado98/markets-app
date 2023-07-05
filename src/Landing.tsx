@@ -241,7 +241,7 @@ export default function Landing() {
                           <Card style={{width:'25%'}} _hover={{transform: 'scale(1.05)', transition: 'ease-in-out 200ms'}} _active={{transform: 'scale(0.9)'}}>
                             <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                               
-                              <span style={{cursor:'pointer', alignSelf:'end'}} title='Unpin Item'>
+                              <span style={{cursor:'pointer', alignSelf:'end', transform:'scale(1.25)'}} title='Unpin Item'>
                                 <TiDelete onClick={() => handleDelete(each, each.split('-')[1].split('^')[0])} />
                                 {/* {each} */}
                               </span>
