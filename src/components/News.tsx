@@ -226,14 +226,14 @@ export function Articles (props:any) {
 
     const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
     const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';   
-        console.log(parsedPinnedItems)
+        // console.log(parsedPinnedItems)
 
     // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
         const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
         const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';       
-        console.log(parsedPinnedItems)
+        // console.log(parsedPinnedItems)
     }, [update])
 
     return (

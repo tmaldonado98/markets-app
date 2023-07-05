@@ -56,62 +56,77 @@ export const Header:React.FC = () => {
     changeTabIndex(newIndex)
   }
   
+  const linkStyles = { fontSize: '18px', height: 'fit-content' };
+
     return (
         <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
-          <div>
-            {/* <div style={{display:'flex', justifyContent:'center', gap: '10px'}}> */}
-              <Heading size="lg" as={'h1'} style={{textAlign:'center', color:'ivory', fontSize:'35px'}} className='georgia'>Markets App</Heading>
-              <Heading size='md' as={'h2'} style={{textAlign:'center', color:'ivory', fontSize:'24px'}} className='georgia'>Your Online Source For Financial Information</Heading>
-            {/* </div> */}
-            {/* <img src='../../assets/Markets App Logo.png' /> */}
-            {/* ***** PUT LOGO ON FIREBASE AND FETCH FROM STORAGE URL */}
+            <span style={{position: 'absolute', top: '10px', width:'fit-content'}}>
+              <a href='https://markets-app-80cf9.web.app/' title='Markets App, Your Online Source For Financial Information'>
+                <img src='https://firebasestorage.googleapis.com/v0/b/markets-app-80cf9.appspot.com/o/Markets%20App%20Logo.png?alt=media&token=9c5f53fc-2917-4269-b8b3-bd43177ce30e' alt='Markets App Logo, Your Online Source For Financial Education'
+                  style={{width:'90px', borderRadius:'50px'}}
+                />
+              </a>
+              <p style={{ color: "ivory", textAlign: 'center', width: '100%' }}>
+                <sub>Markets App</sub>
+              </p>
+            </span>
+          <div>            
+            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', color: 'ivory', fontSize: '35px' }} className='georgia'>
+              Markets App
+            </Heading>
+          
+            <Heading size='md' as={'h2'} style={{ textAlign: 'center', color: 'ivory', fontSize: '24px' }} className='georgia'>
+              Your Online Source For Financial Information
+            </Heading>
+
           </div>
-          <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{margin:"20px auto 0"}}>
+
+        <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{ margin: "20px auto 0" }}>
               <TabList>
-                  <ChakraLink as={RouterLink} to='/'>
-                    <Tab onClick={() => handleTabChange('0')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('0')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                         Home
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/markets'>
-                    <Tab onClick={() => handleTabChange('1')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/markets' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('1')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Stock Markets
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/currencies'>
-                    <Tab onClick={() => handleTabChange('2')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/currencies' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('2')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Foreign Exchanges
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/crypto'>
-                    <Tab onClick={() => handleTabChange('3')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/crypto' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('3')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Cryptocurrencies
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/commodities'>
-                    <Tab onClick={() => handleTabChange('4')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/commodities' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('4')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Global Commodities
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/macroData'>
-                    <Tab onClick={() => handleTabChange('5')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/macroData' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('5')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       U.S. Macro Data
                     </Tab>
                   </ChakraLink>
 
-                  {/* <ChakraLink as={RouterLink} to='/routes/commodities'>
-                    <Tab onClick={() => handleTabChange('5')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  {/* <ChakraLink as={RouterLink} to='/routes/commodities' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('5')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Macro Trends
                     </Tab>
                   </ChakraLink>
 
-                  <ChakraLink as={RouterLink} to='/routes/commodities'>
-                    <Tab onClick={() => handleTabChange('6')} color='blue.500' style={{fontSize:'18px'}} _hover={{bg: 'blue.100', color:'blue.600'}}>
+                  <ChakraLink as={RouterLink} to='/routes/commodities' style={linkStyles}>
+                    <Tab onClick={() => handleTabChange('6')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
                       Education Center
                     </Tab>
                   </ChakraLink> */}
