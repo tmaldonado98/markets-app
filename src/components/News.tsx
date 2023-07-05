@@ -1,11 +1,16 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Image, Stack, Heading, Text, Button, Card, CardHeader, CardBody, CardFooter, SimpleGrid } from '@chakra-ui/react'
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Loading from './Loading';
+import { MyContext } from './Context';
+import { BsPinFill } from 'react-icons/bs';
+import { MdOutlineDone } from 'react-icons/md';
+import { TiDelete } from 'react-icons/ti';
 
 
-export default function News(props:any){  
+export default function News(props: any) {  
+
     const [articles, setArticles] = useState<any>(null)
     const [artLimit, setArtLimit] = useState(false);
     
@@ -159,6 +164,19 @@ export default function News(props:any){
             }
       }
 
+    // {parsedPinnedItems.includes(index.toString() + '-pinnedMarketItems^1,'+index.toString()) ?
+    
+        
+    // <span style={{ display: 'flex', flexDirection: 'column', width: 'fit-content', textAlign: 'center' }}>
+    //     <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems^1,'+index.toString(), 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+    //     Pinned To Home
+    // </span>
+    // :
+    // <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
+    //     <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', [1, index.toString()], 'pinnedMarketItems')}><BsPinFill/></Button>
+    //     Pin Shortcut
+    // </span>
+    // }
 
 
 
@@ -201,7 +219,22 @@ export default function News(props:any){
 
 
 export function Articles (props:any) {
+    const { update, handlePin, sendDelete } = useContext(MyContext)!;
 
+    // Pinning news items 
+    const [del, setDel] = useState(false);
+
+    const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+    const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';   
+        console.log(parsedPinnedItems)
+
+    // const [update, provokeUpdate] = useState(true);
+
+    useEffect(() => {
+        const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+        const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';       
+        console.log(parsedPinnedItems)
+    }, [update])
 
     return (
         // <Box>
@@ -240,6 +273,22 @@ export function Articles (props:any) {
                                                 <Text><a href={each.source_domain} title={each.source_domain} target='_blank' rel='noopener noreferrer'><b>{each.source}</b></a></Text>
                                                 {/* <Text py='2'>{(each.PublicationTime).toLocaleString('en-US')}</Text> */}
                                             </CardBody>
+
+                                            <CardFooter style={{padding:'0'}}>
+                                                {parsedPinnedItems.includes(each.title + '-pinnedNewsItems^' + each.url) ?
+                                                <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
+                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '-pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                    Pinned To Home
+                                                </span>
+
+                                                :
+
+                                                <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
+                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '-pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
+                                                    Pin Shortcut
+                                                </span>
+                                                }
+                                            </CardFooter>
                                         </Stack>
                                     </Card>
                                     )
@@ -278,6 +327,23 @@ export function Articles (props:any) {
                                             <Text><a href={each.source_domain} title={each.source_domain} target='_blank' rel='noopener noreferrer'><b>{each.source}</b></a></Text>
                                             {/* <Text py='2'>{(each.PublicationTime).toLocaleString('en-US')}</Text> */}
                                         </CardBody>
+
+                                            <CardFooter style={{padding:'0'}}>
+                                                {parsedPinnedItems.includes(each.title + '-pinnedNewsItems^' + each.url) ?
+                                                <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
+                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '-pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                    Pinned To Home
+                                                </span>
+
+                                                :
+
+                                                <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
+                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '-pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
+                                                    Pin Shortcut
+                                                </span>
+                                                }
+                                            </CardFooter>
+
                                     </Stack>
                                 </Card>
                                 )

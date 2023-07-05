@@ -59,11 +59,14 @@ export default function Landing() {
 
   const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
- 
+
+  const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+  const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
+
   // const pinnedStockItems = sessionStorage.getItem('pinnedStockInd') ? sessionStorage.getItem('pinnedStockInd')! : '';
   // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
 
-  allCategories.push(parsedMarketItems);
+  allCategories.push(parsedMarketItems, parsedNewsItems);
 
   console.log(allCategories.flat());  
 
@@ -94,24 +97,6 @@ export default function Landing() {
     else {
       return false;
     }
-
-    ///CREATE ARRAYS, ONE PER ROUTE WHICH CONTAINS EACH INDEX TO LOCATE. LOOP OVER THEM TO FIND A MATCH BETWEEN "ITEM" AND EACH INDEX IN AN ARRAY
-    ///CONDITIONALS TO SAVE INDEX OF ROUTE, AND INDEX OF POSITION WITHIN ROUTE.
-
-    //Markets route
-    const marketsTab = [0, 1];  ///Tabs: market indices and search tab
-    const markets = ['']
-    
-
-    //Crypto route
-
-
-    //Commodity route
-
-
-    //Macro data route
-
-    //remember to make links for news items
 
   }
 
@@ -205,7 +190,9 @@ export default function Landing() {
       }
 
     }
-    
+    else if (redirRoute === 'pinnedNewsItems') {
+      // window.url
+    }
   }
 
   return (
@@ -239,11 +226,36 @@ export default function Landing() {
                                 <TiDelete onClick={() => handleDelete(each.split('^')[1])}/>
                               </span>
 
-                            <span title='Click to be redirected.' className='pinnedCard' onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}>
-                              {each.split('-')[0].trim()}
+                            <span title='Click to be redirected.' className='pinnedCard'
+                              onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}
+                            >
+                              
+                              {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' ?
+                                <a target='_blank' href={each.split('^')[1].trim()}>{each.split('-')[0].trim()}
+                                </a>
+                                :
+                                each.split('-')[0].trim()}
                             </span>
                             
-                            </CardBody>
+                            <span>{each.split('-')[1].split('^')[0].trim() }</span>
+                          </CardBody>
+                          
+                          <CardFooter>
+                            {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' ?
+                              <p><sub>
+                                News Article
+                              </sub></p>
+                              
+                              :
+                              
+                              each.split('-')[1].split('^')[0].trim() === 'pinnedMarketItems' ?
+                              <p><sub>
+                                Market Index
+                              </sub></p>
+                              :
+                              ''
+                            }
+                          </CardFooter>
                           </Card>
                       ))}
                     </div>
