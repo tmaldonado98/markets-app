@@ -24,6 +24,11 @@ export default function Landing() {
   
   const navigate = useNavigate();
 
+  const [update, provokeUpdate] = useState(true);
+
+  const [open, setOpen] = useState(false);
+
+
   useEffect(() => {
     window.scrollTo({
       top:0, 
@@ -47,40 +52,53 @@ export default function Landing() {
 //     const options = { weekday: 'long' };
 // const dayOfWeek = date.toLocaleString('en-US', options);
 
-  const arrayOfCategories = ['pinnedMarketItems'];
-  //set to execute upon comp mount
-  // function setArrays(){
-  //   for (let i = 0; i < arrayOfCategories.length; i++) {
+  
+  
+  // const catNames = ['pinnedMarketItems', 'pinnedNewsItems']
 
-      
-  //   }
-  // }
+//writing down name of variables, not of category names in order to loop a conditional later
+  const arrayOfCategories = [];
+
   const allCategories: string[] = []; 
 
   const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
+  arrayOfCategories.push(parsedMarketItems);
+  // if (parsedMarketItems !== '') {
+  //   allCategories.push(parsedMarketItems)
+  // } else {return false}
 
   const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
   const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
+  arrayOfCategories.push(parsedNewsItems);
 
+  // if (parsedNewsItems !== '') {
+  //   allCategories.push(parsedNewsItems)
+  // } else { return false }
+  
   // const pinnedStockItems = sessionStorage.getItem('pinnedStockInd') ? sessionStorage.getItem('pinnedStockInd')! : '';
   // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
 
-  allCategories.push(parsedMarketItems, parsedNewsItems);
+  for (const each of arrayOfCategories) {
+    if (each !== '') {
+      allCategories.push(each);
+    }
+  }
+
+  // allCategories.push(parsedMarketItems, parsedNewsItems);
 
   console.log(allCategories.flat());  
 
-  const [update, provokeUpdate] = useState(true);
+
 
   function handleDelete(item:string, category: string) {
     provokeUpdate(!update);
 
-    // 'item' parameter IS the category of the pin.
-
     // removePinnedItem(item)
 
     // const cat = item.split('-')[1]
-    // console.log(cat);
+    console.log(category);
+    console.log(item);
 
     const arrToParse = sessionStorage.getItem(category)!;
     if (arrToParse !== null) {
@@ -92,7 +110,7 @@ export default function Landing() {
       //pull out index being sent by delete function from parsed array
       parsed.splice(toPullOut, 1);
 
-      console.log(toPullOut, parsed, item);
+      console.log(toPullOut, parsed);
 
       //set filtered array as the new sessionStorage item
       sessionStorage.setItem(category, JSON.stringify(parsed));
@@ -102,8 +120,6 @@ export default function Landing() {
     }
 
   }
-
-  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -214,8 +230,8 @@ export default function Landing() {
                 <Locales currentTime={dateObj}/>
               </section>
 
-              {/* render recent-pages section conditionally */}
-              {allCategories.flat().length > 0 && allCategories[0] !== "" ?
+
+            {allCategories.flat().length > 0 && allCategories[0] !== "" ?
                 <section id='recent-pages'>
                   {allCategories.flat().length > 0 &&
                   <>
