@@ -59,24 +59,30 @@ export default function Landing() {
 
   const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
- 
+
+  const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+  const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
+
   // const pinnedStockItems = sessionStorage.getItem('pinnedStockInd') ? sessionStorage.getItem('pinnedStockInd')! : '';
   // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
 
-  allCategories.push(parsedMarketItems);
+  allCategories.push(parsedMarketItems, parsedNewsItems);
 
   console.log(allCategories.flat());  
 
   const [update, provokeUpdate] = useState(true);
-// , category:string
-  function handleDelete(item:string){
+
+  function handleDelete(item:string, category: string) {
     provokeUpdate(!update);
+
+    // 'item' parameter IS the category of the pin.
+
     // removePinnedItem(item)
 
-    const cat = item.split('-')[1]
-    console.log(cat);
+    // const cat = item.split('-')[1]
+    // console.log(cat);
 
-    const arrToParse = sessionStorage.getItem(cat)!;
+    const arrToParse = sessionStorage.getItem(category)!;
     if (arrToParse !== null) {
       //// Executing deletion only if this storage item exists.
       const parsed = JSON.parse(arrToParse);
@@ -94,24 +100,6 @@ export default function Landing() {
     else {
       return false;
     }
-
-    ///CREATE ARRAYS, ONE PER ROUTE WHICH CONTAINS EACH INDEX TO LOCATE. LOOP OVER THEM TO FIND A MATCH BETWEEN "ITEM" AND EACH INDEX IN AN ARRAY
-    ///CONDITIONALS TO SAVE INDEX OF ROUTE, AND INDEX OF POSITION WITHIN ROUTE.
-
-    //Markets route
-    const marketsTab = [0, 1];  ///Tabs: market indices and search tab
-    const markets = ['']
-    
-
-    //Crypto route
-
-
-    //Commodity route
-
-
-    //Macro data route
-
-    //remember to make links for news items
 
   }
 
@@ -142,11 +130,11 @@ export default function Landing() {
 
   function redirect(category:string, item: string) {
     const redirRoute = category.split('^')[0].trim();
-    console.log(redirRoute)
+    // console.log(redirRoute)
 
     const formattedItem = item.split(',');
 
-    console.log(item, formattedItem);
+    // console.log(item, formattedItem);
 
     if (redirRoute === 'pinnedMarketItems') {
       navigate('/routes/markets');
@@ -205,7 +193,9 @@ export default function Landing() {
       }
 
     }
-    
+    else if (redirRoute === 'pinnedNewsItems') {
+      // window.url
+    }
   }
 
   return (
@@ -236,14 +226,45 @@ export default function Landing() {
                             <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                               
                               <span style={{cursor:'pointer', alignSelf:'end'}} title='Unpin Item'>
-                                <TiDelete onClick={() => handleDelete(each.split('^')[1])}/>
+                                <TiDelete onClick={() => handleDelete(each, each.split('-')[1].split('^')[0])} />
+                                {/* {each} */}
                               </span>
 
-                            <span title='Click to be redirected.' className='pinnedCard' onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}>
-                              {each.split('-')[0].trim()}
-                            </span>
-                            
-                            </CardBody>
+                            <span title='Click to be redirected.' className='pinnedCard'
+                              onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}
+                            >
+                              
+                              {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('-')[2] && each.split('-')[2].split('^')[0].trim() === 'pinnedNewsItems'
+                                ?
+                                <a target='_blank' href={each.split('^')[1].trim()}>{each.split('-')[0].trim()}
+                                </a>
+                                :
+                                each.split('-')[0].trim()}
+                            </span>                            
+                          </CardBody>
+                          
+                            <CardFooter>
+                              {/* the condition below says that if the parsedPinnedItems includes an item from the -pinnedNewsItems category then ... 
+                                And if I added a condition after the || to account for cases where the news article title itself has a -, so as to search for the category after the -.
+                                I am using - to find the category name inside the pinnedParsedItems array.
+                              */}
+
+                              {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('-')[2] && each.split('-')[2].split('^')[0].trim() === 'pinnedNewsItems'
+                                ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  News Article
+                                </sub></p>
+                                
+                                :
+                                
+                                each.split('-')[1].split('^')[0].trim() === 'pinnedMarketItems' ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  Market Index
+                                </sub></p>
+                                :
+                                ''
+                              }
+                            </CardFooter>
                           </Card>
                       ))}
                     </div>
