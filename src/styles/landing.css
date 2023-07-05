@@ -88,3 +88,10 @@ header h2 {
     flex: 1;
     margin: 25px 10px;
 }
+
+.pinnedCard {
+    cursor: pointer;
+    color: rgb(0, 123, 255);
+    font-weight: bold;
+    
+}

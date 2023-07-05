@@ -16,18 +16,13 @@ import {
   ModalBody,
   ModalCloseButton,
 } from '@chakra-ui/react'
-
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import {useNavigate} from 'react-router-dom';
 
 
 export default function Landing() {
-
   const {category, removePinnedItem} = useContext(MyContext)!;
-
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo({
@@ -60,7 +55,7 @@ export default function Landing() {
       
   //   }
   // }
-  const allCategories = []; 
+  const allCategories: string[] = []; 
 
   const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
@@ -145,6 +140,74 @@ export default function Landing() {
     }, 500);
   }
 
+  function redirect(category:string, item: string) {
+    const redirRoute = category.split('^')[0].trim();
+    console.log(redirRoute)
+
+    const formattedItem = item.split(',');
+
+    console.log(item, formattedItem);
+
+    if (redirRoute === 'pinnedMarketItems') {
+      navigate('/routes/markets');
+      const headerPos = '1';
+      // Index for header tabs
+      sessionStorage.setItem('tabIndex', headerPos)
+
+      // index for market stocks
+      if (formattedItem[1] === 'FTSE Straits Times Index (FTSE STI)') {
+        sessionStorage.setItem('indexIndex', '0')
+
+      }
+      else if (formattedItem[1] === 'Shanghai Stock Exchange Composite Index') {
+        sessionStorage.setItem('indexIndex', '1')
+        
+      }
+      else if (formattedItem[1] === 'CSI 300 Index') {
+        sessionStorage.setItem('indexIndex', '2')
+        
+      }
+      else if (formattedItem[1] === 'Hang Seng Index') {
+        sessionStorage.setItem('indexIndex', '3')
+        
+      }
+      else if (formattedItem[1] === 'Hang Seng China Enterprises Index') {
+        sessionStorage.setItem('indexIndex', '4')
+        
+      }
+      else if (formattedItem[1] === 'Nikkei 225') {
+        sessionStorage.setItem('indexIndex', '5')
+        
+      }
+      else if (formattedItem[1] === 'TOPIX') {
+        sessionStorage.setItem('indexIndex', '6')
+        
+      }
+      else if (formattedItem[1] === 'S&P 500') {
+        sessionStorage.setItem('indexIndex', '7')
+        
+      }
+      else if (formattedItem[1] === 'Nasdaq Composite') {
+        sessionStorage.setItem('indexIndex', '8')
+        
+      }
+      else if (formattedItem[1] === 'Dow Jones Industrial Average (DJIA)') {
+        sessionStorage.setItem('indexIndex', '9')
+        
+      }
+      else if (formattedItem[1] === 'FTSE 100') {
+        sessionStorage.setItem('indexIndex', '10')
+        
+      }
+      else if (formattedItem[1] === 'DAX') {
+        sessionStorage.setItem('indexIndex', '11')
+        
+      }
+
+    }
+    
+  }
+
   return (
     <section id='landing-container'>
 
@@ -162,7 +225,7 @@ export default function Landing() {
               </section>
 
               {/* render recent-pages section conditionally */}
-              {allCategories.flat().length > 0 ?
+              {allCategories.flat().length > 0 && allCategories[0] !== "" ?
                 <section id='recent-pages'>
                   {allCategories.flat().length > 0 &&
                   <>
@@ -173,10 +236,13 @@ export default function Landing() {
                             <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                               
                               <span style={{cursor:'pointer', alignSelf:'end'}} title='Unpin Item'>
-                                <TiDelete onClick={() => handleDelete(each)}/>
+                                <TiDelete onClick={() => handleDelete(each.split('^')[1])}/>
                               </span>
 
-                              <span>{each.split('-')[0].trim()}</span>
+                            <span title='Click to be redirected.' className='pinnedCard' onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}>
+                              {each.split('-')[0].trim()}
+                            </span>
+                            
                             </CardBody>
                           </Card>
                       ))}
