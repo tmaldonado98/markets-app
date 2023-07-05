@@ -82,13 +82,14 @@ export default function MarketsChart(){
 
     const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
     const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';   
+        console.log(parsedPinnedItems)
 
     // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
         const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
         const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';       
-
+        console.log(parsedPinnedItems)
     }, [update])
 
     // function handlePin(item:string, category:string){
@@ -135,16 +136,16 @@ export default function MarketsChart(){
                                                 {/* <span>{update.toString()}</span> */}
                                                 {/* <p>{parsedPinnedItems.map((each:string) => each)}</p> */}
 
-{/* .split('-')[0].trim() */}
-                                                {parsedPinnedItems.includes(index.toString()+ '-pinnedMarketItems') ?
+                                            {/* .split('-')[0].trim()  .split(',')[0] */}
+                                                {parsedPinnedItems.includes(index.toString() + '-pinnedMarketItems^1,'+index.toString()) ?
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems', 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems^1,'+index.toString(), 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                         Pinned To Home
                                                     </span>
 
                                                     :
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', 'pinnedMarketItems')}><BsPinFill/></Button>
+                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', [1, index.toString()], 'pinnedMarketItems')}><BsPinFill/></Button>
                                                         Pin Shortcut
                                                     </span>
                                                 }

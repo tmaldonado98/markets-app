@@ -140,7 +140,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     // define state
     const [category, setCategory] = useState('');
 
-    function changePinnedArr(newItem:string, category:string) {
+    function changePinnedArr(newItem:string, indices:number[], category:string) {
       setCategory(category);
       // pass state variable as string into getItem method
 
@@ -148,7 +148,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         //if pinned list doesn't exist
         const arrToSave = [];
         // .split('-')[0].trim()  <-- if add this, then name of item will be clean in session storage.
-        arrToSave.push(newItem);
+        arrToSave.push(newItem + '^' + indices);
         sessionStorage.setItem(category, JSON.stringify(arrToSave));
         console.log(arrToSave);
 
@@ -171,7 +171,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         else {
           //new items here
           // .split('-')[0].trim()
-          parsed.push(newItem);
+          parsed.push(newItem + '^' + indices);
           console.log(parsed)
           sessionStorage.setItem(category, JSON.stringify(parsed));
 
@@ -208,11 +208,11 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
     const [update, provokeUpdate] = useState(true);
     //for adding a pin
-  function handlePin(item:string, category:string){
+  function handlePin(item:string, indices:number[], category:string){
 
       provokeUpdate(!update);
 
-      changePinnedArr(item, category);
+      changePinnedArr(item, indices, category);
   }
 
   function sendDelete(item:string, category:string){
