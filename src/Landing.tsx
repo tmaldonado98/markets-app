@@ -61,14 +61,14 @@ export default function Landing() {
 
   const allCategories: string[] = []; 
 
-  const pinnedMarketItems = sessionStorage.getItem('pinnedMarketItems') ? sessionStorage.getItem('pinnedMarketItems')! : '';
+  const pinnedMarketItems = localStorage.getItem('pinnedMarketItems') ? localStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
   arrayOfCategories.push(parsedMarketItems);
   // if (parsedMarketItems !== '') {
   //   allCategories.push(parsedMarketItems)
   // } else {return false}
 
-  const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+  const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
   const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
   arrayOfCategories.push(parsedNewsItems);
 
@@ -76,7 +76,7 @@ export default function Landing() {
   //   allCategories.push(parsedNewsItems)
   // } else { return false }
   
-  // const pinnedStockItems = sessionStorage.getItem('pinnedStockInd') ? sessionStorage.getItem('pinnedStockInd')! : '';
+  // const pinnedStockItems = localStorage.getItem('pinnedStockInd') ? localStorage.getItem('pinnedStockInd')! : '';
   // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
 
   for (const each of arrayOfCategories) {
@@ -100,7 +100,7 @@ export default function Landing() {
     console.log(category);
     console.log(item);
 
-    const arrToParse = sessionStorage.getItem(category)!;
+    const arrToParse = localStorage.getItem(category)!;
     if (arrToParse !== null) {
       //// Executing deletion only if this storage item exists.
       const parsed = JSON.parse(arrToParse);
@@ -112,8 +112,8 @@ export default function Landing() {
 
       console.log(toPullOut, parsed);
 
-      //set filtered array as the new sessionStorage item
-      sessionStorage.setItem(category, JSON.stringify(parsed));
+      //set filtered array as the new localStorage item
+      localStorage.setItem(category, JSON.stringify(parsed));
     }
     else {
       return false;
@@ -130,11 +130,11 @@ export default function Landing() {
   };
 
   function clearPinned(){
-    for (let i = 0; i < sessionStorage.length; i++) {
-      const key = sessionStorage.key(i)!;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)!;
     
       if (key.includes('pinned')) {
-        sessionStorage.removeItem(key)
+        localStorage.removeItem(key)
 
       }
     }

@@ -19,11 +19,11 @@ export default function MarketsChart(){
         [['Frankfurt Stock Exchange', 'FSE'], ['DAX']]
     ]
 
-///save tab indexes to sessionstorage. no context needed. 
+///save tab indexes to localStorage. no context needed. 
 
     const {changeIndexIndex, category, changePinnedArr, removePinnedItem, update, provokeUpdate, handlePin, sendDelete} = useContext(MyContext)!;
 
-    // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(sessionStorage.getItem('indexIndex')))
+    // const [indIndFromStorage, setIndIndFromStorage] = useState(Number(localStorage.getItem('indexIndex')))
 
     const storageIndex = sessionStorage.getItem('indexIndex') ? sessionStorage.getItem('indexIndex') : '0';
 
@@ -78,16 +78,16 @@ export default function MarketsChart(){
           
     }, []);
 
-    // use context variable that represents pinned category in sessionStorage
+    // use context variable that represents pinned category in localStorage
 
-    const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
+    const pinnedIndItems = localStorage.getItem(category) ? localStorage.getItem(category)! : '';
     const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';   
         console.log(parsedPinnedItems)
 
     // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
-        const pinnedIndItems = sessionStorage.getItem(category) ? sessionStorage.getItem(category)! : '';
+        const pinnedIndItems = localStorage.getItem(category) ? localStorage.getItem(category)! : '';
         const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';       
         console.log(parsedPinnedItems)
     }, [update])

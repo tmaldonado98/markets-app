@@ -56,7 +56,7 @@ type MyContextProviderProps = {
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     // REACT_APP_localServer   REACT_APP_marketsServer
-  const server = process.env.REACT_APP_marketsServer;
+  const server = process.env.REACT_APP_localServer;
 
   //header tabs index
   // const storageIndex = sessionStorage.getItem('tabIndex')!
@@ -144,19 +144,19 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       setCategory(category);
       // pass state variable as string into getItem method
 
-      if (sessionStorage.getItem(category) === null) {
+      if (localStorage.getItem(category) === null) {
         //if pinned list doesn't exist
         const arrToSave = [];
         // .split('-')[0].trim()  <-- if add this, then name of item will be clean in session storage.
         arrToSave.push(newItem + '^' + indices);
-        sessionStorage.setItem(category, JSON.stringify(arrToSave));
+        localStorage.setItem(category, JSON.stringify(arrToSave));
         console.log(arrToSave);
 
       } 
       else {
         // if pinned list exists
-        const arrToParse = sessionStorage.getItem(category)!;
-        const parsed = sessionStorage.getItem(category) ? JSON.parse(arrToParse) : '';
+        const arrToParse = localStorage.getItem(category)!;
+        const parsed = localStorage.getItem(category) ? JSON.parse(arrToParse) : '';
         console.log(parsed)
         if(parsed.includes(newItem)){
           // .split('-')[0].trim()
@@ -173,7 +173,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
           // .split('-')[0].trim()
           parsed.push(newItem + '^' + indices);
           console.log(parsed)
-          sessionStorage.setItem(category, JSON.stringify(parsed));
+          localStorage.setItem(category, JSON.stringify(parsed));
 
         }
       }
@@ -185,7 +185,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       // .split('-')[0].trim()
       console.log(trimmedIndex);
 
-      const arrToParse = sessionStorage.getItem(category)!;
+      const arrToParse = localStorage.getItem(category)!;
       if (arrToParse !== null) {
         //// Executing deletion only if this storage item exists.
         const parsed = JSON.parse(arrToParse);
@@ -197,8 +197,8 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
         // console.log(toPullOut, parsed, trimmedIndex);
 
-        //set filtered array as the new sessionStorage item
-        sessionStorage.setItem(category, JSON.stringify(parsed));
+        //set filtered array as the new localStorage item
+        localStorage.setItem(category, JSON.stringify(parsed));
       }
       else {
         return false;
