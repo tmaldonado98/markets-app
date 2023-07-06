@@ -224,14 +224,14 @@ export function Articles (props:any) {
     // Pinning news items 
     const [del, setDel] = useState(false);
 
-    const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+    const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
     const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';   
         // console.log(parsedPinnedItems)
 
     // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
-        const pinnedNewsItems = sessionStorage.getItem('pinnedNewsItems') ? sessionStorage.getItem('pinnedNewsItems')! : '';
+        const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
         const parsedPinnedItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';       
         // console.log(parsedPinnedItems)
     }, [update])

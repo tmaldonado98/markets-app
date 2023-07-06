@@ -53,64 +53,64 @@ export default function Locales ({currentTime} : MyComponentProps) {
     function redirect(locale:any){
         if(locale === 'SGX'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(0)
-            sessionStorage.setItem('indexIndex', '0')
+            localStorage.setItem('indexIndex', '0')
 
             navigate('/routes/markets')
         }
         else if(locale === 'SSE'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(1)
-            sessionStorage.setItem('indexIndex', '1')
+            localStorage.setItem('indexIndex', '1')
 
             navigate('/routes/markets')
         }
         else if(locale === 'HKEX'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(3)
-            sessionStorage.setItem('indexIndex', '3')
+            localStorage.setItem('indexIndex', '3')
 
             navigate('/routes/markets')
         }
         else if(locale === 'TSE'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(5)
-            sessionStorage.setItem('indexIndex', '5')
+            localStorage.setItem('indexIndex', '5')
 
             navigate('/routes/markets')
         }
         else if(locale === 'NYSE'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(7)
-            sessionStorage.setItem('indexIndex', '7')
+            localStorage.setItem('indexIndex', '7')
 
             navigate('/routes/markets')
         }
         else if(locale === 'LSE'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(8)
-            sessionStorage.setItem('indexIndex', '8')
+            localStorage.setItem('indexIndex', '8')
 
             navigate('/routes/markets')
         }
         else if(locale === 'FSE'){
             changeTabIndex(1)
-            sessionStorage.setItem('tabIndex', '1')
+            localStorage.setItem('tabIndex', '1')
 
             changeIndexIndex(10)
-            sessionStorage.setItem('indexIndex', '10')
+            localStorage.setItem('indexIndex', '10')
 
             navigate('/routes/markets')
         }
