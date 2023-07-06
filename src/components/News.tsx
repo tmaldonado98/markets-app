@@ -164,22 +164,6 @@ export default function News(props: any) {
             }
       }
 
-    // {parsedPinnedItems.includes(index.toString() + '-pinnedMarketItems^1,'+index.toString()) ?
-    
-        
-    // <span style={{ display: 'flex', flexDirection: 'column', width: 'fit-content', textAlign: 'center' }}>
-    //     <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems^1,'+index.toString(), 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
-    //     Pinned To Home
-    // </span>
-    // :
-    // <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-    //     <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', [1, index.toString()], 'pinnedMarketItems')}><BsPinFill/></Button>
-    //     Pin Shortcut
-    // </span>
-    // }
-
-
-
     return (
         <>
         <Heading as='h2' className='georgia'>
@@ -275,16 +259,16 @@ export function Articles (props:any) {
                                             </CardBody>
 
                                             <CardFooter style={{padding:'0'}}>
-                                                {parsedPinnedItems.includes(each.title + '-pinnedNewsItems^' + each.url) ?
+                                                {parsedPinnedItems.includes(each.title + '@#pinnedNewsItems^' + each.url) ?
                                                 <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
-                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '-pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '@#pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                     Pinned To Home
                                                 </span>
 
                                                 :
 
                                                 <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
-                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '-pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
+                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '@#pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
                                                     Pin Shortcut
                                                 </span>
                                                 }
@@ -329,16 +313,16 @@ export function Articles (props:any) {
                                         </CardBody>
 
                                             <CardFooter style={{padding:'0'}}>
-                                                {parsedPinnedItems.includes(each.title + '-pinnedNewsItems^' + each.url) ?
+                                                {parsedPinnedItems.includes(each.title + '@#pinnedNewsItems^' + each.url) ?
                                                 <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
-                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '-pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                    <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each.title + '@#pinnedNewsItems^,'+ each.title, 'pinnedNewsItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                     Pinned To Home
                                                 </span>
 
                                                 :
 
                                                 <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center', marginLeft:'2rem', paddingBottom:'4px'}}>
-                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '-pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
+                                                    <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each.title + '@#pinnedNewsItems', each.url, 'pinnedNewsItems')}><BsPinFill/></Button>
                                                     Pin Shortcut
                                                 </span>
                                                 }

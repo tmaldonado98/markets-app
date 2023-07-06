@@ -147,7 +147,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       if (localStorage.getItem(category) === null) {
         //if pinned list doesn't exist
         const arrToSave = [];
-        // .split('-')[0].trim()  <-- if add this, then name of item will be clean in session storage.
+        // .split('@#')[0].trim()  <-- if add this, then name of item will be clean in session storage.
         arrToSave.push(newItem + '^' + indices);
         localStorage.setItem(category, JSON.stringify(arrToSave));
         console.log(arrToSave);
@@ -159,7 +159,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         const parsed = localStorage.getItem(category) ? JSON.parse(arrToParse) : '';
         console.log(parsed)
         if(parsed.includes(newItem)){
-          // .split('-')[0].trim()
+          // .split('@#')[0].trim()
           //to avoid duplicate items
           console.log('Item already exists')
           return false;
@@ -170,7 +170,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         }
         else {
           //new items here
-          // .split('-')[0].trim()
+          // .split('@#')[0].trim()
           parsed.push(newItem + '^' + indices);
           console.log(parsed)
           localStorage.setItem(category, JSON.stringify(parsed));
@@ -182,7 +182,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
     function removePinnedItem(newItem:string, category:string){
       const trimmedIndex = newItem;
-      // .split('-')[0].trim()
+      // .split('@#')[0].trim()
       console.log(trimmedIndex);
 
       const arrToParse = localStorage.getItem(category)!;

@@ -17,6 +17,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react'
 import {useNavigate} from 'react-router-dom';
+import ToTop from './components/ToTop';
 
 
 export default function Landing() {
@@ -28,6 +29,7 @@ export default function Landing() {
 
   const [open, setOpen] = useState(false);
 
+  const configToTop = window.scrollY;
 
   useEffect(() => {
     window.scrollTo({
@@ -96,7 +98,7 @@ export default function Landing() {
 
     // removePinnedItem(item)
 
-    // const cat = item.split('-')[1]
+    // const cat = item.split('@#')[1]
     console.log(category);
     console.log(item);
 
@@ -216,13 +218,21 @@ export default function Landing() {
 
   return (
     <section id='landing-container'>
-
+      <ToTop/>
       <main className='min-h-screen' style={{maxWidth:'85%'}}>
-          
-
             {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
+          <div style={{margin:'1rem auto'}}>            
+            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', color: '#454242', fontSize: '35px' }} className='georgia'>
+              Markets App
+            </Heading>
           
+            <Heading size='md' as={'h2'} style={{ textAlign: 'center', color: '#454242', fontSize: '24px' }} className='georgia'>
+              Your Online Source For Financial Information
+            </Heading>
+
+          </div>
+
           <div id='first-box' className='min-h-16 '>
               {/* border-red-600 border-solid border-4*/}
               <h2 className='date-h georgia' style={{textAlign:'center'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
@@ -241,21 +251,20 @@ export default function Landing() {
                           <Card style={{width:'25%'}} _hover={{transform: 'scale(1.05)', transition: 'ease-in-out 200ms'}} _active={{transform: 'scale(0.9)'}}>
                             <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                               
-                              <span style={{cursor:'pointer', alignSelf:'end', transform:'scale(1.25)'}} title='Unpin Item'>
-                                <TiDelete onClick={() => handleDelete(each, each.split('-')[1].split('^')[0])} />
-                                {/* {each} */}
+                            <span id='cardX' style={{ cursor: 'pointer', alignSelf: 'end', transition:'350ms'}} title='Unpin Item'>
+                                <TiDelete onClick={() => handleDelete(each, each.split('@#')[1].split('^')[0])} />
                               </span>
 
                             <span title='Click to be redirected.' className='pinnedCard'
-                              onClick={() => redirect(each.split('-')[1].trim(), each.split('^')[1].trim())}
+                              onClick={() => redirect(each.split('@#')[1].trim(), each.split('^')[1].trim())}
                             >
                               
-                              {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('-')[2] && each.split('-')[2].split('^')[0].trim() === 'pinnedNewsItems'
+                              {each.split('@#')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('@#')[2] && each.split('@#')[2].split('^')[0].trim() === 'pinnedNewsItems'
                                 ?
-                                <a target='_blank' href={each.split('^')[1].trim()}>{each.split('-')[0].trim()}
+                                <a target='_blank' href={each.split('^')[1].trim()}>{each.split('@#')[0].trim()}
                                 </a>
                                 :
-                                each.split('-')[0].trim()}
+                                each.split('@#')[0].trim()}
                             </span>                            
                           </CardBody>
                           
@@ -265,7 +274,7 @@ export default function Landing() {
                                 I am using - to find the category name inside the pinnedParsedItems array.
                               */}
 
-                              {each.split('-')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('-')[2] && each.split('-')[2].split('^')[0].trim() === 'pinnedNewsItems'
+                              {each.split('@#')[1].split('^')[0].trim() === 'pinnedNewsItems' || each.split('@#')[2] && each.split('@#')[2].split('^')[0].trim() === 'pinnedNewsItems'
                                 ?
                                 <p style={{textAlign:'center', width:'100%'}}><sub>
                                   News Article
@@ -273,7 +282,7 @@ export default function Landing() {
                                 
                                 :
                                 
-                                each.split('-')[1].split('^')[0].trim() === 'pinnedMarketItems' ?
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedMarketItems' ?
                                 <p style={{textAlign:'center', width:'100%'}}><sub>
                                   Market Index
                                 </sub></p>

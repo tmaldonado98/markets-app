@@ -23,3 +23,24 @@ a {
     font-style: unset;
     text-decoration: none;
 }
+
+.to-top {
+    position: fixed;
+    left: 3rem;
+    z-index: 99;
+    transform: scale(1.75);
+    bottom: 4rem;
+    cursor: pointer;
+    background-color: #668cff38;
+    border-radius: 50px;
+    padding: 3px;
+    transition: 350ms;
+}
+
+.to-top:active{
+    transform: scale(0.99);
+}
+
+.to-top:hover{
+    background-color: #94afff38;
+}
