@@ -137,15 +137,15 @@ export default function MarketsChart(){
                                                 {/* <p>{parsedPinnedItems.map((each:string) => each)}</p> */}
 
                                             {/* .split('-')[0].trim()  .split(',')[0] */}
-                                                {parsedPinnedItems.includes(index.toString() + '-pinnedMarketItems^1,'+index.toString()) ?
+                                                {parsedPinnedItems.includes(index.toString() + '@#pinnedMarketItems^1,'+index.toString()) ?
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '-pinnedMarketItems^1,'+index.toString(), 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                                        <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(index.toString() + '@#pinnedMarketItems^1,'+index.toString(), 'pinnedMarketItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
                                                         Pinned To Home
                                                     </span>
 
                                                     :
                                                     <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
-                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '-pinnedMarketItems', [1, index.toString()], 'pinnedMarketItems')}><BsPinFill/></Button>
+                                                        <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(index.toString() + '@#pinnedMarketItems', [1, index.toString()], 'pinnedMarketItems')}><BsPinFill/></Button>
                                                         Pin Shortcut
                                                     </span>
                                                 }

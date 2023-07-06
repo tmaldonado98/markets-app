@@ -56,32 +56,12 @@ export const Header:React.FC = () => {
     changeTabIndex(newIndex)
   }
   
-  const linkStyles = { fontSize: '18px', height: 'fit-content' };
-
+  const linkStyles = { fontSize: '16px', height: 'fit-content' };
+// , position:'fixed', zIndex:'99', width:'100%'
     return (
-        <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'16px 42px', color:'blue.500', backgroundColor:'#2d2d2d', }}>
-            <span style={{position: 'absolute', top: '10px', width:'fit-content'}}>
-              <a href='https://markets-app-80cf9.web.app/' title='Markets App, Your Online Source For Financial Information'>
-                <img src='https://firebasestorage.googleapis.com/v0/b/markets-app-80cf9.appspot.com/o/Markets%20App%20Logo.png?alt=media&token=9c5f53fc-2917-4269-b8b3-bd43177ce30e' alt='Markets App Logo, Your Online Source For Financial Education'
-                  style={{width:'90px', borderRadius:'50px'}}
-                />
-              </a>
-              <p style={{ color: "ivory", textAlign: 'center', width: '100%' }}>
-                <sub>Markets App</sub>
-              </p>
-            </span>
-          <div>            
-            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', color: 'ivory', fontSize: '35px' }} className='georgia'>
-              Markets App
-            </Heading>
-          
-            <Heading size='md' as={'h2'} style={{ textAlign: 'center', color: 'ivory', fontSize: '24px' }} className='georgia'>
-              Your Online Source For Financial Information
-            </Heading>
+        <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'4px 22px', color:'blue.500', backgroundColor:'#2d2d2d'}}>
 
-          </div>
-
-        <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{ margin: "20px auto 0" }}>
+        <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{ margin: "10px auto 0" }}>
               <TabList>
                   <ChakraLink as={RouterLink} to='/' style={linkStyles}>
                     <Tab onClick={() => handleTabChange('0')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
@@ -138,7 +118,18 @@ export const Header:React.FC = () => {
             window.location.href.includes('/routes/markets') ?
             ''
             :
-          <InputGroup style={{width: '33%', margin:'25px auto 15px auto'}}>
+            <InputGroup style={{ width: '50%', margin: '10px auto', display:'flex', alignItems:'center'}}>
+              <span style={{ width: '200px', display:'flex', flexDirection:'column-reverse' }}>
+                <a href='https://markets-app-80cf9.web.app/' title='Markets App, Your Online Source For Financial Information' style={{display:'flex', justifyContent:'center'}}>
+                  <img src='https://firebasestorage.googleapis.com/v0/b/markets-app-80cf9.appspot.com/o/Markets%20App%20Logo.png?alt=media&token=9c5f53fc-2917-4269-b8b3-bd43177ce30e' alt='Markets App Logo, Your Online Source For Financial Education'
+                    style={{width:'50%', borderRadius:'50px'}}
+                  />
+                </a>
+                <p style={{ color: "ivory", textAlign: 'center', width: '100%' }}>
+                  <sub>Markets App</sub>
+                </p>
+              </span>
+
                 <Input _focus={{bg: 'ivory'}} variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
                   {
                     searchInput ?

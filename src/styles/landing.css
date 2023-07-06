@@ -2,6 +2,7 @@
     display: flex;
     justify-content:space-evenly;
     padding: 12px 0;
+    /* padding-top: 220px; */
 }
 
 #side-ad-section{
@@ -93,5 +94,10 @@ header h2 {
     cursor: pointer;
     color: rgb(0, 123, 255);
     font-weight: bold;
-    
+    width: fit-content;
+    margin: auto;
+}
+
+#cardX:hover {
+    transform: scale(1.5);
 }
