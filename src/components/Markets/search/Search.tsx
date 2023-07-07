@@ -1,13 +1,15 @@
 import Loading from "../../../components/Loading";
-import {Button, Card, CardHeader, HStack, Heading, Input, InputGroup, InputRightAddon, Stack, Tag} from "@chakra-ui/react";
+import {Button, Card, CardFooter, CardHeader, HStack, Heading, Input, InputGroup, InputRightAddon, Stack, Tag} from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { MyContext } from "../../Context";
-import {BsSearch} from 'react-icons/bs';
+import {BsPinFill, BsSearch} from 'react-icons/bs';
 import { useQuery } from "@tanstack/react-query";
 import './search.css';
 import '../../../styles/globals.css';
 import Selected from "./Selected";
+import { MdOutlineDone } from "react-icons/md";
+import { TiDelete } from "react-icons/ti";
 
 
 export default function SearchStocks(){
@@ -19,7 +21,7 @@ export default function SearchStocks(){
     const [hideResults, setHideResults] = useState(true);
     const [hideSelect, setHideSelect] = useState(true);
 
-    const {recent, setRecent, changeRecent, termFromHeader} = useContext(MyContext)!;
+    const {recent, setRecent, changeRecent, termFromHeader, sendDelete, handlePin, update, provokeUpdate} = useContext(MyContext)!;
 
     function handleSearchInput(e:any){
         setSearchInput(e.target.value);
@@ -87,6 +89,26 @@ export default function SearchStocks(){
         // setSelectedTicker('')
     }
 
+    // const [update, provokeUpdate] = useState(true)
+    function handleRecent() {
+        provokeUpdate(!update);
+        setRecent([])
+        localStorage.removeItem('recent');
+    }
+
+    const pinnedStockItems = localStorage.getItem('pinnedStockItems') ? localStorage.getItem('pinnedStockItems')! : '';
+    console.log(pinnedStockItems)
+    const parsedPinnedStocks = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';   
+    console.log(parsedPinnedStocks)
+
+    const [del, setDel] = useState(false);
+
+    useEffect(() => {
+        const pinnedStockItems = localStorage.getItem('pinnedStockItems') ? localStorage.getItem('pinnedStockItems')! : '';
+        const parsedPinnedStocks = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';   
+        console.log(parsedPinnedStocks)
+    }, [update])
+
     return (
         <section style={{width: '90%', margin: 'auto'}}>
             <InputGroup>
@@ -97,7 +119,17 @@ export default function SearchStocks(){
 
             {/* <div className="ad">Insert ad here</div> */}
             <div id="recent">
-                {recent !== '' && <h2>Recently viewed stocks:</h2>}
+                {recent.length === 0 && 
+                    <h2>Your recently viewed stocks will be listed here.</h2>
+                }
+                {recent.length !== 0 && 
+                <>
+                    
+                    <h2>Recently viewed stocks:</h2>
+                    <Button onClick={handleRecent}>Clear Recent</Button>
+                    
+                </>
+                }
                 {recent !== '' &&
                 recent.slice(-5).reverse().map((each:string) => {
                     if(each === '[""]'){
@@ -111,8 +143,9 @@ export default function SearchStocks(){
                         </HStack>
                     
                     )
-                })}
-
+                })
+                
+                }
             </div>
             <div>
             {/* {hideResults === false && !searchResults.bestMatches && */}
@@ -125,9 +158,9 @@ export default function SearchStocks(){
                 {hideResults === false && searchResults && searchResults.bestMatches.length > 0 ?
                 searchResults.bestMatches.map((each:any) => {
                     return (
-                        <Stack visibility={hideResults ? "hidden" : "visible"} key={each["1. symbol"]} style={{marginBottom:'14px'}}>
-                            <Card size='md'>
-                                <CardHeader>
+                        <Stack visibility={hideResults ? "hidden" : "visible"} key={each["1. symbol"]} style={{marginBottom:'14px', alignItems:'center'}}>
+                            <Card size='md' style={{display:"flex", flexDirection:"row", justifyContent:'space-between', width:'55%', alignItems:'center'}}>
+                                <CardHeader style={{display:"flex", flexDirection:'column'}}>
                                     <Heading size='md' style={{cursor:'pointer'}} onClick={() => handleSelect(each["1. symbol"])}>{each["2. name"]}</Heading>
                                     <p>Ticker: <span style={{fontStyle:'italic', fontWeight:'bold'}}>{each["1. symbol"]}</span></p>
                                     <p><span style={{fontStyle:'italic'}}>{each["4. region"]}</span></p>
@@ -136,6 +169,20 @@ export default function SearchStocks(){
                                     <p>Currency: <span style={{fontStyle:'italic'}}>{each["8. currency"]}</span></p>
 
                                 </CardHeader>
+                                <CardFooter>
+                                    {parsedPinnedStocks.includes(each["1. symbol"] + ' ' + each["2. name"] + '@#pinnedStockItems^2,'+each["2. name"]) ?
+                                        <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
+                                            <Button onMouseEnter={() => setDel(true)}  onMouseLeave={() => setDel(false)} style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => sendDelete(each["1. symbol"] + ' ' + each["2. name"] + '@#pinnedStockItems^2,'+each["1. symbol"] + ' ' + each["2. name"], 'pinnedStockItems')}>{del === false ? <MdOutlineDone/> : <TiDelete/>}</Button>
+                                            Pinned To Home
+                                        </span>
+                                        :
+                                        <span style={{display:'flex', flexDirection:'column', width:'fit-content', textAlign:'center'}}>
+                                            <Button style={{width:'fit-content', margin:'0 auto'}} variant='ghost' onClick={() => handlePin(each["1. symbol"] + ' ' + each["2. name"] + '@#pinnedStockItems', [2, each["2. name"]], 'pinnedStockItems')}><BsPinFill/></Button>
+                                            Pin Shortcut
+                                        </span>
+                                    }
+
+                                </CardFooter>
                             </Card>
                         </Stack>
                     )

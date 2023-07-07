@@ -21,7 +21,7 @@ import ToTop from './components/ToTop';
 
 
 export default function Landing() {
-  const {category, removePinnedItem} = useContext(MyContext)!;
+  const {category, removePinnedItem, changeTermFromHeader} = useContext(MyContext)!;
   
   const navigate = useNavigate();
 
@@ -73,13 +73,10 @@ export default function Landing() {
   const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
   const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
   arrayOfCategories.push(parsedNewsItems);
-
-  // if (parsedNewsItems !== '') {
-  //   allCategories.push(parsedNewsItems)
-  // } else { return false }
   
-  // const pinnedStockItems = localStorage.getItem('pinnedStockInd') ? localStorage.getItem('pinnedStockInd')! : '';
-  // const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
+  const pinnedStockItems = localStorage.getItem('pinnedStockItems') ? localStorage.getItem('pinnedStockItems')! : '';
+  const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
+  arrayOfCategories.push(parsedStockItems);
 
   for (const each of arrayOfCategories) {
     if (each !== '') {
@@ -152,13 +149,15 @@ export default function Landing() {
 
     const formattedItem = item.split(',');
 
-    // console.log(item, formattedItem);
+    console.log(item, formattedItem);
 
     if (redirRoute === 'pinnedMarketItems') {
       navigate('/routes/markets');
       const headerPos = '1';
       // Index for header tabs
       sessionStorage.setItem('tabIndex', headerPos)
+      sessionStorage.setItem('marketsIndex', '0')
+
 
       // index for market stocks
       if (formattedItem[1] === 'FTSE Straits Times Index (FTSE STI)') {
@@ -211,8 +210,13 @@ export default function Landing() {
       }
 
     }
-    else if (redirRoute === 'pinnedNewsItems') {
-      // window.url
+    else if (redirRoute === 'pinnedStockItems') {
+      navigate('/routes/markets');
+      // Index for header tabs
+      sessionStorage.setItem('tabIndex', '1')
+      sessionStorage.setItem('marketsIndex', '1')
+
+      changeTermFromHeader(formattedItem[1])
     }
   }
 
@@ -223,11 +227,11 @@ export default function Landing() {
             {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
           <div style={{margin:'1rem auto'}}>            
-            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', color: '#454242', fontSize: '35px' }} className='georgia'>
+            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', fontSize: '35px' }} className='georgia'>
               Markets App
             </Heading>
           
-            <Heading size='md' as={'h2'} style={{ textAlign: 'center', color: '#454242', fontSize: '24px' }} className='georgia'>
+            <Heading size='md' as={'h2'} style={{ textAlign: 'center', fontSize: '24px' }} className='georgia'>
               Your Online Source For Financial Information
             </Heading>
 
@@ -282,9 +286,18 @@ export default function Landing() {
                                 
                                 :
                                 
-                                each.split('@#')[1].split('^')[0].trim() === 'pinnedMarketItems' ?
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedMarketItems'
+                                ?
                                 <p style={{textAlign:'center', width:'100%'}}><sub>
                                   Market Index
+                                </sub></p>
+
+                                :
+
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedStockItems'
+                                ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  Stock
                                 </sub></p>
                                 :
                                 ''
