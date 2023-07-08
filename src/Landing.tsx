@@ -29,8 +29,6 @@ export default function Landing() {
 
   const [open, setOpen] = useState(false);
 
-  const configToTop = window.scrollY;
-
   useEffect(() => {
     window.scrollTo({
       top:0, 
@@ -66,9 +64,6 @@ export default function Landing() {
   const pinnedMarketItems = localStorage.getItem('pinnedMarketItems') ? localStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
   arrayOfCategories.push(parsedMarketItems);
-  // if (parsedMarketItems !== '') {
-  //   allCategories.push(parsedMarketItems)
-  // } else {return false}
 
   const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
   const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
@@ -82,14 +77,18 @@ export default function Landing() {
   const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
   arrayOfCategories.push(parsedPinnedCrypto);
 
+  const pinnedCommItems = localStorage.getItem('pinnedCommItems') ? localStorage.getItem('pinnedCommItems')! : '';
+  const parsedPinnedComm = pinnedCommItems !== '' ? JSON.parse(pinnedCommItems) : '';   
+  arrayOfCategories.push(parsedPinnedComm);
+
+
+
 
   for (const each of arrayOfCategories) {
     if (each !== '') {
       allCategories.push(each);
     }
   }
-
-  // allCategories.push(parsedMarketItems, parsedNewsItems);
 
   console.log(allCategories.flat());  
 
@@ -163,58 +162,20 @@ export default function Landing() {
       sessionStorage.setItem('tabIndex', headerPos)
       sessionStorage.setItem('marketsIndex', '0')
 
+      const marketsArr = ['FTSE Straits Times Index (FTSE STI)', 'Shanghai Stock Exchange Composite Index',
+        'CSI 300 Index', 'Hang Seng Index', 'Hang Seng China Enterprises Index', 'Nikkei 225', 'TOPIX',
+      'S&P 500', 'Nasdaq Composite', 'Dow Jones Industrial Average (DJIA)', 'FTSE 100', 'DAX']
 
-      // index for market stocks
-      if (formattedItem[1] === 'FTSE Straits Times Index (FTSE STI)') {
-        sessionStorage.setItem('indexIndex', '0')
-
-      }
-      else if (formattedItem[1] === 'Shanghai Stock Exchange Composite Index') {
-        sessionStorage.setItem('indexIndex', '1')
-        
-      }
-      else if (formattedItem[1] === 'CSI 300 Index') {
-        sessionStorage.setItem('indexIndex', '2')
-        
-      }
-      else if (formattedItem[1] === 'Hang Seng Index') {
-        sessionStorage.setItem('indexIndex', '3')
-        
-      }
-      else if (formattedItem[1] === 'Hang Seng China Enterprises Index') {
-        sessionStorage.setItem('indexIndex', '4')
-        
-      }
-      else if (formattedItem[1] === 'Nikkei 225') {
-        sessionStorage.setItem('indexIndex', '5')
-        
-      }
-      else if (formattedItem[1] === 'TOPIX') {
-        sessionStorage.setItem('indexIndex', '6')
-        
-      }
-      else if (formattedItem[1] === 'S&P 500') {
-        sessionStorage.setItem('indexIndex', '7')
-        
-      }
-      else if (formattedItem[1] === 'Nasdaq Composite') {
-        sessionStorage.setItem('indexIndex', '8')
-        
-      }
-      else if (formattedItem[1] === 'Dow Jones Industrial Average (DJIA)') {
-        sessionStorage.setItem('indexIndex', '9')
-        
-      }
-      else if (formattedItem[1] === 'FTSE 100') {
-        sessionStorage.setItem('indexIndex', '10')
-        
-      }
-      else if (formattedItem[1] === 'DAX') {
-        sessionStorage.setItem('indexIndex', '11')
-        
+      for (const each of marketsArr) {
+        // navigation index for markets
+        if (formattedItem[1] === each) {
+          sessionStorage.setItem('indexIndex', marketsArr.indexOf(each).toString());
+      
+        }        
       }
 
     }
+
     else if (redirRoute === 'pinnedStockItems') {
       navigate('/routes/markets');
       // Index for header tabs
@@ -223,6 +184,7 @@ export default function Landing() {
 
       changeTermFromHeader(formattedItem[1])
     }
+      
     else if (redirRoute === 'pinnedCryptoItems') {
       navigate('/routes/crypto');
 
@@ -241,6 +203,37 @@ export default function Landing() {
       }
 
     }
+      
+    else if (redirRoute === 'pinnedCommItems') {
+      navigate('/routes/commodities');
+
+      sessionStorage.setItem('tabIndex', '4');
+      console.log(formattedItem[1])
+
+    const commoditiesArr = [
+        "Crude Oil (WTI)",
+        "Crude Oil (Brent)",
+        "Natural Gas",
+        "Copper",
+        "Aluminum",
+        "Wheat",
+        "Corn",
+        "Cotton",
+        "Sugar",
+        "Coffee",
+    ]
+
+      for (const each of commoditiesArr) {
+        if (formattedItem[1] === each) {
+          console.log(each);
+          sessionStorage.setItem('commIndex', commoditiesArr.indexOf(each).toString());
+
+        }
+      }
+
+    }
+
+
   }
 
   return (
@@ -333,6 +326,14 @@ export default function Landing() {
                               
                                     :
                                     
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedCommItems'
+                                ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  Commodity
+                                </sub></p>
+                              
+                                    :
+                                    
                                     ''
                               
                               }
@@ -377,25 +378,18 @@ export default function Landing() {
                 </Modal>
 
           </div>
-          <aside id='ad2'>
-            <p>Ad section here</p>
-          </aside>
+          <aside id='ad2'></aside>
           <section id='news-section'>
             <div className='news-cont'>
               <News props={dateObj}/>
             </div>
           </section>
           <div id='ad4' className='news-cont' style={{border:'solid'}}>
-            <p>Ad section here</p>
           </div>            
       </main>
           <aside id='side-ad-section'>
-            <div id='ad1'>
-              <p>Ad section here</p>
-            </div>            
-            <div id='ad3'>
-              <p>Ad section here</p>
-            </div>
+            <div id='ad1'></div>            
+            <div id='ad3'></div>
           </aside>
     </section>
   

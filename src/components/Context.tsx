@@ -138,8 +138,9 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
     //State to track whether pinned item is of type market index, news item, commodity, 
     // define state
+    
     const [category, setCategory] = useState('');
-
+  
     function changePinnedArr(newItem:string, indices:number[], category:string) {
       setCategory(category);
       // pass state variable as string into getItem method
@@ -206,7 +207,8 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
 
     }
 
-    const [update, provokeUpdate] = useState(true);
+  const [update, provokeUpdate] = useState(true);
+
     //for adding a pin
   function handlePin(item:string, indices:number[], category:string){
 
@@ -221,9 +223,6 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
       removePinnedItem(item, category)
   }
 
-  // useEffect(() => {
-  //   console.log(update)
-  // }, [update])
 
   const contextValue: MyContextValue = {
     tabIndex,

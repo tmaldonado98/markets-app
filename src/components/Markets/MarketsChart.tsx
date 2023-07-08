@@ -92,18 +92,6 @@ export default function MarketsChart(){
         console.log(parsedPinnedItems)
     }, [update])
 
-    // function handlePin(item:string, category:string){
-
-    //     provokeUpdate(!update);
-
-    //     changePinnedArr(item, category);
-    // }
-
-    // function sendDelete(item:string, category:string){
-    //     provokeUpdate(!update);
-
-    //     removePinnedItem(item, category)
-    // }
 
     const [del, setDel] = useState(false);
 
