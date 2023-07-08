@@ -78,6 +78,11 @@ export default function Landing() {
   const parsedStockItems = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';
   arrayOfCategories.push(parsedStockItems);
 
+  const pinnedCryptoItems = localStorage.getItem('pinnedCryptoItems') ? localStorage.getItem('pinnedCryptoItems')! : '';
+  const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
+  arrayOfCategories.push(parsedPinnedCrypto);
+
+
   for (const each of arrayOfCategories) {
     if (each !== '') {
       allCategories.push(each);
@@ -218,6 +223,24 @@ export default function Landing() {
 
       changeTermFromHeader(formattedItem[1])
     }
+    else if (redirRoute === 'pinnedCryptoItems') {
+      navigate('/routes/crypto');
+
+      sessionStorage.setItem('tabIndex', '3');
+      console.log(formattedItem[1])
+
+      const cryptoArr = ['Bitcoin', 'Ethereum', 'Binance Coin', 'Dogecoin', 'Litecoin',
+        'XRP', 'Polkadot', 'Bitcoin Cash', 'Chainlink', 'Stellar', 'Filecoin', 'Cardano'];
+
+      for (const each of cryptoArr) {
+        if (formattedItem[1] === each) {
+          console.log(each);
+          sessionStorage.setItem('cryptoIndex', cryptoArr.indexOf(each).toString());
+
+        }
+      }
+
+    }
   }
 
   return (
@@ -299,8 +322,19 @@ export default function Landing() {
                                 <p style={{textAlign:'center', width:'100%'}}><sub>
                                   Stock
                                 </sub></p>
+                                
                                 :
-                                ''
+                                
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedCryptoItems'
+                                ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  Cryptocurrency
+                                </sub></p>
+                              
+                                    :
+                                    
+                                    ''
+                              
                               }
                             </CardFooter>
                           </Card>
