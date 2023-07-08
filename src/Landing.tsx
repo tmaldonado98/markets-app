@@ -29,8 +29,6 @@ export default function Landing() {
 
   const [open, setOpen] = useState(false);
 
-  const configToTop = window.scrollY;
-
   useEffect(() => {
     window.scrollTo({
       top:0, 
@@ -66,9 +64,6 @@ export default function Landing() {
   const pinnedMarketItems = localStorage.getItem('pinnedMarketItems') ? localStorage.getItem('pinnedMarketItems')! : '';
   const parsedMarketItems = pinnedMarketItems !== '' ? JSON.parse(pinnedMarketItems) : '';
   arrayOfCategories.push(parsedMarketItems);
-  // if (parsedMarketItems !== '') {
-  //   allCategories.push(parsedMarketItems)
-  // } else {return false}
 
   const pinnedNewsItems = localStorage.getItem('pinnedNewsItems') ? localStorage.getItem('pinnedNewsItems')! : '';
   const parsedNewsItems = pinnedNewsItems !== '' ? JSON.parse(pinnedNewsItems) : '';
@@ -208,8 +203,36 @@ export default function Landing() {
       }
 
     }
+      
+    else if (redirRoute === 'pinnedCommItems') {
+      navigate('/routes/commodities');
 
-    
+      sessionStorage.setItem('tabIndex', '4');
+      console.log(formattedItem[1])
+
+    const commoditiesArr = [
+        "Crude Oil (WTI)",
+        "Crude Oil (Brent)",
+        "Natural Gas",
+        "Copper",
+        "Aluminum",
+        "Wheat",
+        "Corn",
+        "Cotton",
+        "Sugar",
+        "Coffee",
+    ]
+
+      for (const each of commoditiesArr) {
+        if (formattedItem[1] === each) {
+          console.log(each);
+          sessionStorage.setItem('commIndex', commoditiesArr.indexOf(each).toString());
+
+        }
+      }
+
+    }
+
 
   }
 
@@ -303,6 +326,14 @@ export default function Landing() {
                               
                                     :
                                     
+                                each.split('@#')[1].split('^')[0].trim() === 'pinnedCommItems'
+                                ?
+                                <p style={{textAlign:'center', width:'100%'}}><sub>
+                                  Commodity
+                                </sub></p>
+                              
+                                    :
+                                    
                                     ''
                               
                               }
@@ -347,25 +378,18 @@ export default function Landing() {
                 </Modal>
 
           </div>
-          <aside id='ad2'>
-            <p>Ad section here</p>
-          </aside>
+          <aside id='ad2'></aside>
           <section id='news-section'>
             <div className='news-cont'>
               <News props={dateObj}/>
             </div>
           </section>
           <div id='ad4' className='news-cont' style={{border:'solid'}}>
-            <p>Ad section here</p>
           </div>            
       </main>
           <aside id='side-ad-section'>
-            <div id='ad1'>
-              <p>Ad section here</p>
-            </div>            
-            <div id='ad3'>
-              <p>Ad section here</p>
-            </div>
+            <div id='ad1'></div>            
+            <div id='ad3'></div>
           </aside>
     </section>
   

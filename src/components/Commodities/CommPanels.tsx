@@ -12,9 +12,17 @@ import { TiDelete } from "react-icons/ti";
 export default function CommPanels(props:any){   
     const commodity = props.commodity;
 
+    useEffect(() => {
+        window?.scrollTo({
+            top: 0,
+            left: 0,
+            behavior:'smooth'
+        })
+    }, [])
+
     const [del, setDel] = useState(false);
 
-    const {commIndex, changeCommIndex, update, provokeUpdate, handlePin, sendDelete} = useContext(MyContext)!;
+    const { update, handlePin, sendDelete} = useContext(MyContext)!;
 
     const pinnedCommItems = localStorage.getItem('pinnedCommItems') ? localStorage.getItem('pinnedCommItems')! : '';
     const parsedPinnedComm = pinnedCommItems !== '' ? JSON.parse(pinnedCommItems) : '';   
@@ -26,7 +34,7 @@ export default function CommPanels(props:any){
         console.log(parsedCommCrypto)
 
     }, [update])
-    
+
 
     async function getCommodities(comm:string){
         let toSend;
@@ -60,20 +68,12 @@ export default function CommPanels(props:any){
         return <div style={{textAlign:'center'}}><p>Please Try Again In A Minute</p><Loading/></div>
     }
 
-    useEffect(() => {
-        window?.scrollTo({
-            top: 0,
-            left: 0,
-            behavior:'smooth'
-        })
-    }, [])
-
     return (
         <>
             <div style={{ padding: '12px', margin:"12px auto", marginBottom: '24px', textAlign: 'center', fontWeight: '700' }}>
                 <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'3rem'}}>
                 
-                    <div style={{display:'flex', flexDirection:'column'}}>
+                    <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
                         <Heading className="georgia" size={'lg'}>
                             {data.name === "Crude Oil Prices WTI" ? data.name + ' - West Texas Intermediate' : data.name}
                         </Heading>
