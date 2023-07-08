@@ -82,14 +82,18 @@ export default function Landing() {
   const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
   arrayOfCategories.push(parsedPinnedCrypto);
 
+  const pinnedCommItems = localStorage.getItem('pinnedCommItems') ? localStorage.getItem('pinnedCommItems')! : '';
+  const parsedPinnedComm = pinnedCommItems !== '' ? JSON.parse(pinnedCommItems) : '';   
+  arrayOfCategories.push(parsedPinnedComm);
+
+
+
 
   for (const each of arrayOfCategories) {
     if (each !== '') {
       allCategories.push(each);
     }
   }
-
-  // allCategories.push(parsedMarketItems, parsedNewsItems);
 
   console.log(allCategories.flat());  
 
@@ -163,58 +167,20 @@ export default function Landing() {
       sessionStorage.setItem('tabIndex', headerPos)
       sessionStorage.setItem('marketsIndex', '0')
 
+      const marketsArr = ['FTSE Straits Times Index (FTSE STI)', 'Shanghai Stock Exchange Composite Index',
+        'CSI 300 Index', 'Hang Seng Index', 'Hang Seng China Enterprises Index', 'Nikkei 225', 'TOPIX',
+      'S&P 500', 'Nasdaq Composite', 'Dow Jones Industrial Average (DJIA)', 'FTSE 100', 'DAX']
 
-      // index for market stocks
-      if (formattedItem[1] === 'FTSE Straits Times Index (FTSE STI)') {
-        sessionStorage.setItem('indexIndex', '0')
-
-      }
-      else if (formattedItem[1] === 'Shanghai Stock Exchange Composite Index') {
-        sessionStorage.setItem('indexIndex', '1')
-        
-      }
-      else if (formattedItem[1] === 'CSI 300 Index') {
-        sessionStorage.setItem('indexIndex', '2')
-        
-      }
-      else if (formattedItem[1] === 'Hang Seng Index') {
-        sessionStorage.setItem('indexIndex', '3')
-        
-      }
-      else if (formattedItem[1] === 'Hang Seng China Enterprises Index') {
-        sessionStorage.setItem('indexIndex', '4')
-        
-      }
-      else if (formattedItem[1] === 'Nikkei 225') {
-        sessionStorage.setItem('indexIndex', '5')
-        
-      }
-      else if (formattedItem[1] === 'TOPIX') {
-        sessionStorage.setItem('indexIndex', '6')
-        
-      }
-      else if (formattedItem[1] === 'S&P 500') {
-        sessionStorage.setItem('indexIndex', '7')
-        
-      }
-      else if (formattedItem[1] === 'Nasdaq Composite') {
-        sessionStorage.setItem('indexIndex', '8')
-        
-      }
-      else if (formattedItem[1] === 'Dow Jones Industrial Average (DJIA)') {
-        sessionStorage.setItem('indexIndex', '9')
-        
-      }
-      else if (formattedItem[1] === 'FTSE 100') {
-        sessionStorage.setItem('indexIndex', '10')
-        
-      }
-      else if (formattedItem[1] === 'DAX') {
-        sessionStorage.setItem('indexIndex', '11')
-        
+      for (const each of marketsArr) {
+        // navigation index for markets
+        if (formattedItem[1] === each) {
+          sessionStorage.setItem('indexIndex', marketsArr.indexOf(each).toString());
+      
+        }        
       }
 
     }
+
     else if (redirRoute === 'pinnedStockItems') {
       navigate('/routes/markets');
       // Index for header tabs
@@ -223,6 +189,7 @@ export default function Landing() {
 
       changeTermFromHeader(formattedItem[1])
     }
+      
     else if (redirRoute === 'pinnedCryptoItems') {
       navigate('/routes/crypto');
 
@@ -241,6 +208,9 @@ export default function Landing() {
       }
 
     }
+
+    
+
   }
 
   return (

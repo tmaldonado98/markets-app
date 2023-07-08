@@ -41,7 +41,7 @@ export default function Crypto() {
     }
 
     useEffect(() => {
-        window.scrollTo({
+        window?.scrollTo({
             top: 0,
             left: 0,
             behavior:'smooth'
@@ -100,7 +100,6 @@ export function CryptoCard (props:any){
         const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
         console.log(parsedPinnedCrypto)
     }, [update])
-
 
     return (
         <Card style={{width:'100%'}}>
