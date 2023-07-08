@@ -10,6 +10,7 @@ import '../../../styles/globals.css';
 import Selected from "./Selected";
 import { MdOutlineDone } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
+import ToTop from "../../ToTop";
 
 
 export default function SearchStocks(){
@@ -111,6 +112,7 @@ export default function SearchStocks(){
 
     return (
         <section style={{width: '90%', margin: 'auto'}}>
+            <ToTop/>
             <InputGroup>
                 <Input variant='filled' placeholder='Search for a stock' value={searchInput} onChange={handleSearchInput} onKeyDown={handleKeyDown}/> 
                 <InputRightAddon children={<BsSearch/>} style={{cursor:'pointer'}} onClick={() => executeSearch(searchInput)} />

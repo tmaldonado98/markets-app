@@ -6,6 +6,7 @@ import CryptoChart from './CryptoChart';
 import {useContext} from 'react';
 import { MyContext } from '../../components/Context';
 import { Chart } from '../../components/Markets/Chart';
+import ToTop from '../ToTop';
 
 // const {server} = useContext(MyContext)!;
 
@@ -13,11 +14,12 @@ export default function CryptoData (props:any) {
     const cryptoData = props.cryptoData;
 
     return (
-        <>
+        <>  
+            <ToTop/>
             <Heading className='georgia' size={'lg'} style={{textAlign:'center'}}>Daily Prices and Volumes for {cryptoData[1]}</Heading>
             {/* data['Meta Data']['3. Digital Currency Name'] */}
-            {/* <p style={{fontStyle:'italic'}}>Data Last Updated: {formattedTimestamp.toLocaleString(undefined)} {data['Meta Data']['7. Time Zone']}</p> */}
-            <p style={{fontStyle:'italic'}}>Base Currency USD</p>
+
+            {/* <p style={{fontStyle:'italic'}}>Base Currency USD</p> */}
             
             <div>
                 {/* <CryptoChart chartData={cryptoData}/> */}
