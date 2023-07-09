@@ -5,7 +5,7 @@ import { useState, useContext, useEffect } from 'react';
 import { MyContext } from './Context';
 import '../styles/globals.css';
 import {BsSearch} from 'react-icons/bs';
-
+import {BiHelpCircle} from 'react-icons/bi';
 
 export const Header:React.FC = () => {
   const navigate = useNavigate();
@@ -146,6 +146,12 @@ export const Header:React.FC = () => {
     )
 }
 
-export const Footer:React.FC = () => {
-    return <footer className="py-4 underline" style={{backgroundColor:'#2d2d2d', color:'antiquewhite'}}>Footer</footer>
+export const Footer: React.FC = () => {
+  const today = new Date();
+  return (
+    <footer className="py-4 underline" style={{ backgroundColor: '#2d2d2d', color: 'antiquewhite', display:'flex', justifyContent:'center' }}>
+      <div style={{padding:'1.25rem', }}>
+        <p>Markets App {today.getFullYear()}</p>
+      </div>
+    </footer>)
 }

@@ -6,7 +6,6 @@ import { MyContext } from './components/Context';
 import News from './components/News';
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { TiDelete } from 'react-icons/ti';
-import {BiHelpCircle} from 'react-icons/bi';
 import {
   Modal,
   ModalOverlay,
@@ -349,7 +348,6 @@ export default function Landing() {
                     </div>
                   </>
                   }
-                        {/* <BiHelpCircle /> */}
                 </section>
               :
               <div style={{display:'flex', justifyContent:'center', padding: '8px 0 44px', borderTop:'1px black solid', marginTop:'8px', height:'100px', alignItems:'center'}}>
@@ -378,19 +376,19 @@ export default function Landing() {
                 </Modal>
 
           </div>
-          <aside id='ad2'></aside>
+          {/* <aside id='ad2'></aside> */}
           <section id='news-section'>
             <div className='news-cont'>
               <News props={dateObj}/>
             </div>
           </section>
-          <div id='ad4' className='news-cont' style={{border:'solid'}}>
-          </div>            
+          {/* <div id='ad4' className='news-cont' style={{border:'solid'}}>
+          </div>             */}
       </main>
-          <aside id='side-ad-section'>
+          {/* <aside id='side-ad-section'>
             <div id='ad1'></div>            
             <div id='ad3'></div>
-          </aside>
+          </aside> */}
     </section>
   
   );

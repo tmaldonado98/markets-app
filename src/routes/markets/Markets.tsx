@@ -18,11 +18,11 @@ export default function Stocks(){
 
     return(
         <>
-            <aside>
+            {/* <aside>
                 <div className="ad">
                     Ad section here
                 </div>
-            </aside>
+            </aside> */}
             <nav>
                 <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='green'>
                     <TabList style={{borderBottom:'5px solid black', justifyContent:'center', padding:'1rem', fontFamily:'Georgia'}} className='georgia'>
@@ -57,11 +57,11 @@ export default function Stocks(){
 
                 </Tabs>
             </nav>
-            <aside>
+            {/* <aside>
                 <div className="ad">
                     Ad section here
                 </div>
-            </aside>
+            </aside> */}
         </>
 
     )

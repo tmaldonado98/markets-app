@@ -58,7 +58,7 @@ export default function Commodities(){
                 </TabPanels>
             </Tabs>
         
-            <div className='ad'></div>
+            {/* <div className='ad'></div> */}
         </main>
 
     )

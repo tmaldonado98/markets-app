@@ -79,7 +79,7 @@ export default function Crypto() {
                     </Tabs>
                 </div>
             </main>
-            <div className="ad"></div>
+            {/* <div className="ad"></div> */}
         </>
     )
 }

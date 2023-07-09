@@ -198,7 +198,7 @@ export function Chart(props:any) {
             </div>
 
                 <StockData dataPoints={data.chart.result[0]} param={param}/>
-                <div className='ad'>Insert ad here</div>
+                {/* <div className='ad'>Insert ad here</div> */}
             <div className="fundamentals-container" style={{padding: '20px'}}>
                 <h2 className='georgia' style={{fontSize:'30px', textAlign:'center'}}>Fundamentals</h2>
                 <Fundamentals fundamentals={staticFundamentals}/>

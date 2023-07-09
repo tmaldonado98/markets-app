@@ -200,7 +200,7 @@ export default function ExchangeTool () {
                 <Heading size={'medium'}>Saved:</Heading>
             </div> */}
         </section>
-        <div className="ad"></div>
+        {/* <div className="ad"></div> */}
     </>
     )
 }
