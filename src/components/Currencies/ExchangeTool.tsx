@@ -109,21 +109,21 @@ export default function ExchangeTool () {
     return (
     <>
         <section style={{flex:'1', display:'flex', flexDirection:'column', gap:'25px'}}>
-            <Heading style={{textAlign:'center'}} size={'md'}>Currency Converter Tool</Heading>
+            <Heading style={{textAlign:'center'}} size={'md'} className="georgia">Currency Converter Tool</Heading>
             <div className="exchange-tools">
                 {rate === '' ? '' :
-                <p style={{textAlign:'center'}}>Last Updated: {formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})} UTC</p>
+                <p style={{textAlign:'center'}} className="georgia">Last Updated: {formattedTimestamp.toLocaleString(undefined, {timeStyle: 'short'})} UTC</p>
                 }
-                <Text>Base Currency:</Text>
+                <Text className="georgia">Base Currency:</Text>
                 <p><b>{base}</b></p>
                 <select defaultValue={'United States Dollar'}>
                     {currenciesMap.map(([key, value]) => (
-                        <option value={key} onClick={() => handleBase(value)}>{key}</option>
+                        <option className="georgia" value={key} onClick={() => handleBase(value)}>{key}</option>
 
                     ))}
                 </select>
 
-                <Input onChange={handleBaseInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={baseInput !== '' ? Number(baseInput).toLocaleString() : ''}         
+                <Input className="georgia" onChange={handleBaseInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={baseInput !== '' ? Number(baseInput).toLocaleString() : ''}         
                     onKeyDown={(e) => {
                         const allowedKeys = [
                             "Backspace",
@@ -156,16 +156,16 @@ export default function ExchangeTool () {
             </div>
 
             <div className="exchange-tools">
-                <Text>Target Currency:</Text>
+                <Text className="georgia">Target Currency:</Text>
                 <p><b>{target}</b></p>
                 <select defaultValue={'Chinese Yuan'}>
                    {currenciesMap.map(([key, value]) => (
-                        <option value={key} onClick={() => handleTarget(value)}>{key}</option>
+                        <option className="georgia" value={key} onClick={() => handleTarget(value)}>{key}</option>
 
                     ))}
                 </select>
 
-                <Input onChange={handleTargetInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={targetInput !== '' ? Number(targetInput).toLocaleString() : ''}        
+                <Input className="numbers" onChange={handleTargetInput} variant='filled' type="text" placeholder="Enter Value" onFocus={saveExchangeRate} value={targetInput !== '' ? Number(targetInput).toLocaleString() : ''}        
                     onKeyDown={(e) => {
                         const allowedKeys = [
                             "Backspace",

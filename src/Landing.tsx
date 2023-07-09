@@ -132,12 +132,12 @@ export default function Landing() {
     setOpen(false);
   };
 
-  function clearPinned(){
+  async function clearPinned(){
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i)!;
     
       if (key.includes('pinned')) {
-        localStorage.removeItem(key)
+        await localStorage.removeItem(key)
 
       }
     }
@@ -243,11 +243,11 @@ export default function Landing() {
             {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
           <div style={{margin:'1rem auto'}}>            
-            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', fontSize: '35px' }} className='georgia'>
+            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', fontSize: '40px' }} className='georgia'>
               Markets App
             </Heading>
           
-            <Heading size='md' as={'h2'} style={{ textAlign: 'center', fontSize: '24px' }} className='georgia'>
+            <Heading size='md' as={'h2'} style={{ textAlign: 'center', fontSize: '25px', fontStyle:'italic' }}>
               Your Online Source For Financial Information
             </Heading>
 
@@ -355,7 +355,7 @@ export default function Landing() {
               <div style={{display:'flex', justifyContent:'center', padding: '8px 0 44px', borderTop:'1px black solid', marginTop:'8px', height:'100px', alignItems:'center'}}>
                 <Heading size='md' style={{textAlign:'center'}}>
                   You can pin your favorite items here. <br/>
-                  Click on the 'Pin' button on the items you want to save!
+                  Click on the 'Pin' button on the items you want to save.
                 </Heading>
               </div>
               }

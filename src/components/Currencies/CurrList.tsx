@@ -4,13 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from "../Loading";
 import { Card, CardHeader, CardBody, CardFooter, Heading, Box, Text } from '@chakra-ui/react'
 import { MyContext } from "../Context";
+import '../../styles/globals.css';
 
-
-// interface ExchangeData {
-//     key: string;
-//     rate: string;
-//     timestamp: string;
-//   }
   
 export default function CurrList(){
     const {server} = useContext(MyContext)!;
@@ -93,9 +88,11 @@ export default function CurrList(){
 
     return (
         <div style={{flex:'1', padding:'0 65px', display:'flex', flexDirection:'column', gap:'5px'}}>
-            <Heading size={'md'} style={{textAlign:'center'}}>Currency Exchange Rates</Heading>
+            <Heading size={'md'} style={{ textAlign: 'center' }} className="georgia">
+                Currency Exchange Rates
+            </Heading>
             <p><b>Base USD</b></p>
-            <p  style={{fontSize:'13px', fontStyle:'italic'}}>Last Updated: {timestampState}</p>
+            <p  className="georgia" style={{fontSize:'13px', fontStyle:'italic'}}>Last Updated: {timestampState}</p>
         {data?.length > 10 ? data.map((each:{ [key: string]: any }) => {
           const exchange = each[0];
           const { rate, timestamp } = Object.values(each[1])[0] as {
@@ -126,10 +123,10 @@ export function ExchangeCard (props:any){
             <CardBody>
                 <Box style={{textAlign:'center'}}>
                     <Heading size='xs' textTransform='uppercase'>
-                    {props.exchange}
+                        {props.exchange}
                     </Heading>
-                    <Text pt='2' fontSize='lg'>
-                    {props.rate}
+                    <Text pt='2' fontSize='lg' className="numbers">
+                        {props.rate}
                     {/* <p style={{fontSize:'11px', fontStyle:'italic'}}>Last Updated: {props.timestamp}</p> */}
                     </Text>
                     

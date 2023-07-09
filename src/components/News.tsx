@@ -166,7 +166,7 @@ export default function News(props: any) {
 
     return (
         <>
-        <Heading as='h2' className='georgia'>
+            <Heading as='h2' className='georgia' textAlign="center" style={{ margin: '5px auto' }}>
             News Categories
         </Heading>
         <Tabs isLazy variant='enclosed' className='py-6'>
@@ -229,7 +229,7 @@ export function Articles (props:any) {
                 </TabList>
 
                 <TabPanels>
-                    <TabPanel>
+                    <TabPanel style={{backgroundColor:"rgba(255, 255, 244, 0.58)"}}>
                         <SimpleGrid spacing={5} templateColumns='repeat(auto-fill, minmax(400px, 1fr))'>
                             {props.articles.length > 0 ? props.articles.slice(0, 9).map((each:any) =>{ 
                                 return (       
@@ -238,6 +238,7 @@ export function Articles (props:any) {
                                         direction={{ base: 'column', sm: 'row' }}
                                         overflow='hidden'
                                         variant='outline'
+                                        style={{backgroundColor: "rgba(223, 216, 249, 0.17)"}}
                                         >
                                         <Image
                                             objectFit='cover'
