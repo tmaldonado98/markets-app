@@ -8,7 +8,7 @@ import {useEffect, useState, useContext} from 'react';
 import { MdOutlineDone } from "react-icons/md";
 import { TiDelete } from "react-icons/ti";
 import { BsPinFill } from "react-icons/bs";
-
+import '../../styles/globals.css';
     //USD as base
     const cryptocurrencies:string[][] = [
         ["BTC-USD", "Bitcoin"],
@@ -74,7 +74,7 @@ export default function Crypto() {
                                 </TabPanel>
 
                             ))}
-
+                                    {/* **FOR LATER RELEASE: CHART SHOWING HISTORICAL CURRENCY DATA */}
                         </TabPanels>
                     </Tabs>
                 </div>
@@ -91,26 +91,26 @@ export function CryptoCard (props:any){
     
     const pinnedCryptoItems = localStorage.getItem('pinnedCryptoItems') ? localStorage.getItem('pinnedCryptoItems')! : '';
     const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
-    console.log(parsedPinnedCrypto)
+    // console.log(parsedPinnedCrypto)
 
     const [del, setDel] = useState(false);
 
     useEffect(() => {
         const pinnedCryptoItems = localStorage.getItem('pinnedCryptoItems') ? localStorage.getItem('pinnedCryptoItems')! : '';
         const parsedPinnedCrypto = pinnedCryptoItems !== '' ? JSON.parse(pinnedCryptoItems) : '';   
-        console.log(parsedPinnedCrypto)
+        // console.log(parsedPinnedCrypto)
     }, [update])
 
     return (
-        <Card style={{width:'100%'}}>
+        <Card style={{width:'100%'}} className="georgia">
             <CardBody>
                 <Box style={{textAlign:'center', gap:'12px', display:"flex", alignItems:"center", justifyContent:"space-evenly", width:'100%'}}>
-                    <div style={{display:'flex', flexDirection:"column", width:"100%"}}>
+                    <div style={{display:'flex', flexDirection:"column", width:"100%"}} className="georgia">
                         <Heading size='xs' textTransform='uppercase'>
-                        {entry[0].split('-')[0].trim()}
+                            {entry[0].split('-')[0].trim()}
                         </Heading>
                         <Text pt='2' fontSize='lg'>
-                        {entry[1]}
+                            {entry[1]}
                         {/* <p style={{fontSize:'11px', fontStyle:'italic'}}>Last Updated: {props.timestamp}</p> */}
                         </Text>
                     </div>

@@ -107,7 +107,7 @@ export default function StockData(props:any){
 		// console.log(options.data[0].dataPoints)
 
 		return (
-		<div style={{borderBottom:'black 5px solid'}}>
+		<div style={{borderBottom:'black 5px solid'}} className='georgia'>
 			<CanvasJSChart options = {options}/>
 		</div>
 		);

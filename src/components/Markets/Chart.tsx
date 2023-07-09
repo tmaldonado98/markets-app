@@ -165,7 +165,7 @@ export function Chart(props:any) {
                         {range}
                     </MenuButton>
                     <MenuList>
-                        <MenuOptionGroup defaultValue={range} type='radio'>
+                        <MenuOptionGroup defaultValue={range} type='radio' className='georgia'>
                             <MenuItemOption value='5D' onClick={() => handleRange('5D')}   _hover={{ bg: 'blue.200' }}>5D</MenuItemOption><MenuDivider />
                             <MenuItemOption value='10D' onClick={() => handleRange('10D')} _hover={{ bg: 'blue.200' }}>10D</MenuItemOption><MenuDivider />
                             <MenuItemOption value='1mo' onClick={() => handleRange('1mo')} _hover={{ bg: 'blue.200' }}>1mo</MenuItemOption><MenuDivider />

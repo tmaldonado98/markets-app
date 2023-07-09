@@ -70,8 +70,8 @@ export default function CommPanels(props:any){
 
     return (
         <>
-            <div style={{ padding: '12px', margin:"12px auto", marginBottom: '24px', textAlign: 'center', fontWeight: '700' }}>
-                <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'3rem'}}>
+            <div style={{ padding: '12px', margin:"12px auto", marginBottom: '24px', textAlign: 'center' }}>
+                <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'3rem', marginBottom:"25px"}}>
                 
                     <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
                         <Heading className="georgia" size={'lg'}>

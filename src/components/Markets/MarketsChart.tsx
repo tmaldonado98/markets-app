@@ -102,19 +102,24 @@ export default function MarketsChart(){
                 <main className="min-h-screen">
                     <section>
                         <Tabs index={Number(storageIndex)} isLazy orientation='vertical' variant='soft-rounded' colorScheme='purple' style={{display: 'flex'}}>
-                            <TabList style={{border:'3px black solid', justifyContent:'space-evenly'}}>
+                            <TabList style={{ justifyContent:'space-evenly'}}>
                             {/* style={{flexDirection:'column'}} */}
-                            {/* border:'1px black solid', */}
-                            {markets.map(each => <div style={{padding:'5px 8px',  display:'flex', flexDirection:'column' ,justifyContent:'center'}} key={markets.indexOf(each)}><p style={{fontWeight:'700', fontSize:'20px', textAlign:'center'}}>{each[0][0] + ' - ' + each[0][1]}</p>
+                            {/* border:'1px black solid', border:'3px black solid',*/}
+                                {markets.map(each =>
+                                    <div style={{ padding: '5px 8px', display: 'flex', flexDirection: 'column', justifyContent: 'center', borderBottom:"2px solid black" }} key={markets.indexOf(each)}>
+                                        <p style={{ fontWeight: '700', fontSize: '20px', textAlign: 'start', textDecoration:'underline'}}>
+                                            {each[0][0] + ' - ' + each[0][1]}
+                                        </p>
                             
-                                {each[1].map(index => <Tab onClick={() => handleTabChange(index)} _hover={{background: 'purple.100'}} style={{textAlign:'center'}} className='georgia' key={each[1].indexOf(index)}>
-                                        {index}
-                                    </Tab>)}
+                                        {each[1].map(index =>
+                                            <Tab onClick={() => handleTabChange(index)} _hover={{ background: 'purple.100' }} style={{ textAlign: 'center', margin:"5px 0"}} className='georgia' key={each[1].indexOf(index)}>
+                                                {index}
+                                            </Tab>)}
                             
                             </div>
                             )}
                             </TabList>    
-                            <TabPanels>
+                            <TabPanels style={{margin:'0 18px', borderLeft:'black 1px solid'}}>
                                 {markets.map(each => each[1].map((index) => (
                                         <TabPanel key={each[1].indexOf(index)}>
                                             <div style={{display:'flex', justifyContent:'center', alignItems:'center'}}>

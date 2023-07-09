@@ -125,12 +125,12 @@ export default function Locales ({currentTime} : MyComponentProps) {
     // .getDay();
     const month: string = dateObj.toLocaleString('en-US', { month: 'long' })
 
-    const cardStyles = {backgroundColor:"rgba(255, 255, 244, 0.58)", boxShadow:"3px 4px 2px 1px", maxWidth:'250px'}
+    const cardStyles = {backgroundColor:"rgba(255, 255, 244, 0.58)", boxShadow:" 0px 0px 7px 1px", maxWidth:'250px'}
 
     return (
         <>
             {/* <h2 className='date-h georgia' style={{flex:'3'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2> */}
-            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'12px', }}>
+            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'center', gap:'18px', }}>
             {localesArr.slice(0,6).map(each => (
                 <Card key={localesArr.indexOf(each)} style={cardStyles}>
                     <CardHeader textAlign='center'>
