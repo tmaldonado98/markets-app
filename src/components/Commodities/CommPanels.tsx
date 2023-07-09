@@ -12,13 +12,13 @@ import { TiDelete } from "react-icons/ti";
 export default function CommPanels(props:any){   
     const commodity = props.commodity;
 
-    useEffect(() => {
-        window?.scrollTo({
-            top: 0,
-            left: 0,
-            behavior:'smooth'
-        })
-    }, [])
+    // useEffect(() => {
+    //     window?.scrollTo({
+    //         top: 0,
+    //         left: 0,
+    //         behavior:'smooth'
+    //     })
+    // }, [])
 
     const [del, setDel] = useState(false);
 
@@ -107,8 +107,8 @@ export default function CommPanels(props:any){
                                 </span>
                         }
                 </div>
-            </div>
             <CommChart commData={data} />
+            </div>
         </>
     )
 }
