@@ -29,7 +29,7 @@ export default function SearchStocks(){
     }
 
     useEffect(() => {
-        console.log(recent);
+        // console.log(recent);
         localStorage.setItem('recent', JSON.stringify(recent));
 
     }, [recent])
@@ -50,7 +50,7 @@ export default function SearchStocks(){
             .then(response => {
                 setHideResults(false);
                 setHideSelect(true);
-                console.log(response.data);
+                // console.log(response.data);
                 setSearchResults(response.data);
             })
             .catch(error => {
@@ -76,7 +76,7 @@ export default function SearchStocks(){
       }
 
     function handleSelect(ticker:string){
-            console.log(ticker);
+            // console.log(ticker);
             // setSearchResults([]);
             setHideSelect(false);
             setHideResults(true);
@@ -98,16 +98,16 @@ export default function SearchStocks(){
     }
 
     const pinnedStockItems = localStorage.getItem('pinnedStockItems') ? localStorage.getItem('pinnedStockItems')! : '';
-    console.log(pinnedStockItems)
+    // console.log(pinnedStockItems)
     const parsedPinnedStocks = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';   
-    console.log(parsedPinnedStocks)
+    // console.log(parsedPinnedStocks)
 
     const [del, setDel] = useState(false);
 
     useEffect(() => {
         const pinnedStockItems = localStorage.getItem('pinnedStockItems') ? localStorage.getItem('pinnedStockItems')! : '';
         const parsedPinnedStocks = pinnedStockItems !== '' ? JSON.parse(pinnedStockItems) : '';   
-        console.log(parsedPinnedStocks)
+        // console.log(parsedPinnedStocks)
     }, [update])
 
     return (

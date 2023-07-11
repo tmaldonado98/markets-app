@@ -4,7 +4,7 @@ import Locales from './components/Locales';
 import { useEffect, useState, useContext } from 'react';
 import { MyContext } from './components/Context';
 import News from './components/News';
-import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+import { Card, CardBody, CardFooter } from '@chakra-ui/react'
 import { TiDelete } from 'react-icons/ti';
 import {
   Modal,
@@ -17,10 +17,11 @@ import {
 } from '@chakra-ui/react'
 import {useNavigate} from 'react-router-dom';
 import ToTop from './components/ToTop';
+import AdSense from 'react-adsense';
 
 
 export default function Landing() {
-  const {category, removePinnedItem, changeTermFromHeader} = useContext(MyContext)!;
+  const {changeTermFromHeader} = useContext(MyContext)!;
   
   const navigate = useNavigate();
 
@@ -36,6 +37,10 @@ export default function Landing() {
     })
     document.title = "Markets App";
     
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    // (window.adsbygoogle = window.adsbygoogle || []).push({});
+
   }, [])
 
     const dateObj = new Date();
@@ -46,15 +51,8 @@ export default function Landing() {
     const dayOfWeek: string = dateObj.toLocaleString('en-US', { weekday: 'long' })
     // .getDay();
     const month: string = dateObj.toLocaleString('en-US', { month: 'long' })
-    // .getMonth();
-
-//     const options = { weekday: 'long' };
-// const dayOfWeek = date.toLocaleString('en-US', options);
 
   
-  
-  // const catNames = ['pinnedMarketItems', 'pinnedNewsItems']
-
 //writing down name of variables, not of category names in order to loop a conditional later
   const arrayOfCategories = [];
 
@@ -81,26 +79,22 @@ export default function Landing() {
   arrayOfCategories.push(parsedPinnedComm);
 
 
-
-
   for (const each of arrayOfCategories) {
     if (each !== '') {
       allCategories.push(each);
     }
   }
 
-  console.log(allCategories.flat());  
+  // console.log(allCategories.flat());  
 
 
 
   function handleDelete(item:string, category: string) {
     provokeUpdate(!update);
 
-    // removePinnedItem(item)
-
     // const cat = item.split('@#')[1]
-    console.log(category);
-    console.log(item);
+    // console.log(category);
+    // console.log(item);
 
     const arrToParse = localStorage.getItem(category)!;
     if (arrToParse !== null) {
@@ -232,9 +226,9 @@ export default function Landing() {
 
     }
 
-
   }
 
+  console.log(process.env.REACT_APP_ADCLIENTID)
   return (
     <section id='landing-container'>
       <ToTop/>
@@ -376,7 +370,22 @@ export default function Landing() {
                 </Modal>
 
           </div>
-          {/* <aside id='ad2'></aside> */}
+        {/* <aside id='ad2'></aside> */}
+        {/* <AdSense.Google
+          client="ca-pub-3168526593832486"
+          slot="7609314826"
+          style={{ display: 'block' }}
+          format="autorelaxed"
+          responsive="true"
+        /> */}
+
+        <ins className="adsbygoogle"
+          style={{display:"block"}}
+          data-ad-format="autorelaxed"
+          data-ad-client="ca-pub-3168526593832486"
+          data-ad-slot="7609314826">
+        </ins>
+        
           <section id='news-section'>
             <div className='news-cont'>
               <News props={dateObj}/>

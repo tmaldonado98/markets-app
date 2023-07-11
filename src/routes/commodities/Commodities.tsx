@@ -27,7 +27,7 @@ export default function Commodities(){
     ]
 
     useEffect(() => {
-        window.scrollTo({ top: 200, left: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }, [])
 
     const storageIndex = sessionStorage.getItem('commIndex') ? sessionStorage.getItem('commIndex') : '0';
