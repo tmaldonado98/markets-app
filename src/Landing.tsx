@@ -232,31 +232,37 @@ export default function Landing() {
   return (
     <section id='landing-container'>
       <ToTop/>
+        <section id='locales'>
+         {/* <h2 className='date-h georgia' style={{textAlign:'center', width:"min-content"}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2> */}
+          <Locales currentTime={dateObj}/>
+        </section>
       <main className='min-h-screen' style={{maxWidth:'85%'}}>
             {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
-          <div style={{margin:'1rem auto', textAlign: 'center', display:"flex", flexDirection:"column", alignItems:"center"}}>            
-            <Heading size="lg" as={'h1'} style={{  fontSize: '40px', textDecoration:"underline" }} className='georgia'>
-              Markets App
-            </Heading>
-          
-            <Heading size='md' as={'h2'} style={{ fontSize: '25px', fontStyle:'italic' }}>
-              Your Online Source For Financial Information
+        
+        
+        <div style={{ margin: '1rem auto', textAlign: 'center', display: "flex", flexDirection: "column", alignItems: "center", borderBottom:"1px solid black" }}>            
+          <Heading size="lg" as={'h1'} style={{  fontSize: '40px', textDecoration:"underline" }} className='georgia'>
+            Markets App
+          </Heading>
+        
+          <Heading size='md' as={'h2'} style={{ fontSize: '25px', fontStyle:'italic' }}>
+            Your Online Source For Financial Information
           </Heading>
           
           <Text noOfLines={[1, 2, 3]} style={{ fontSize: '23px', width:'75%' }}>
             Invest in yourself - get educated with the latest news, trends, market information,
             currency rates, and more!
           </Text>
+        </div>
 
-          </div>
+        {/* <section>
+          <p>Here will go top gainers, losers, active</p>
+        </section> */}
 
           <div id='first-box' className='min-h-16 '>
               {/* border-red-600 border-solid border-4*/}
-              <h2 className='date-h georgia' style={{textAlign:'center'}}>Today is {dayOfWeek} {month} {dayOfMonth}, {dateObj.getFullYear()}</h2>
-              <section id='locales'>
-                <Locales currentTime={dateObj}/>
-              </section>
+
 
 
             {allCategories.flat().length > 0 && allCategories[0] !== "" ?
@@ -267,7 +273,7 @@ export default function Landing() {
                     <div style={{display:'flex', gap:'12px', flexWrap:'wrap', justifyContent:'center', paddingTop:'16px'}}>
                       {allCategories.flat().map((each:string) => (
                           <Card style={{width:'25%'}} _hover={{transform: 'scale(1.05)', transition: 'ease-in-out 200ms'}} _active={{transform: 'scale(0.9)'}}>
-                            <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                            <CardBody style={{display:'flex', flexDirection:'column', justifyContent:'center', padding:"6px"}}>
                               
                             <span id='cardX' style={{ cursor: 'pointer', alignSelf: 'end', transition:'350ms'}} title='Unpin Item'>
                                 <TiDelete onClick={() => handleDelete(each, each.split('@#')[1].split('^')[0])} />
@@ -286,7 +292,7 @@ export default function Landing() {
                             </span>                            
                           </CardBody>
                           
-                            <CardFooter>
+                            <CardFooter style={{ padding:"6px"}}>
                               {/* the condition below says that if the parsedPinnedItems includes an item from the -pinnedNewsItems category then ... 
                                 And if I added a condition after the || to account for cases where the news article title itself has a -, so as to search for the category after the -.
                                 I am using - to find the category name inside the pinnedParsedItems array.
