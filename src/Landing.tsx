@@ -379,12 +379,13 @@ export default function Landing() {
           responsive="true"
         /> */}
 
-        <ins className="adsbygoogle"
+        {/* <ins className="adsbygoogle"
           style={{display:"block"}}
           data-ad-format="autorelaxed"
           data-ad-client="ca-pub-3168526593832486"
           data-ad-slot="7609314826">
         </ins>
+         */}
         
           <section id='news-section'>
             <div className='news-cont'>
@@ -394,8 +395,16 @@ export default function Landing() {
           {/* <div id='ad4' className='news-cont' style={{border:'solid'}}>
           </div>             */}
       </main>
-          {/* <aside id='side-ad-section'>
-            <div id='ad1'></div>            
+      {/* <aside id='side-ad-section'>
+        
+        <div id='ad1'>
+          <ins className="adsbygoogle"
+            style={{display:"block"}}
+            data-ad-client="ca-pub-3168526593832486"
+            data-ad-slot="7358636029"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        </div>            
             <div id='ad3'></div>
           </aside> */}
     </section>

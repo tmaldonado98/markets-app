@@ -120,7 +120,7 @@ export const Header:React.FC = () => {
             :
             <InputGroup style={{ width: '50%', margin: 'auto', display:'flex', alignItems:'center'}}>
               <span style={{ width: '200px', display:'flex', flexDirection:'column-reverse' }}>
-                <a href='https://markets-app-80cf9.web.app/' title='Markets App, Your Online Source For Financial Information' style={{display:'flex', justifyContent:'center'}}>
+                <a href='https://markets-app.com/' title='Markets App, Your Online Source For Financial Information' style={{display:'flex', justifyContent:'center'}}>
                   <img src='https://firebasestorage.googleapis.com/v0/b/markets-app-80cf9.appspot.com/o/Markets%20App%20Logo.png?alt=media&token=9c5f53fc-2917-4269-b8b3-bd43177ce30e' alt='Markets App Logo, Your Online Source For Financial Education'
                     style={{width:'50%', borderRadius:'50px'}}
                   />
