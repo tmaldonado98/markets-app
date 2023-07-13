@@ -167,7 +167,7 @@ export default function News(props: any) {
     return (
         <>
             <Heading as='h2' className='georgia' textAlign="center" style={{ margin: '5px auto' }}>
-            News Categories
+            Read The Latest News
         </Heading>
         <Tabs isLazy variant='enclosed' className='py-6'>
             <TabList mb='1em' style={{flexWrap:'wrap'}}>

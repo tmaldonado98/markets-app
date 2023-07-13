@@ -235,14 +235,19 @@ export default function Landing() {
       <main className='min-h-screen' style={{maxWidth:'85%'}}>
             {/* <h1 className='landing-h mx-auto w-4/5 georgia'>Welcome to the Markets App</h1> */}
             {/* <h2 className='mx-auto w-4/5 georgia'>Your online source for Financial Education</h2> */}
-          <div style={{margin:'1rem auto'}}>            
-            <Heading size="lg" as={'h1'} style={{ textAlign: 'center', fontSize: '40px' }} className='georgia'>
+          <div style={{margin:'1rem auto', textAlign: 'center', display:"flex", flexDirection:"column", alignItems:"center"}}>            
+            <Heading size="lg" as={'h1'} style={{  fontSize: '40px', textDecoration:"underline" }} className='georgia'>
               Markets App
             </Heading>
           
-            <Heading size='md' as={'h2'} style={{ textAlign: 'center', fontSize: '25px', fontStyle:'italic' }}>
+            <Heading size='md' as={'h2'} style={{ fontSize: '25px', fontStyle:'italic' }}>
               Your Online Source For Financial Information
-            </Heading>
+          </Heading>
+          
+          <Text noOfLines={[1, 2, 3]} style={{ fontSize: '23px', width:'75%' }}>
+            Invest in yourself - get educated with the latest news, trends, market information,
+            currency rates, and more!
+          </Text>
 
           </div>
 

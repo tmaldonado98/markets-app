@@ -56,12 +56,12 @@ export const Header:React.FC = () => {
     changeTabIndex(newIndex)
   }
   
-  const linkStyles = { fontSize: '20px', height: 'fit-content' };
+  const linkStyles = { fontSize: '16px', height: 'fit-content' };
 // , position:'fixed', zIndex:'99', width:'100%'
     return (
         <nav style={{borderBottom: 'solid 4px black', display:'flex', flexDirection:'column', justifyContent:'space-evenly', padding:'4px 22px', color:'blue.500', backgroundColor:'#2d2d2d'}}>
 
-        <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{ margin: "20px auto" }}>
+        <Tabs index={Number(storageIndex)} variant='soft-rounded' colorScheme='blue' style={{ margin: "12px auto" }}>
               <TabList>
                   <ChakraLink as={RouterLink} to='/' style={linkStyles}>
                     <Tab onClick={() => handleTabChange('0')} color='blue.500' style={linkStyles} _hover={{bg: 'blue.100', color:'blue.600'}}>
@@ -118,7 +118,7 @@ export const Header:React.FC = () => {
             window.location.href.includes('/routes/markets') ?
             ''
             :
-            <InputGroup style={{ width: '50%', margin: 'auto', display:'flex', alignItems:'center'}}>
+            <InputGroup style={{ width: '33%', margin: 'auto', display:'flex', alignItems:'center'}}>
               <span style={{ width: '200px', display:'flex', flexDirection:'column-reverse' }}>
                 <a href='https://markets-app.com/' title='Markets App, Your Online Source For Financial Information' style={{display:'flex', justifyContent:'center'}}>
                   <img src='https://firebasestorage.googleapis.com/v0/b/markets-app-80cf9.appspot.com/o/Markets%20App%20Logo.png?alt=media&token=9c5f53fc-2917-4269-b8b3-bd43177ce30e' alt='Markets App Logo, Your Online Source For Financial Education'

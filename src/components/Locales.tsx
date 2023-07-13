@@ -145,7 +145,33 @@ export default function Locales ({currentTime} : MyComponentProps) {
                                 second: 'numeric',
                                 }))}         
                         </p>
+{/* 
+                        {each[1] === 'TSE' &&
+                            <p>
+                            {(time.toLocaleString(undefined, {
+                                    timeZone: each[0],
+                                hour12: false,
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                second: 'numeric',
+                            })) < '9:00'
+                                    ||
 
+                               time.toLocaleString(undefined, {
+                                    timeZone: each[0],
+                                hour12: false,
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                second: 'numeric',
+                               }) > '15:00'
+                                    
+                            ?
+                                "Closed"
+                                :
+                                'Open'
+                            
+                            }  
+                        </p>} */}
                     </CardHeader>
 
                     <CardHeader  padding='0'>
@@ -156,14 +182,14 @@ export default function Locales ({currentTime} : MyComponentProps) {
                     
 
                     <CardBody>
-                        <div id="clock-container" style={{textAlign:'center', padding:'5px 0', display:'flex', justifyContent:'center'}}>
+                        {/* <div id="clock-container" style={{textAlign:'center', padding:'5px 0', display:'flex', justifyContent:'center'}}>
                         {isClient === true ? 
                             <Clock value={time.toLocaleString(undefined, {timeZone: each[0], hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric'})}/>
                         
                             :
                             <Loading />
                         }
-                        </div>
+                        </div> */}
                         <Text style={{fontSize:"18px"}}>It is {time.toLocaleString('en-US', {timeZone: each[0], 
                                             weekday: 'long',
                                             year: 'numeric',
