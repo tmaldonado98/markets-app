@@ -1,8 +1,10 @@
 #landing-container {
     display: flex;
+    flex-direction: column;
     justify-content:space-evenly;
-    padding: 12px 0;
+    /* padding: 12px 0; */
     /* padding-top: 220px; */
+    align-items: center;
 }
 
 #side-ad-section{
@@ -49,15 +51,16 @@ header h2 {
 }
 
 .date-h {
-    font-size: 32px;
+    font-size: 24px;
     padding: 12px;
 }
 
 #locales {
     /* border: 5px dashed black; */
-    padding: 2rem 12px;
+    /* padding: 2rem 12px; */
     width: 100%;
     margin: auto;
+    display: flex;
 }
 
 #recent-pages {

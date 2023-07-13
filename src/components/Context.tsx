@@ -56,7 +56,7 @@ type MyContextProviderProps = {
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     // REACT_APP_localServer   REACT_APP_marketsServer
-  const server = process.env.REACT_APP_marketsServer;
+  const server = process.env.REACT_APP_localServer;
 
   //header tabs index
   // const storageIndex = sessionStorage.getItem('tabIndex')!
