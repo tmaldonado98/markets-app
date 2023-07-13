@@ -44,7 +44,7 @@ export default function CurrList(){
         const responseData:any = [];
         for(const each of supportedPairs){
                 // REACT_APP_localServer   REACT_APP_marketsServer
-                console.log(each[0], each[1])
+                // console.log(each[0], each[1])
             const response = await axios.get(`${server}/routes/currencies`, {
                 params: {
                     pairs: each[1]
@@ -58,7 +58,7 @@ export default function CurrList(){
    
     useEffect(() => {
         // console.log(Object.entries(exch))
-        console.log(exch)
+        // console.log(exch)
         if (exch.length > 10) {
             const {timestamp} = exch[0][1]['USDCNY']
             const formattedTimestamp = new Date(timestamp * 1000);

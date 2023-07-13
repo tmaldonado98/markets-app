@@ -57,7 +57,7 @@ export default function ExchangeTool () {
         // console.log(exchangePair)
         try {
             const response = await axios.get(`https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${base}&to_currency=${target}&apikey=${process.env.avKey}`)
-            console.log(response.data["Realtime Currency Exchange Rate"]);
+            // console.log(response.data["Realtime Currency Exchange Rate"]);
             setRate(response.data["Realtime Currency Exchange Rate"])
             return response.data["Realtime Currency Exchange Rate"];
         } catch (error) {

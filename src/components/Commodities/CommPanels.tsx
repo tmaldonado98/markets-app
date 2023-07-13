@@ -31,7 +31,7 @@ export default function CommPanels(props:any){
     useEffect(() => {
         const pinnedCommItems = localStorage.getItem('pinnedCommItems') ? localStorage.getItem('pinnedCommItems')! : '';
         const parsedCommCrypto = pinnedCommItems !== '' ? JSON.parse(pinnedCommItems) : '';   
-        console.log(parsedCommCrypto)
+        // console.log(parsedCommCrypto)
 
     }, [update])
 

@@ -56,7 +56,7 @@ type MyContextProviderProps = {
 
 export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     // REACT_APP_localServer   REACT_APP_marketsServer
-  const server = process.env.REACT_APP_localServer;
+  const server = process.env.REACT_APP_marketsServer;
 
   //header tabs index
   // const storageIndex = sessionStorage.getItem('tabIndex')!
@@ -151,14 +151,14 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
         // .split('@#')[0].trim()  <-- if add this, then name of item will be clean in session storage.
         arrToSave.push(newItem + '^' + indices);
         localStorage.setItem(category, JSON.stringify(arrToSave));
-        console.log(arrToSave);
+        // console.log(arrToSave);
 
       } 
       else {
         // if pinned list exists
         const arrToParse = localStorage.getItem(category)!;
         const parsed = localStorage.getItem(category) ? JSON.parse(arrToParse) : '';
-        console.log(parsed)
+        // console.log(parsed)
         if(parsed.includes(newItem)){
           // .split('@#')[0].trim()
           //to avoid duplicate items
@@ -173,7 +173,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
           //new items here
           // .split('@#')[0].trim()
           parsed.push(newItem + '^' + indices);
-          console.log(parsed)
+          // console.log(parsed)
           localStorage.setItem(category, JSON.stringify(parsed));
 
         }
@@ -184,7 +184,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     function removePinnedItem(newItem:string, category:string){
       const trimmedIndex = newItem;
       // .split('@#')[0].trim()
-      console.log(trimmedIndex);
+      // console.log(trimmedIndex);
 
       const arrToParse = localStorage.getItem(category)!;
       if (arrToParse !== null) {

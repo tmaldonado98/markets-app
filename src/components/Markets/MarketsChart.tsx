@@ -28,7 +28,7 @@ export default function MarketsChart(){
     const storageIndex = sessionStorage.getItem('indexIndex') ? sessionStorage.getItem('indexIndex') : '0';
 
     const handleTabChange = (stockIndex:string) => {
-        window?.scrollTo({ top: 350, left: 0, behavior: 'smooth' });
+        // window?.scrollTo({ top: 350, left: 0, behavior: 'smooth' });
 
         let newIndex = 0;
         if (stockIndex === 'FTSE Straits Times Index (FTSE STI)') {
@@ -73,23 +73,23 @@ export default function MarketsChart(){
     }
 
     //For when route is mounted from locale redirection
-    useEffect(() => {
-        window.scrollTo({top:250, left:0, behavior: 'smooth'})
+    // useEffect(() => {
+    //     window.scrollTo({top:250, left:0, behavior: 'smooth'})
           
-    }, []);
+    // }, []);
 
     // use context variable that represents pinned category in localStorage
 
     const pinnedIndItems = localStorage.getItem(category) ? localStorage.getItem(category)! : '';
     const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';   
-        console.log(parsedPinnedItems)
+        // console.log(parsedPinnedItems)
 
     // const [update, provokeUpdate] = useState(true);
 
     useEffect(() => {
         const pinnedIndItems = localStorage.getItem(category) ? localStorage.getItem(category)! : '';
         const parsedPinnedItems = pinnedIndItems !== '' ? JSON.parse(pinnedIndItems) : '';       
-        console.log(parsedPinnedItems)
+        // console.log(parsedPinnedItems)
     }, [update])
 
 
