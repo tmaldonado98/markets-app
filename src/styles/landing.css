@@ -12,24 +12,65 @@
     display: flex;
     flex-direction: column;
     /* align-items: center; */
+    overflow-x: hidden;
+}
+
+#movers-section section {
+    overflow-block: scroll;
 }
 
 .scroll {
     display: flex;
-    overflow-x: inherit;
+    overflow-x: auto;
+    flex-wrap: wrap;
     margin: 20px 0;
+    gap: 1.25rem;
+    width: max-content;
 }
 
 .activity-h3 {
     font-size: 20px;
     font-weight: 700;
+    text-decoration: overline;
 }
 
-.losers-card {
+.card {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-    width: max-content;
-    margin-bottom: 4px;
+    width: min-content;
+    /* margin-bottom: 4px; */
+
+}
+
+.card-header {
+    display: flex;
+    gap: 8px;
+    padding: 1px;
+    font-weight: 700;
+    justify-content: center;
+}
+
+.card-header p {
+    text-decoration: underline;
+}
+
+.card-body {
+    display: flex;
+    gap: 8px;
+    padding: 5px;
+    align-items: center;
+}
+
+.loser {
+    color: darkred !important;
+}
+
+.gainer {
+    color: darkgreen !important;
+}
+
+.active {
+    color: rgb(96, 0, 96) !important;
 }
 
 #side-ad-section{

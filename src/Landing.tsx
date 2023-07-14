@@ -4,7 +4,7 @@ import Locales from './components/Locales';
 import { useEffect, useState, useContext } from 'react';
 import { MyContext } from './components/Context';
 import News from './components/News';
-import { Card, CardBody, CardFooter } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { TiDelete } from 'react-icons/ti';
 import {
   Modal,
@@ -20,6 +20,7 @@ import ToTop from './components/ToTop';
 import AdSense from 'react-adsense';
 import axios from 'axios';
 import { AnimatePresence, motion } from "framer-motion"
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
 export default function Landing() {
   const {changeTermFromHeader} = useContext(MyContext)!;
@@ -235,7 +236,7 @@ const [stateMovers, setMovers] = useState<any>('');
   
   async function fetchMovers() {
     const timestamp = Date.now()
-    if (localStorage.getItem('movers') === null) {
+    if (localStorage.getItem('movers') === null || localStorage.getItem('movers_timestamp') === null) {
       try {
         const response = await axios.get(`https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=${process.env.avKey}`)
         localStorage.setItem('movers', JSON.stringify(response.data));
@@ -265,12 +266,12 @@ const [stateMovers, setMovers] = useState<any>('');
         0,
         0
       );
-      const sixPMToday = new Date(
+      const fourFifteenPMToday = new Date(
           currentDate.getFullYear(),
           currentDate.getMonth(),
           currentDate.getDate(),
-          18,
-          0,
+          16,
+          15,
           0
         );
       const midnight = new Date(
@@ -288,13 +289,13 @@ const [stateMovers, setMovers] = useState<any>('');
             if (storageItem && storageItem === 'movers_timestamp') {
                 const parsedTimestamp = parseInt(localStorage.getItem(storageItem)!, 10);
                 
-              if (parsedTimestamp < sixAMToday.getTime()) {
-                  localStorage.removeItem(storageItem);
-                  storageItem === 'movers_timestamp' && localStorage.removeItem(storageItem);
-                  fetchMovers();
-              } 
+              // if (parsedTimestamp < sixAMToday.getTime()) {
+              //     localStorage.removeItem(storageItem);
+              //     storageItem === 'movers_timestamp' && localStorage.removeItem(storageItem);
+              //     fetchMovers();
+              // } 
               ////if cache timestamp is not before 6AM today, then
-              else if (currentDate.getTime() >= sixPMToday.getTime() && parsedTimestamp < sixPMToday.getTime() && currentDate.getTime() < midnight.getTime()) {    
+              if (currentDate.getTime() >= fourFifteenPMToday.getTime() && parsedTimestamp < fourFifteenPMToday.getTime()) {    
                   localStorage.removeItem(storageItem);
                   storageItem === 'movers_timestamp' && localStorage.removeItem(storageItem);
                   fetchMovers();
@@ -306,6 +307,9 @@ const [stateMovers, setMovers] = useState<any>('');
                 setMovers(parsedMovers);
                 
               }
+            }
+            else if (localStorage.getItem('movers_timestamp') === null) {
+              fetchMovers()
             }
       }
     }
@@ -328,6 +332,11 @@ const [stateMovers, setMovers] = useState<any>('');
   // }, [stateMovers])
 
   // console.log(process.env.REACT_APP_ADCLIENTID)
+
+  const loserContainer = document.getElementById('loserContainer')! as HTMLElement;
+  const gainerContainer = document.getElementById('gainerContainer')! as HTMLElement;
+  const activeContainer = document.getElementById('activeContainer')! as HTMLElement;
+
   return (
     <section id='landing-container'>
       <ToTop/>
@@ -361,145 +370,76 @@ const [stateMovers, setMovers] = useState<any>('');
               <h2 style={{textAlign:'center', fontSize:"20px", fontWeight:"700"}} className='georgia'>Yesterday's Trends For US Stocks</h2>
               <h3 style={{textAlign:'center', fontSize:"19px"}}>Last Updated: {stateMovers.last_updated}</h3>
               
-            <AnimatePresence mode='wait'>
-              <h3 className='activity-h3'>Yesterday's Top Losers</h3>
-              <motion.div className='scroll'
-                initial={{ x:1250 }}
-                animate={{ x: -3000 }}
-                // exit={{ x: -5500 }}
-                transition={{ duration: 35, 
-                repeat: Infinity, 
-                  // repeatType: 'loop'
-                }}
-              >
-                  {stateMovers.top_losers.map((each:any) => {
-                    return (
-                      <div className='losers-card'>
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span>{each.ticker}</span>
-                          <span><b>Change %:</b> {each.change_percentage}</span>
-                        </div>
+              <h3 className='activity-h3'>Top Losers</h3>
+              <section>
+                <div className='scroll' id='loserContainer'>
+                    {stateMovers.top_losers.map((each:any) => {
+                      return (
+                        <Card className='card'>
+                          <CardHeader className='card-header'>
+                            <p style={{textDecoration:"underline"}}>{each.ticker}</p>
+                          </CardHeader>
 
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span><b>Current Price:</b> {each.price}</span>
-                          <span><b>Price Change:</b> {each.change_amount}</span>
-                        </div>
-                      </div>
-                    )
-                    
-                  })}
-              
-              </motion.div>
-            </AnimatePresence>
+                          <CardBody className='card-body'>
+                            <p>Change %: <b className='georgia loser'>{each.change_percentage}</b></p>
+                            <p>Current Price: <b className='georgia'>{each.price}</b></p>
+                            <p>Price Change: <b className='georgia loser'>{each.change_amount}</b></p>
+                          </CardBody>
+                        </Card>
+                      )
+                      
+                    })}
+                </div>
+              </section>
 
-            <AnimatePresence mode='wait'>
-              <h3 className='activity-h3'>Top Gainers</h3>
-              <motion.div className='scroll'
-                initial={{ x:1250 }}
-                animate={{ x: -3000 }}
-                // exit={{ x: -5500 }}
-                transition={{ duration: 35, 
-                repeat: Infinity, 
-                  // repeatType: 'loop'
-                }}
-              >
-                  {stateMovers.top_gainers.map((each:any) => {
-                    return (
-                      <div className='losers-card'>
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span>{each.ticker}</span>
-                          <span><b>Change %:</b> {each.change_percentage}</span>
-                        </div>
+                <h3 className='activity-h3'>Top Gainers</h3>
+                <section>
+                  <div className='scroll' id='gainerContainer' style={{overflowX:'auto'}}>
+                      {stateMovers.top_gainers.map((each:any) => {
+                        return (
+                          <Card className='card'>
+                            <CardHeader className='card-header'>
+                              <p>{each.ticker}</p>
+                            </CardHeader>
+                  
+                            <CardBody className='card-body'>
+                              <p>Change %: <b className='georgia gainer'>{each.change_percentage}</b></p>
+                              <p>Current Price: <b className='georgia'>{each.price}</b></p>
+                              <p>Price Change: <b className='georgia gainer'>{each.change_amount}</b></p>
+                            </CardBody>
+                          </Card>
+                  
+                        )
+                        
+                      })}
+                  
+                  </div>
+                </section>
 
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span><b>Current Price:</b> {each.price}</span>
-                          <span><b>Price Change:</b> {each.change_amount}</span>
-                        </div>
-                      </div>
-                    )
-                    
-                  })}
-              
-              </motion.div>
-            </AnimatePresence>
-
-            <AnimatePresence mode='wait'>
               <h3 className='activity-h3'>Most Active Stocks</h3>
-              <motion.div className='scroll'
-                initial={{ x:1250 }}
-                animate={{ x: -3000 }}
-                // exit={{ x: -5500 }}
-                transition={{ duration: 35, 
-                repeat: Infinity, 
-                  // repeatType: 'loop'
-                }}
-              >
-                  {stateMovers.most_actively_traded.map((each:any) => {
-                    return (
-                      <div className='losers-card'>
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span>{each.ticker}</span>
-                          <span><b>Change %:</b> {each.change_percentage}</span>
-                        </div>
+              <section>
+                <div className='scroll' id='activeContainer'>
+                    {stateMovers.most_actively_traded.map((each:any) => {
+                      return (
+                        <Card className='card'>
+                          <CardHeader className='card-header'>
+                            <p>{each.ticker}</p>
+                          </CardHeader>
 
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span><b>Current Price:</b> {each.price}</span>
-                          <span><b>Price Change:</b> {each.change_amount}</span>
-                        </div>
-                      </div>
-                    )
-                    
-                  })}
-              
-              </motion.div>
-            </AnimatePresence>
-              {/* <Grid templateColumns='repeat(5, 1fr)' gap={6}> */}
-                {/* <GridItem w='100%' > */}
-              
-                {/* </GridItem> */}
+                          <CardBody className='card-body'>
+                            <p>Change %: <b className='georgia active'>{each.change_percentage}</b></p>
+                            <p>Current Price: <b className='georgia'>{each.price}</b></p>
+                            <p>Price Change: <b className='georgia active'>{each.change_amount}</b></p>
+                          </CardBody>
+                        </Card>
 
-
-                {/* <GridItem w='100%' >
-                  {stateMovers.top_gainers.map((each:any) => {
-                    return (
-                      <div className='losers-card'>
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span>{each.ticker}</span>
-                          <span><b>Change %:</b> {each.change_percentage}</span>
-                        </div>
-
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span><b>Current Price:</b> {each.price}</span>
-                          <span><b>Price Change:</b> {each.change_amount}</span>
-                        </div>
-                      </div>
-                    )
-                    
+                      )
+                      
                     })}
-
-                </GridItem> */}
-
-                {/* <GridItem w='100%' >
-                  {stateMovers.most_actively_traded.map((each:any) => {
-                    return (
-                      <div className='losers-card'>
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span>{each.ticker}</span>
-                          <span><b>Change %:</b> {each.change_percentage}</span>
-                        </div>
-
-                        <div style={{display:"flex", gap:'8px'}}>
-                          <span><b>Current Price:</b> {each.price}</span>
-                          <span><b>Price Change:</b> {each.change_amount}</span>
-                        </div>
-                      </div>
-                    )
-                    
-                    })}
-
-                </GridItem>
                 
-              </Grid> */}
+                </div>
+              </section>
+            
             </section>
           }
 
