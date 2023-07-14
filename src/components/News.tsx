@@ -165,8 +165,8 @@ export default function News(props: any) {
       }
 
     return (
-        <>
-            <Heading as='h2' className='georgia' textAlign="center" style={{ margin: '5px auto' }}>
+    <>
+        <Heading as='h2' className='georgia' textAlign="center" style={{ margin: '5px auto' }}>
             Read The Latest News
         </Heading>
         <Tabs isLazy variant='enclosed' className='py-6'>

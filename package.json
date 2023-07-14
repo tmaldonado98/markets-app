@@ -22,7 +22,7 @@
     "@types/node": "20.2.5",
     "@types/react-dom": "18.2.4",
     "firebase-functions": "^4.4.1",
-    "framer-motion": "^10.12.16",
+    "framer-motion": "^10.12.20",
     "opn": "^6.0.0",
     "react": "^18.2.0",
     "react-adsense": "^0.1.0",
